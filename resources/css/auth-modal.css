@@ -1,0 +1,435 @@
+/* Authentication Modal Styles */
+
+/* Modal Base Styles */
+.auth-modal {
+    @apply fixed inset-0 z-50 overflow-y-auto;
+}
+
+.auth-modal-backdrop {
+    @apply fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity;
+}
+
+.auth-modal-container {
+    @apply flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0;
+}
+
+.auth-modal-dialog {
+    @apply relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6;
+}
+
+/* Close Button */
+.auth-modal-close {
+    @apply absolute right-0 top-0 hidden pr-4 pt-4 sm:block;
+}
+
+.auth-modal-close-btn {
+    @apply rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2;
+}
+
+/* Header Styles */
+.auth-modal-header {
+    @apply text-center mb-6;
+}
+
+.auth-modal-icon {
+    @apply w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center mx-auto mb-3;
+}
+
+.auth-modal-title {
+    @apply text-lg font-semibold text-gray-900;
+}
+
+/* Tab Navigation */
+.auth-modal-tabs {
+    @apply flex mb-6 bg-gray-100 rounded-lg p-1;
+}
+
+.auth-modal-tab {
+    @apply flex-1 py-2 px-3 text-sm font-medium rounded-md transition-all duration-200;
+}
+
+.auth-modal-tab-active {
+    @apply bg-white text-red-600 shadow-sm;
+}
+
+.auth-modal-tab-inactive {
+    @apply text-gray-500 hover:text-gray-700;
+}
+
+/* Form Styles */
+.auth-modal-form {
+    @apply space-y-4;
+}
+
+.auth-modal-form-register {
+    @apply space-y-3;
+}
+
+.auth-modal-input {
+    @apply w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-all disabled:bg-gray-100;
+}
+
+.auth-modal-input-error {
+    @apply border-red-300 focus:border-red-500 focus:ring-red-500;
+}
+
+.auth-modal-error-text {
+    @apply text-xs text-red-500 mt-1;
+}
+
+/* Button Styles */
+.auth-modal-submit-btn {
+    @apply w-full bg-red-600 text-white py-2 text-sm font-medium rounded-lg hover:bg-red-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed;
+}
+
+.auth-modal-loading-spinner {
+    @apply animate-spin -ml-1 mr-2 h-4 w-4 text-white;
+}
+
+/* Link Styles */
+.auth-modal-forgot-link {
+    @apply text-sm text-gray-600 hover:text-gray-800;
+}
+
+.auth-modal-home-link {
+    @apply text-xs text-gray-500 hover:text-gray-700;
+}
+
+/* Responsive Adjustments */
+
+/* Mobile First - Base styles for mobile */
+.auth-modal-dialog {
+    @apply mx-3 w-full max-w-none sm:mx-auto sm:max-w-sm;
+}
+
+.auth-modal-close {
+    @apply block pr-3 pt-3 sm:hidden sm:pr-4 sm:pt-4;
+}
+
+.auth-modal-header {
+    @apply mb-4 sm:mb-6;
+}
+
+.auth-modal-tabs {
+    @apply mb-4 sm:mb-6;
+}
+
+.auth-modal-form {
+    @apply space-y-3 sm:space-y-4;
+}
+
+.auth-modal-input {
+    @apply py-3 sm:py-2 text-base sm:text-sm;
+}
+
+.auth-modal-submit-btn {
+    @apply py-3 sm:py-2 text-base sm:text-sm;
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .auth-modal-dialog {
+        @apply max-w-md;
+    }
+
+    .auth-modal-input {
+        @apply py-2.5;
+    }
+}
+
+/* Desktop adjustments */
+@media (min-width: 1024px) {
+    .auth-modal-dialog {
+        @apply max-w-sm;
+    }
+}
+
+/* Large screens */
+@media (min-width: 1280px) {
+    .auth-modal-dialog {
+        @apply max-w-md;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .auth-modal-input {
+        @apply py-4 text-lg;
+    }
+
+    .auth-modal-submit-btn {
+        @apply py-4 text-lg;
+    }
+
+    .auth-modal-tab {
+        @apply py-3 text-base;
+    }
+}
+
+/* Landscape mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .auth-modal-container {
+        @apply items-start pt-4;
+    }
+
+    .auth-modal-dialog {
+        @apply my-4;
+    }
+
+    .auth-modal-header {
+        @apply mb-2;
+    }
+
+    .auth-modal-tabs {
+        @apply mb-3;
+    }
+
+    .auth-modal-form {
+        @apply space-y-2;
+    }
+}
+
+/* Animation Classes */
+.modal-enter {
+    @apply ease-out duration-300;
+}
+
+.modal-enter-start {
+    @apply opacity-0;
+}
+
+.modal-enter-end {
+    @apply opacity-100;
+}
+
+.modal-leave {
+    @apply ease-in duration-200;
+}
+
+.modal-leave-start {
+    @apply opacity-100;
+}
+
+.modal-leave-end {
+    @apply opacity-0;
+}
+
+.modal-dialog-enter {
+    @apply ease-out duration-300;
+}
+
+.modal-dialog-enter-start {
+    @apply opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95;
+}
+
+.modal-dialog-enter-end {
+    @apply opacity-100 translate-y-0 sm:scale-100;
+}
+
+.modal-dialog-leave {
+    @apply ease-in duration-200;
+}
+
+.modal-dialog-leave-start {
+    @apply opacity-100 translate-y-0 sm:scale-100;
+}
+
+.modal-dialog-leave-end {
+    @apply opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95;
+}
+
+/* Focus Styles for Accessibility */
+.auth-modal input:focus,
+.auth-modal button:focus {
+    @apply outline-none ring-2 ring-red-500 ring-offset-2;
+}
+
+/* Loading State */
+.auth-modal-loading .auth-modal-input {
+    @apply bg-gray-50 cursor-not-allowed;
+}
+
+.auth-modal-loading .auth-modal-submit-btn {
+    @apply bg-gray-400 cursor-not-allowed;
+}
+
+/* Error State */
+.auth-modal-has-errors .auth-modal-input {
+    @apply border-red-300;
+}
+
+/* Success State */
+.auth-modal-success {
+    @apply border-green-300 focus:border-green-500 focus:ring-green-500;
+}
+
+/* Dark Mode Support (if needed) */
+@media (prefers-color-scheme: dark) {
+    .auth-modal-dialog {
+        @apply bg-gray-800 text-white;
+    }
+    
+    .auth-modal-input {
+        @apply bg-gray-700 border-gray-600 text-white placeholder-gray-400;
+    }
+    
+    .auth-modal-tabs {
+        @apply bg-gray-700;
+    }
+    
+    .auth-modal-tab-active {
+        @apply bg-gray-800 text-red-400;
+    }
+    
+    .auth-modal-tab-inactive {
+        @apply text-gray-300 hover:text-white;
+    }
+}
+
+/* Custom Scrollbar for Modal */
+.auth-modal::-webkit-scrollbar {
+    width: 6px;
+}
+
+.auth-modal::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+}
+
+.auth-modal::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+}
+
+.auth-modal::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+}
+
+/* Print Styles */
+@media print {
+    .auth-modal {
+        @apply hidden;
+    }
+}
+
+/* Fallback Styles for No JavaScript */
+.no-js .auth-modal {
+    @apply hidden !important;
+}
+
+.no-js [x-data] {
+    @apply block;
+}
+
+.no-js [x-show] {
+    @apply block !important;
+}
+
+.no-js [x-cloak] {
+    @apply block !important;
+}
+
+/* Fallback mode styles */
+.fallback-mode .auth-modal {
+    @apply hidden !important;
+}
+
+.fallback-mode [data-modal-trigger] {
+    @apply pointer-events-none opacity-50;
+}
+
+/* JavaScript error state */
+[data-js-error="true"] .auth-modal {
+    @apply hidden !important;
+}
+
+/* Show fallback elements when JS is disabled */
+.no-js .js-only {
+    @apply hidden !important;
+}
+
+.no-js .no-js-only {
+    @apply block !important;
+}
+
+.js .js-only {
+    @apply block;
+}
+
+.js .no-js-only {
+    @apply hidden !important;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .auth-modal-input {
+        @apply border-2 border-black;
+    }
+    
+    .auth-modal-submit-btn {
+        @apply border-2 border-black;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .auth-modal * {
+        @apply transition-none;
+    }
+
+    .auth-modal-loading-spinner {
+        @apply animate-none;
+    }
+}
+
+/* Performance Optimizations */
+
+/* GPU acceleration for animations */
+.auth-modal-dialog {
+    transform: translateZ(0);
+    will-change: transform, opacity;
+}
+
+.auth-modal-backdrop {
+    will-change: opacity;
+}
+
+/* Optimize for low-end devices */
+.low-end-device .auth-modal * {
+    transition-duration: 150ms !important;
+    animation-duration: 150ms !important;
+}
+
+.low-end-device .auth-modal-loading-spinner {
+    animation-duration: 1s !important;
+}
+
+/* Contain layout shifts */
+.auth-modal-container {
+    contain: layout style paint;
+}
+
+.auth-modal-form {
+    contain: layout style;
+}
+
+/* Optimize font rendering */
+.auth-modal {
+    font-display: swap;
+    text-rendering: optimizeSpeed;
+}
+
+/* Optimize image rendering */
+.auth-modal img {
+    image-rendering: optimizeQuality;
+}
+
+/* Critical CSS for above-the-fold content */
+.auth-modal-critical {
+    content-visibility: auto;
+    contain-intrinsic-size: 400px;
+}
+
+/* Lazy load non-critical elements */
+.auth-modal-non-critical {
+    content-visibility: auto;
+    contain-intrinsic-size: 200px;
+}

@@ -1,0 +1,141 @@
+/* WebDesign Admin Page Custom Styles */
+
+/* Import TiptapEditor styles */
+@import '../../../vendor/awcodes/filament-tiptap-editor/resources/css/plugin.css';
+
+/* Dark mode optimizations for Filament forms */
+.dark .fi-section-content {
+    background-color: rgb(31 41 55) !important;
+}
+
+.dark .fi-section-header {
+    background-color: rgb(31 41 55) !important;
+    border-bottom-color: rgb(75 85 99) !important;
+}
+
+.dark .fi-input {
+    background-color: rgb(55 65 81) !important;
+    border-color: rgb(75 85 99) !important;
+    color: rgb(243 244 246) !important;
+}
+
+.dark .fi-input:focus {
+    border-color: rgb(59 130 246) !important;
+    box-shadow: 0 0 0 1px rgb(59 130 246) !important;
+}
+
+.dark .fi-textarea {
+    background-color: rgb(55 65 81) !important;
+    border-color: rgb(75 85 99) !important;
+    color: rgb(243 244 246) !important;
+}
+
+.dark .fi-textarea:focus {
+    border-color: rgb(59 130 246) !important;
+    box-shadow: 0 0 0 1px rgb(59 130 246) !important;
+}
+
+.dark .fi-label {
+    color: rgb(209 213 219) !important;
+}
+
+.dark .fi-help-text {
+    color: rgb(156 163 175) !important;
+}
+
+/* Toggle switch dark mode */
+.dark .fi-toggle-switch {
+    background-color: rgb(75 85 99) !important;
+}
+
+.dark .fi-toggle-switch[aria-checked="true"] {
+    background-color: rgb(59 130 246) !important;
+}
+
+/* Section styling */
+.fi-section {
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.dark .fi-section {
+    border-color: rgb(75 85 99) !important;
+}
+
+/* Grid improvements */
+.fi-grid {
+    gap: 1rem;
+}
+
+/* Button styling */
+.dark .fi-btn-secondary {
+    background-color: rgb(55 65 81) !important;
+    border-color: rgb(75 85 99) !important;
+    color: rgb(243 244 246) !important;
+}
+
+.dark .fi-btn-secondary:hover {
+    background-color: rgb(75 85 99) !important;
+}
+
+/* Notification improvements */
+.dark .fi-notification {
+    background-color: rgb(31 41 55) !important;
+    border-color: rgb(75 85 99) !important;
+}
+
+/* Form section collapsible */
+.fi-section-collapsible .fi-section-header {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.fi-section-collapsible .fi-section-header:hover {
+    background-color: rgb(249 250 251);
+}
+
+.dark .fi-section-collapsible .fi-section-header:hover {
+    background-color: rgb(55 65 81) !important;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .fi-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .fi-section {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Focus states for accessibility */
+.fi-input:focus,
+.fi-textarea:focus,
+.fi-toggle-switch:focus {
+    outline: 2px solid rgb(59 130 246);
+    outline-offset: 2px;
+}
+
+/* Loading states */
+.fi-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Success/Error states */
+.fi-input-success {
+    border-color: rgb(34 197 94) !important;
+}
+
+.fi-input-error {
+    border-color: rgb(239 68 68) !important;
+}
+
+.dark .fi-input-success {
+    border-color: rgb(34 197 94) !important;
+}
+
+.dark .fi-input-error {
+    border-color: rgb(239 68 68) !important;
+}
