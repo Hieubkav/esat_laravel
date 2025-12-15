@@ -36,6 +36,9 @@ Thumbs.db
 *.log
 /storage/logs/*.log
 
+# Debugbar
+/storage/debugbar/*.json
+
 # Cache
 /bootstrap/cache/*.php
 /storage/framework/cache/*
