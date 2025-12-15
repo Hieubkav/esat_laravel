@@ -6,8 +6,6 @@ use App\Filament\Admin\Resources\MenuItemResource\Pages;
 use App\Models\MenuItem;
 use App\Models\CatPost;
 use App\Models\Post;
-use App\Models\MShopKeeperInventoryItem;
-use App\Models\MShopKeeperCategory;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
@@ -66,10 +64,9 @@ class MenuItemResource extends Resource
                                 'cat_post' => 'Chuyên mục',
                                 'all_posts' => 'Tất cả bài viết',
                                 'post' => 'Bài viết',
-                                // Nhóm MShopKeeper
-                                'mshopkeeper_inventory' => 'Hàng hóa MShopKeeper',
-                                'all_mshopkeeper_inventory' => 'Tất cả hàng hóa MShopKeeper',
-                                'mshopkeeper_category' => 'Danh mục MShopKeeper',
+                                'cat_product' => 'Danh mục sản phẩm',
+                                'all_products' => 'Tất cả sản phẩm',
+                                'product' => 'Sản phẩm',
                                 'display_only' => 'Chỉ hiển thị (không dẫn đến đâu)',
                             ])
                             ->required()
@@ -99,23 +96,6 @@ class MenuItemResource extends Resource
                             ->searchable()
                             ->visible(fn ($get) => $get('type') === 'post')
                             ->required(fn ($get) => $get('type') === 'post'),
-
-
-
-                        // Các fields cho MShopKeeper
-                        Select::make('mshopkeeper_inventory_item_id')
-                            ->label('Hàng hóa MShopKeeper')
-                            ->options(MShopKeeperInventoryItem::all()->pluck('name', 'id'))
-                            ->searchable()
-                            ->visible(fn ($get) => $get('type') === 'mshopkeeper_inventory')
-                            ->required(fn ($get) => $get('type') === 'mshopkeeper_inventory'),
-
-                        Select::make('mshopkeeper_category_id')
-                            ->label('Danh mục MShopKeeper')
-                            ->options(MShopKeeperCategory::all()->pluck('name', 'id'))
-                            ->searchable()
-                            ->visible(fn ($get) => $get('type') === 'mshopkeeper_category')
-                            ->required(fn ($get) => $get('type') === 'mshopkeeper_category'),
                     ]),
 
                 Section::make('Cấu hình hiển thị')
@@ -141,7 +121,6 @@ class MenuItemResource extends Resource
     {
         return $table
             ->query(
-                // Sắp xếp theo cấu trúc phân cấp: parent trước, children sau
                 MenuItem::query()
                     ->with('parent')
                     ->orderByRaw('COALESCE(parent_id, id), parent_id IS NULL DESC, `order` ASC')
@@ -158,14 +137,12 @@ class MenuItemResource extends Resource
                     ->sortable()
                     ->weight('medium')
                     ->formatStateUsing(function ($record) {
-                        // Hiển thị cấu trúc phân cấp với ký tự đặc biệt và màu sắc
                         if ($record->parent_id) {
                             return '└─ ' . $record->label;
                         }
                         return $record->label;
                     })
                     ->color(function ($record) {
-                        // Màu khác nhau cho parent và child
                         return $record->parent_id ? 'gray' : 'primary';
                     }),
 
@@ -182,10 +159,9 @@ class MenuItemResource extends Resource
                         'cat_post' => 'info',
                         'all_posts' => 'blue',
                         'post' => 'success',
-                        // MShopKeeper
-                        'mshopkeeper_inventory' => 'pink',
-                        'all_mshopkeeper_inventory' => 'pink',
-                        'mshopkeeper_category' => 'violet',
+                        'cat_product' => 'warning',
+                        'all_products' => 'orange',
+                        'product' => 'cyan',
                         'display_only' => 'purple',
                         default => 'gray',
                     })
@@ -194,10 +170,9 @@ class MenuItemResource extends Resource
                         'cat_post' => 'Danh mục bài viết',
                         'all_posts' => 'Tất cả bài viết',
                         'post' => 'Bài viết',
-                        // MShopKeeper
-                        'mshopkeeper_inventory' => 'Hàng hóa MShopKeeper',
-                        'all_mshopkeeper_inventory' => 'Tất cả hàng hóa MShopKeeper',
-                        'mshopkeeper_category' => 'DM MShopKeeper',
+                        'cat_product' => 'Danh mục sản phẩm',
+                        'all_products' => 'Tất cả sản phẩm',
+                        'product' => 'Sản phẩm',
                         'display_only' => 'Chỉ hiển thị',
                         default => $state,
                     }),
@@ -220,10 +195,9 @@ class MenuItemResource extends Resource
                         'cat_post' => 'Danh mục bài viết',
                         'all_posts' => 'Tất cả bài viết',
                         'post' => 'Bài viết',
-                        // MShopKeeper
-                        'mshopkeeper_inventory' => 'Hàng hóa MShopKeeper',
-                        'all_mshopkeeper_inventory' => 'Tất cả hàng hóa MShopKeeper',
-                        'mshopkeeper_category' => 'Danh mục MShopKeeper',
+                        'cat_product' => 'Danh mục sản phẩm',
+                        'all_products' => 'Tất cả sản phẩm',
+                        'product' => 'Sản phẩm',
                         'display_only' => 'Chỉ hiển thị (không dẫn đến đâu)',
                     ]),
 

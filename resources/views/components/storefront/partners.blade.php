@@ -29,7 +29,7 @@
         </h2>
         <div class="w-24 h-1 bg-red-600 mx-auto mt-4 mb-6"></div>
         <p class="text-gray-600 max-w-2xl mx-auto">
-            {{ $partnersWebDesign->subtitle ?? 'Vũ Phúc Baking tự hào là đối tác chiến lược của nhiều thương hiệu lớn trong ngành bánh và pha chế' }}
+            {{ $partnersWebDesign->subtitle ?? 'ESAT tự hào là đối tác chiến lược của nhiều thương hiệu lớn trong ngành thiết bị điện tử' }}
         </p>
     </div>
 

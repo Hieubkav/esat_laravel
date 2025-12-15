@@ -12,14 +12,11 @@ class OrderItem extends Model
     protected $fillable = [
         'order_id',
         'product_id',
-        'mshopkeeper_product_id',
-        'mshopkeeper_product_code',
-        'mshopkeeper_product_name',
         'product_name',
         'product_code',
         'quantity',
         'price',
-        'total', // Thêm total để tương thích với service
+        'total',
         'subtotal',
     ];
 
@@ -37,11 +34,6 @@ class OrderItem extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
-    }
-
-    public function mshopkeeperProduct()
-    {
-        return $this->belongsTo(\App\Models\MShopKeeperInventoryItem::class, 'mshopkeeper_product_id');
     }
 
     public function calculateSubtotal()

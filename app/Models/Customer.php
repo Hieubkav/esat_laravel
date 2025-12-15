@@ -37,11 +37,6 @@ class Customer extends Authenticatable
         return $this->hasMany(Cart::class, 'user_id');
     }
 
-    public function mshopkeeperCarts()
-    {
-        return $this->hasMany(MShopKeeperCart::class);
-    }
-
     public function orders()
     {
         return $this->hasMany(Order::class);

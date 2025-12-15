@@ -109,7 +109,7 @@ class SeoService
             'sku' => $product->sku,
             'brand' => [
                 '@type' => 'Brand',
-                'name' => $product->brand ?: ($settings->site_name ?? 'Vũ Phúc Baking')
+                'name' => $product->brand ?: ($settings->site_name ?? 'ESAT')
             ],
             'offers' => [
                 '@type' => 'Offer',
@@ -144,11 +144,11 @@ class SeoService
             'dateModified' => $post->updated_at->toISOString(),
             'author' => [
                 '@type' => 'Organization',
-                'name' => $settings->site_name ?? 'Vũ Phúc Baking'
+                'name' => $settings->site_name ?? 'ESAT'
             ],
             'publisher' => [
                 '@type' => 'Organization',
-                'name' => $settings->site_name ?? 'Vũ Phúc Baking',
+                'name' => $settings->site_name ?? 'ESAT',
                 'logo' => [
                     '@type' => 'ImageObject',
                     'url' => self::getDefaultOgImage()

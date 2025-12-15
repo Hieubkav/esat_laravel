@@ -3,17 +3,16 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             <!-- Cột 1: Giới thiệu & Liên hệ -->
             <div class="flex flex-col justify-start">
-                <h3 class="text-lg font-semibold text-red-700 mb-4">CÔNG TY TNHH SX TM DV VŨ PHÚC</h3>
+                <h3 class="text-lg font-semibold text-red-700 mb-4">CÔNG TY TNHH ESAT</h3>
                 <div class="space-y-2 text-gray-600 text-sm">
-                    <p>Giấy phép kinh doanh số 1800935879, cấp ngày 29/4/2009</p>
-                    <p>Chịu trách nhiệm: Trần Uy Vũ – Tổng Giám đốc</p>
+                    <p>Chuyên cung cấp thiết bị điện tử chất lượng cao</p>
                     <p class="flex items-center">
                         <span class="mr-2">☎</span>
-                        <span>1900 6363 40</span>
+                        <span>0913.718.995 - 0913.880.616</span>
                     </p>
                     <p class="flex items-center">
                         <span class="mr-2">📧</span>
-                        <span>contact@vuphucbaking.com</span>
+                        <span>kinhdoanh@esat.vn</span>
                     </p>
                     <p class="flex items-center">
                         <span class="mr-2">🕒</span>
@@ -132,7 +131,7 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <p class="text-sm">
                     @php
-                        $copyright = webDesignContent('footer', 'copyright', '© ' . date('Y') . ' Copyright by VUPHUC BAKING - All Rights Reserved');
+                        $copyright = webDesignContent('footer', 'copyright', '© ' . date('Y') . ' Copyright by ESAT - All Rights Reserved');
                     @endphp
                     {{ $copyright }}
                 </p>

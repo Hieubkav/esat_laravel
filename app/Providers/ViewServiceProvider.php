@@ -10,7 +10,6 @@ use App\Models\Product;
 use App\Models\Post;
 use App\Models\Slider;
 use App\Models\Partner;
-use App\Models\MShopKeeperInventoryItem;
 use App\Models\MenuItem;
 use App\Models\Association;
 use Illuminate\Support\Facades\Cache;
@@ -66,14 +65,14 @@ class ViewServiceProvider extends ServiceProvider
                 'site_name' => config('app.name'),
                 'seo_title' => config('app.name'),
                 'hotline' => '1900636340',
-                'email' => 'info@vuphucbaking.com',
+                'email' => 'info@esat.vn',
                 'status' => 'active'
             ]);
         });
 
         $view->with([
             'globalSettings' => $settings,
-            'settings' => $settings // Giữ lại để tương thích với code cũ
+            'settings' => $settings
         ]);
     }
 
@@ -82,7 +81,6 @@ class ViewServiceProvider extends ServiceProvider
      */
     private function shareStorefrontData($view)
     {
-        // Cache riêng biệt cho từng loại dữ liệu để tối ưu hơn
         $storefrontData = [
             // Hero Banner - Cache 1 giờ
             'sliders' => Cache::remember('storefront_sliders', 3600, function () {
@@ -102,16 +100,16 @@ class ViewServiceProvider extends ServiceProvider
                     ->get();
             }),
 
-            // Featured Products - Cache 5 phút (sử dụng MShopKeeper Inventory)
-            'featuredProducts' => Cache::remember('storefront_mshopkeeper_products', 300, function () {
-                return \App\Models\MShopKeeperInventoryItem::where('inactive', false)
-                    ->where('is_visible', true)
-                    ->where('is_featured', true)
-                    ->where('is_item', true)
-                    ->with(['category'])
-                    ->select(['id', 'mshopkeeper_id', 'code', 'name', 'selling_price', 'cost_price', 'picture', 'description', 'category_mshopkeeper_id', 'total_on_hand', 'is_featured', 'is_visible', 'inactive', 'is_item'])
-                    ->orderBy('total_on_hand', 'desc')
-                    ->orderBy('selling_price', 'desc')
+            // Featured Products - Cache 5 phút
+            'featuredProducts' => Cache::remember('storefront_products', 300, function () {
+                return Product::where('status', 'active')
+                    ->where('is_hot', true)
+                    ->with(['category', 'images' => function($query) {
+                        $query->where('status', 'active')->orderBy('order')->take(1);
+                    }])
+                    ->select(['id', 'name', 'slug', 'price', 'compare_price', 'description', 'category_id', 'stock', 'is_hot'])
+                    ->orderBy('stock', 'desc')
+                    ->orderBy('price', 'desc')
                     ->take(8)
                     ->get();
             }),
@@ -210,8 +208,6 @@ class ViewServiceProvider extends ServiceProvider
                                     'catPost:id,slug',
                                     'product:id,slug',
                                     'catProduct:id,slug',
-                                    'mshopkeeperInventoryItem:id,code,name',
-                                    'mshopkeeperCategory:id,name'
                                 ])
                                 ->orderBy('order');
                         },
@@ -219,8 +215,6 @@ class ViewServiceProvider extends ServiceProvider
                         'catPost:id,slug',
                         'product:id,slug',
                         'catProduct:id,slug',
-                        'mshopkeeperInventoryItem:id,code,name',
-                        'mshopkeeperCategory:id,name'
                     ])
                     ->orderBy('order')
                     ->get(),

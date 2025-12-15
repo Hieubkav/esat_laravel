@@ -10,7 +10,7 @@
             <div>
                 <span class="section-badge">{{ $aboutData?->subtitle ?? 'VỀ CHÚNG TÔI' }}</span>
                 <h2 class="section-title mt-4">
-                    {{ $aboutData?->title ?? 'Chào mừng đến với Vuphuc Baking®' }}
+                    {{ $aboutData?->title ?? 'Chào mừng đến với ESAT' }}
                 </h2>
             </div>
 

@@ -35,14 +35,6 @@ class CustomerResource extends Resource
 
     protected static ?int $navigationSort = 24;
 
-    /**
-     * Ẩn khỏi navigation vì đã sử dụng eshop để quản lý khách hàng
-     */
-    public static function shouldRegisterNavigation(): bool
-    {
-        return false;
-    }
-
     public static function form(Form $form): Form
     {
         return $form
@@ -105,7 +97,6 @@ class CustomerResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn ($query) => $query->withCount('mshopkeeperCarts'))
             ->columns([
                 TextColumn::make('order')
                     ->label('Thứ tự')
@@ -133,12 +124,6 @@ class CustomerResource extends Resource
                     ->label('Mật khẩu')
                     ->formatStateUsing(fn () => '••••••••')
                     ->tooltip('Click vào "Xem" để xem mật khẩu đầy đủ'),
-
-                TextColumn::make('mshopkeeper_carts_count')
-                    ->label('Giỏ hàng')
-                    ->badge()
-                    ->color('info')
-                    ->formatStateUsing(fn ($state) => $state ?? 0),
 
                 ToggleColumn::make('status')
                     ->label('Hoạt động')
@@ -186,15 +171,4 @@ class CustomerResource extends Resource
             'edit' => Pages\EditCustomer::route('/{record}/edit'),
         ];
     }
-
-    // Tắt navigation badge để tăng tốc độ load
-    // public static function getNavigationBadge(): ?string
-    // {
-    //     return static::getModel()::count();
-    // }
-
-    // public static function getNavigationBadgeColor(): ?string
-    // {
-    //     return 'success';
-    // }
 }

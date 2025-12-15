@@ -3,7 +3,6 @@
 namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\OrderResource\Pages;
-use App\Filament\Admin\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
 use App\Constants\NavigationGroups;
 use Filament\Forms;
@@ -11,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class OrderResource extends Resource
 {
@@ -20,11 +17,11 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static ?string $navigationLabel = 'Đơn hàng Website';
+    protected static ?string $navigationLabel = 'Đơn hàng';
 
-    protected static ?string $modelLabel = 'Đơn hàng Website';
+    protected static ?string $modelLabel = 'Đơn hàng';
 
-    protected static ?string $pluralModelLabel = 'Đơn hàng Website';
+    protected static ?string $pluralModelLabel = 'Đơn hàng';
 
     protected static ?string $navigationGroup = NavigationGroups::ECOMMERCE;
 
@@ -61,35 +58,6 @@ class OrderResource extends Resource
                     ->default(null),
                 Forms\Components\Textarea::make('note')
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('mshopkeeper_order_id')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('mshopkeeper_order_no')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('mshopkeeper_customer_id')
-                    ->numeric()
-                    ->default(null),
-                Forms\Components\TextInput::make('mshopkeeper_invoice_id')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('mshopkeeper_invoice_number')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('mshopkeeper_sync_status')
-                    ->required(),
-                Forms\Components\Textarea::make('mshopkeeper_sync_error')
-                    ->columnSpanFull(),
-                Forms\Components\DateTimePicker::make('mshopkeeper_synced_at'),
-                Forms\Components\TextInput::make('sale_channel')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('delivery_code')
-                    ->maxLength(255)
-                    ->default(null),
-                Forms\Components\TextInput::make('shipping_partner')
-                    ->maxLength(255)
-                    ->default(null),
             ]);
     }
 
@@ -98,15 +66,9 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('order_number')
-                    ->label('Số đơn hàng (Local)')
+                    ->label('Số đơn hàng')
                     ->searchable()
                     ->sortable(),
-
-                Tables\Columns\TextColumn::make('mshopkeeper_order_no')
-                    ->label('Mã MShopKeeper')
-                    ->searchable()
-                    ->badge()
-                    ->color('success'),
 
                 Tables\Columns\TextColumn::make('total')
                     ->label('Tổng tiền')
@@ -161,10 +123,6 @@ class OrderResource extends Resource
                         'cod' => 'COD',
                         'bank_transfer' => 'Chuyển khoản',
                     ]),
-
-                Tables\Filters\Filter::make('has_mshopkeeper_order')
-                    ->label('Có mã MShopKeeper')
-                    ->query(fn ($query) => $query->whereNotNull('mshopkeeper_order_no')),
 
                 Tables\Filters\Filter::make('created_today')
                     ->label('Hôm nay')

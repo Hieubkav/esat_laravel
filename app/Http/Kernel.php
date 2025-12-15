@@ -61,8 +61,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'customer.guest' => \App\Http\Middleware\CustomerGuest::class,
-        'mshopkeeper.auth' => \App\Http\Middleware\MShopKeeperAuth::class,
-        'mshopkeeper.guest' => \App\Http\Middleware\MShopKeeperGuest::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'precognitive' => \Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests::class,
         'signed' => \App\Http\Middleware\ValidateSignature::class,

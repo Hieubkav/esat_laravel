@@ -54,7 +54,7 @@
             <span class="section-badge">Khám phá</span>
             <h2 class="section-title mt-1">Danh Mục Sản Phẩm</h2>
             <div class="w-12 h-0.5 bg-red-600 mx-auto mt-2 mb-3"></div>
-            <p class="text-sm text-gray-600 max-w-2xl mx-auto">Vũ Phúc Baking cung cấp đa dạng nguyên liệu, dụng cụ và thiết bị chuyên nghiệp</p>
+            <p class="text-sm text-gray-600 max-w-2xl mx-auto">ESAT cung cấp đa dạng thiết bị điện tử, linh kiện và phụ kiện chất lượng cao</p>
         </div>
 
         <!-- Responsive Grid System (for small number of categories) -->

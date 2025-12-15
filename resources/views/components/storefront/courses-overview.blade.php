@@ -27,7 +27,7 @@
             {{ $coursesWebDesign?->title ?? 'Khám Phá Nghệ Thuật Làm Bánh' }}
         </h2>
         <p class="section-subtitle">
-            {{ $coursesWebDesign?->subtitle ?? 'Tham gia các khóa học làm bánh đa dạng từ cơ bản đến nâng cao cùng Vũ Phúc Baking Academy.' }}
+            {{ $coursesWebDesign?->subtitle ?? 'Tham khảo các hướng dẫn sử dụng sản phẩm và tài liệu kỹ thuật từ ESAT.' }}
         </p>
     </div>
 

@@ -686,11 +686,11 @@ class ManageWebDesign extends Page
                 // Copyright
                 Textarea::make("{$key}.copyright")
                     ->label('Copyright')
-                    ->default($copyright ?: '© ' . date('Y') . ' Copyright by VUPHUC BAKING - All Rights Reserved')
+                    ->default($copyright ?: '© ' . date('Y') . ' Copyright by ESAT - All Rights Reserved')
                     ->required()
                     ->rows(2)
                     ->columnSpanFull()
-                    ->helperText('VD: © 2025 Copyright by VUPHUC BAKING - All Rights Reserved'),
+                    ->helperText('VD: © 2025 Copyright by ESAT - All Rights Reserved'),
             ])
             ->collapsible()
             ->collapsed(false);

@@ -55,8 +55,6 @@ class CheckFilamentResourceAccess
 
             // Danh sách paths bị cấm cho Post Manager
             $forbiddenPaths = [
-                'admin/mshopkeeper-customers',
-                'admin/mshopkeeper-categories',
                 'admin/manage-settings',
                 'admin/manage-web-design',
                 'admin/visitor-analytics',

@@ -31,7 +31,7 @@
             <div class="w-3 h-3 bg-red-600 absolute -bottom-4 left-1/2 transform -translate-x-1/2 rotate-45"></div>
         </div>
         <p class="section-subtitle mt-6">
-            {{ $blogWebDesign?->subtitle ?? 'Cập nhật những tin tức nổi bật và sự kiện mới nhất từ Vũ Phúc Baking' }}
+            {{ $blogWebDesign?->subtitle ?? 'Cập nhật những tin tức nổi bật và sự kiện mới nhất từ ESAT' }}
         </p>
     </div>
 
@@ -47,7 +47,7 @@
                             <div class="absolute inset-0 bg-gradient-to-r from-red-600/70 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                             <img
                                 src="{{ asset('storage/' . $featuredPost->thumbnail) }}"
-                                alt="{{ $featuredPost->title ?? 'Tin tức Vũ Phúc Baking' }}"
+                                alt="{{ $featuredPost->title ?? 'Tin tức ESAT' }}"
                                 class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105"
                                 loading="lazy"
                             >
@@ -129,7 +129,7 @@
                                         @if(isset($post->thumbnail) && !empty($post->thumbnail))
                                             <img
                                                 src="{{ asset('storage/' . $post->thumbnail) }}"
-                                                alt="{{ $post->title ?? 'Tin tức Vũ Phúc Baking' }}"
+                                                alt="{{ $post->title ?? 'Tin tức ESAT' }}"
                                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                                 loading="lazy"
                                             >
@@ -203,7 +203,7 @@
                                                     @if(isset($post->thumbnail) && !empty($post->thumbnail))
                                                         <img
                                                             src="{{ asset('storage/' . $post->thumbnail) }}"
-                                                            alt="{{ $post->title ?? 'Tin tức Vũ Phúc Baking' }}"
+                                                            alt="{{ $post->title ?? 'Tin tức ESAT' }}"
                                                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                                             loading="lazy"
                                                         >
@@ -285,7 +285,7 @@
                             <div class="h-52 overflow-hidden">
                                 <img
                                     src="{{ asset('storage/' . $featuredPost->thumbnail) }}"
-                                    alt="{{ $featuredPost->title ?? 'Tin tức Vũ Phúc Baking' }}"
+                                    alt="{{ $featuredPost->title ?? 'Tin tức ESAT' }}"
                                     class="w-full h-full object-cover"
                                     loading="lazy"
                                 >
@@ -363,7 +363,7 @@
                                                 @if(isset($post->thumbnail) && !empty($post->thumbnail))
                                                     <img
                                                         src="{{ asset('storage/' . $post->thumbnail) }}"
-                                                        alt="{{ $post->title ?? 'Tin tức Vũ Phúc Baking' }}"
+                                                        alt="{{ $post->title ?? 'Tin tức ESAT' }}"
                                                         class="w-full h-full object-cover"
                                                         loading="lazy"
                                                     >

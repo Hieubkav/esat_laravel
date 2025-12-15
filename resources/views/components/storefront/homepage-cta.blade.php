@@ -14,7 +14,7 @@
                 {{ $ctaData?->subtitle ?? 'Trải nghiệm đẳng cấp' }}
             </span>
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
-                {!! $ctaData?->title ?? 'Bắt đầu hành trình<br>với <span class="italic">Vũ Phúc Baking</span>' !!}
+                {!! $ctaData?->title ?? 'Bắt đầu hành trình<br>với <span class="italic">ESAT</span>' !!}
             </h2>
         </div>
         <div class="flex flex-col sm:flex-row gap-4">

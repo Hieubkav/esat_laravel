@@ -17,12 +17,10 @@ if (!function_exists('getProductImageUrl')) {
                 ?? $product->images->first();
 
             if ($mainImage && $mainImage->image_link) {
-                // Sử dụng hàm getProductImageUrlFromImage để xử lý WebP và SEO-friendly
                 return getProductImageUrlFromImage($mainImage, $product->name);
             }
         }
 
-        // Fallback về placeholder (trả về null để component tự xử lý UI)
         return null;
     }
 }
@@ -41,8 +39,6 @@ if (!function_exists('getProductImageUrlFromImage')) {
             return null;
         }
 
-        // Trực tiếp trả về ảnh gốc để debug
-        // TODO: Sau này sẽ thêm lại logic WebP và SEO-friendly
         return asset('storage/' . $productImage->image_link);
     }
 }
@@ -58,17 +54,14 @@ if (!function_exists('getProductImageAlt')) {
      */
     function getProductImageAlt($productImage, string $productName, ?string $seoTitle = null): string
     {
-        // Ưu tiên alt_text của ảnh
         if ($productImage && !empty($productImage->alt_text)) {
             return $productImage->alt_text;
         }
 
-        // Sau đó là seo_title của sản phẩm
         if (!empty($seoTitle)) {
             return $seoTitle;
         }
 
-        // Cuối cùng là tên sản phẩm
         return $productName;
     }
 }
@@ -104,7 +97,7 @@ if (!function_exists('getBakingIcon')) {
 
         if ($withText) {
             $textSize = str_contains($size, 'w-32') ? 'text-base' : (str_contains($size, 'w-20') ? 'text-sm' : 'text-xs');
-            $icon .= '<p class="' . $textSize . ' text-red-400 font-medium">Vũ Phúc Baking</p>';
+            $icon .= '<p class="' . $textSize . ' text-red-400 font-medium">ESAT</p>';
         }
 
         return $icon;
@@ -127,88 +120,5 @@ if (!function_exists('getOptimizedImageUrl')) {
         }
 
         return \App\Helpers\PlaceholderHelper::getPlaceholderImage($type);
-    }
-}
-
-if (!function_exists('getMShopKeeperImageUrl')) {
-    /**
-     * Lấy URL ảnh cho MShopKeeper Inventory Item
-     *
-     * @param object $item
-     * @return string|null
-     */
-    function getMShopKeeperImageUrl($item): ?string
-    {
-        if (!$item) {
-            return null;
-        }
-
-        // Kiểm tra gallery_images trước (nếu có)
-        if (method_exists($item, 'getGalleryImagesAttribute') && !empty($item->gallery_images)) {
-            return $item->gallery_images[0];
-        }
-
-        // Sau đó kiểm tra picture field
-        if (!empty($item->picture)) {
-            return $item->picture;
-        }
-
-        return null;
-    }
-}
-
-if (!function_exists('getMShopKeeperItemSlug')) {
-    /**
-     * Tạo slug cho MShopKeeper Inventory Item (sử dụng code)
-     *
-     * @param object $item
-     * @return string
-     */
-    function getMShopKeeperItemSlug($item): string
-    {
-        return $item->code ?? $item->id;
-    }
-}
-
-if (!function_exists('getMShopKeeperItemUrl')) {
-    /**
-     * Tạo URL chi tiết cho MShopKeeper Inventory Item
-     *
-     * @param object $item
-     * @return string
-     */
-    function getMShopKeeperItemUrl($item): string
-    {
-        return route('mshopkeeper.inventory.show', getMShopKeeperItemSlug($item));
-    }
-}
-
-if (!function_exists('hasMShopKeeperDiscount')) {
-    /**
-     * Kiểm tra MShopKeeper item có giảm giá không
-     *
-     * @param object $item
-     * @return bool
-     */
-    function hasMShopKeeperDiscount($item): bool
-    {
-        return $item->cost_price && $item->selling_price && $item->cost_price > $item->selling_price;
-    }
-}
-
-if (!function_exists('getMShopKeeperDiscountPercentage')) {
-    /**
-     * Tính phần trăm giảm giá cho MShopKeeper item
-     *
-     * @param object $item
-     * @return int
-     */
-    function getMShopKeeperDiscountPercentage($item): int
-    {
-        if (!hasMShopKeeperDiscount($item)) {
-            return 0;
-        }
-
-        return round((($item->cost_price - $item->selling_price) / $item->cost_price) * 100);
     }
 }

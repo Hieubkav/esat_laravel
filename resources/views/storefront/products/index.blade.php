@@ -1,17 +1,17 @@
 @extends('layouts.shop')
 
-@section('title', 'Tất cả sản phẩm - Vũ Phúc Baking')
-@section('description', 'Khám phá bộ sưu tập đầy đủ các sản phẩm nguyên liệu làm bánh, dụng cụ và thiết bị chuyên nghiệp tại Vũ Phúc Baking. Chất lượng cao, giá cả hợp lý.')
+@section('title', 'Tất cả sản phẩm - ESAT')
+@section('description', 'Khám phá bộ sưu tập đầy đủ các sản phẩm thiết bị điện tử, linh kiện và phụ kiện tại ESAT. Chất lượng cao, giá cả hợp lý.')
 
 @push('meta')
-<meta property="og:title" content="Tất cả sản phẩm - Vũ Phúc Baking">
-<meta property="og:description" content="Khám phá bộ sưu tập đầy đủ các sản phẩm nguyên liệu làm bánh, dụng cụ và thiết bị chuyên nghiệp tại Vũ Phúc Baking. Chất lượng cao, giá cả hợp lý.">
+<meta property="og:title" content="Tất cả sản phẩm - ESAT">
+<meta property="og:description" content="Khám phá bộ sưu tập đầy đủ các sản phẩm thiết bị điện tử, linh kiện và phụ kiện tại ESAT. Chất lượng cao, giá cả hợp lý.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ route('products.categories') }}">
 <meta property="og:image" content="{{ App\Services\SeoService::getDefaultOgImage() }}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Tất cả sản phẩm - Vũ Phúc Baking">
-<meta name="twitter:description" content="Khám phá bộ sưu tập đầy đủ các sản phẩm nguyên liệu làm bánh, dụng cụ và thiết bị chuyên nghiệp tại Vũ Phúc Baking. Chất lượng cao, giá cả hợp lý.">
+<meta name="twitter:title" content="Tất cả sản phẩm - ESAT">
+<meta name="twitter:description" content="Khám phá bộ sưu tập đầy đủ các sản phẩm thiết bị điện tử, linh kiện và phụ kiện tại ESAT. Chất lượng cao, giá cả hợp lý.">
 <meta name="twitter:image" content="{{ App\Services\SeoService::getDefaultOgImage() }}">
 @endpush
 

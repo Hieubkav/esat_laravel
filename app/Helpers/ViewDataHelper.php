@@ -23,7 +23,7 @@ class ViewDataHelper
                 'site_name' => config('app.name'),
                 'seo_title' => config('app.name'),
                 'hotline' => '1900636340',
-                'email' => 'info@vuphucbaking.com',
+                'email' => 'info@esat.vn',
                 'status' => 'active'
             ]);
         });
@@ -115,8 +115,6 @@ class ViewDataHelper
                                     'catPost:id,slug',
                                     'product:id,slug',
                                     'catProduct:id,slug',
-                                    'mshopkeeperInventoryItem:id,code,name',
-                                    'mshopkeeperCategory:id,name'
                                 ])
                                 ->orderBy('order');
                         },
@@ -124,8 +122,6 @@ class ViewDataHelper
                         'catPost:id,slug',
                         'product:id,slug',
                         'catProduct:id,slug',
-                        'mshopkeeperInventoryItem:id,code,name',
-                        'mshopkeeperCategory:id,name'
                     ])
                     ->orderBy('order')
                     ->get(),

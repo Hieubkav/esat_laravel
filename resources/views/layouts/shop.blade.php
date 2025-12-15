@@ -7,14 +7,14 @@
 
     <!-- SEO Meta Tags -->
     <title>@yield('title', ($settings && $settings->seo_title) ? $settings->seo_title : (($settings && $settings->site_name) ? $settings->site_name : config('app.name')))</title>
-    <meta name="description" content="@yield('description', 'Vũ Phúc Baking - Nhà phân phối nguyên liệu ngành bánh và pha chế tại ĐBSCL')">
-    <meta name="keywords" content="Vũ Phúc Baking, nguyên liệu ngành bánh, pha chế, ĐBSCL, Rich Products Vietnam">
+    <meta name="description" content="@yield('description', 'ESAT - Chuyên cung cấp thiết bị điện tử chất lượng cao')">
+    <meta name="keywords" content="ESAT, thiết bị điện tử, linh kiện điện tử, thiết bị công nghệ">
     <meta name="robots" content="all">
     <meta name="theme-color" content="#b91c1c">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="@yield('title', ($settings && $settings->site_name) ? $settings->site_name : 'Vũ Phúc Baking')">
-    <meta property="og:description" content="@yield('description', 'Nhà phân phối nguyên liệu ngành bánh và pha chế')">
+    <meta property="og:title" content="@yield('title', ($settings && $settings->site_name) ? $settings->site_name : 'ESAT')">
+    <meta property="og:description" content="@yield('description', 'Chuyên cung cấp thiết bị điện tử chất lượng cao')">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="{{ ($settings && $settings->og_image_link) ? asset('storage/' . $settings->og_image_link) : (($settings && $settings->logo_link) ? asset('storage/' . $settings->logo_link) : \App\Helpers\PlaceholderHelper::getLogo()) }}">
 
@@ -135,9 +135,6 @@
     @endif
     @include('components.public.speedial')
     @livewire('notifications')
-
-    <!-- Authentication Modal -->
-    @include('components.modal.basic-modal')
 
     <!-- Scripts -->
     @filamentScripts

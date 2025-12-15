@@ -1,7 +1,7 @@
 @extends('layouts.shop')
 
-@section('title', 'Tất cả danh mục sản phẩm - Vũ Phúc Baking')
-@section('description', 'Khám phá tất cả danh mục sản phẩm nguyên liệu làm bánh, dụng cụ và thiết bị chuyên nghiệp tại Vũ Phúc Baking. Nhà phân phối uy tín khu vực ĐBSCL.')
+@section('title', 'Tất cả danh mục sản phẩm - ESAT')
+@section('description', 'Khám phá tất cả danh mục sản phẩm thiết bị điện tử, linh kiện và phụ kiện chất lượng cao tại ESAT.')
 
 @push('styles')
 <style>

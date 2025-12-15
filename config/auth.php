@@ -44,10 +44,6 @@ return [
             'driver' => 'session',
             'provider' => 'customers',
         ],
-        'mshopkeeper_customer' => [
-            'driver' => 'session',
-            'provider' => 'mshopkeeper_customers',
-        ],
     ],
 
     /*
@@ -76,15 +72,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Customer::class,
         ],
-        'mshopkeeper_customers' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\MShopKeeperCustomer::class,
-        ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

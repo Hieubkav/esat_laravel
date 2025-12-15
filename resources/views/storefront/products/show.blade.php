@@ -1,5 +1,5 @@
 @extends('layouts.shop')
-@section('title', $product->name . ' - Vũ Phúc Baking')
+@section('title', $product->name . ' - ESAT')
 
 @section('content')
 <div class="bg-gray-50 py-8">

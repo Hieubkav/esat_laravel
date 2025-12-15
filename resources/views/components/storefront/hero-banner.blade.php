@@ -30,15 +30,15 @@
                     @if($slider->image_link)
                         <div class="w-full h-full image-container">
                             <img src="{{ asset('storage/' . $slider->image_link) }}"
-                                 alt="{{ $slider->alt_text ?: $slider->title . ' - Vũ Phúc Baking' }}"
+                                 alt="{{ $slider->alt_text ?: $slider->title . ' - ESAT' }}"
                                  class="w-full h-auto object-contain mobile-image"
                                  loading="eager" {{-- Thay đổi để tránh lỗi lazy loading --}}
                                  fetchpriority="high" {{-- Thêm để ưu tiên tải ảnh --}}
-                                 onerror="console.log('Image failed to load:', this.src); this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center\'><span class=\'text-white text-lg font-medium\'>{{ addslashes($slider->title ?? 'Vũ Phúc Baking') }}</span></div>';">
+                                 onerror="console.log('Image failed to load:', this.src); this.style.display='none'; this.parentElement.innerHTML='<div class=\'w-full h-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center\'><span class=\'text-white text-lg font-medium\'>{{ addslashes($slider->title ?? 'ESAT') }}</span></div>';">
                         </div>
                     @else
                         <div class="w-full h-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center">
-                            <span class="text-white text-lg font-medium">{{ $slider->title ?? 'Vũ Phúc Baking' }}</span>
+                            <span class="text-white text-lg font-medium">{{ $slider->title ?? 'ESAT' }}</span>
                         </div>
                     @endif
                     <!-- Text Overlay -->
@@ -70,8 +70,8 @@
                 <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center">
                     <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30 z-10"></div>
                     <div class="absolute inset-0 z-20 flex flex-col justify-center items-center text-center p-6 sm:p-8">
-                        <h2 class="text-white text-xl sm:text-2xl md:text-3xl lg:text-5xl font-bold mb-2 md:mb-4 drop-shadow-lg md:drop-shadow-2xl">Vũ Phúc Baking</h2>
-                        <p class="text-white text-sm sm:text-base md:text-lg mb-3 md:mb-6 max-w-md md:max-w-2xl drop-shadow-md md:drop-shadow-lg">Nguyên liệu & Dụng cụ làm bánh chất lượng cao</p>
+                        <h2 class="text-white text-xl sm:text-2xl md:text-3xl lg:text-5xl font-bold mb-2 md:mb-4 drop-shadow-lg md:drop-shadow-2xl">ESAT</h2>
+                        <p class="text-white text-sm sm:text-base md:text-lg mb-3 md:mb-6 max-w-md md:max-w-2xl drop-shadow-md md:drop-shadow-lg">Thiết bị điện tử chất lượng cao</p>
                         <a href="{{ route('products.categories') ?? '#' }}" class="inline-flex items-center bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white px-4 py-2 md:px-6 md:py-3 lg:px-8 lg:py-4 rounded-lg transition-colors shadow-lg md:shadow-xl text-base md:text-lg font-medium">
                             <span>Khám phá ngay</span>
                             <svg class="h-4 w-4 md:h-5 md:w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

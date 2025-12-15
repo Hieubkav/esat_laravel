@@ -1,7 +1,7 @@
 @extends('layouts.shop')
 
-@section('title', $category->name . ' - Vũ Phúc Baking')
-@section('description', ($category->seo_description ?? 'Khám phá các sản phẩm ' . strtolower($category->name) . ' chất lượng cao tại Vũ Phúc Baking. Nguyên liệu, dụng cụ và thiết bị chuyên nghiệp cho ngành bánh và pha chế.'))
+@section('title', $category->name . ' - ESAT')
+@section('description', ($category->seo_description ?? 'Khám phá các sản phẩm ' . strtolower($category->name) . ' chất lượng cao tại ESAT. Thiết bị điện tử, linh kiện và phụ kiện chính hãng.'))
 
 @push('styles')
 <style>

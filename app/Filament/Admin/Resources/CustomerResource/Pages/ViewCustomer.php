@@ -13,13 +13,6 @@ class ViewCustomer extends ViewRecord
 {
     protected static string $resource = CustomerResource::class;
 
-    protected function mutateFormDataBeforeFill(array $data): array
-    {
-        // Load the count for display
-        $this->record->loadCount('mshopkeeperCarts');
-        return $data;
-    }
-
     protected function getHeaderActions(): array
     {
         return [
@@ -32,7 +25,7 @@ class ViewCustomer extends ViewRecord
     {
         return $infolist
             ->schema([
-                Section::make('⚠️ Cảnh báo bảo mật')
+                Section::make('Cảnh báo bảo mật')
                     ->schema([
                         \Filament\Infolists\Components\TextEntry::make('security_warning')
                             ->label('')
@@ -99,15 +92,6 @@ class ViewCustomer extends ViewRecord
                             ->label('Cập nhật lần cuối')
                             ->dateTime('d/m/Y H:i:s'),
                     ])->columns(2),
-
-                Section::make('Giỏ hàng MShopKeeper')
-                    ->schema([
-                        TextEntry::make('mshopkeeper_carts_count')
-                            ->label('Số giỏ hàng')
-                            ->formatStateUsing(fn ($state) => $state ?? 0)
-                            ->badge()
-                            ->color('info'),
-                    ])->columns(1),
             ]);
     }
 

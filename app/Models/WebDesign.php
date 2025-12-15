@@ -39,27 +39,27 @@ class WebDesign extends Model
         return [
             'hero-banner' => [
                 'component_name' => 'Hero Banner',
-                'title' => 'Vũ Phúc Baking',
-                'subtitle' => 'Nhà phân phối độc quyền Rich Products Vietnam tại ĐBSCL',
+                'title' => 'ESAT',
+                'subtitle' => 'Chuyên cung cấp thiết bị điện tử chất lượng cao',
                 'content' => [
-                    'description' => 'Cung cấp nguyên liệu, dụng cụ và thiết bị làm bánh chuyên nghiệp',
+                    'description' => 'Cung cấp thiết bị điện tử, linh kiện công nghệ chính hãng',
                     'features' => ['Chất lượng cao', 'Giá cả hợp lý', 'Hỗ trợ kỹ thuật']
                 ],
                 'button_text' => 'Khám phá ngay',
-                'button_url' => '/ban-hang',
+                'button_url' => '/san-pham',
                 'position' => 1,
             ],
             'about-us' => [
                 'component_name' => 'Giới thiệu',
-                'title' => 'Chào mừng đến với Vuphuc Baking®',
+                'title' => 'Chào mừng đến với ESAT',
                 'subtitle' => 'VỀ CHÚNG TÔI',
                 'content' => [
-                    'description' => 'Lấy người tiêu dùng làm trọng tâm cho mọi hoạt động, chúng tôi luôn tiên phong trong việc tạo ra xu hướng tiêu dùng trong ngành thực phẩm và luôn sáng tạo để phục vụ người tiêu dùng tạo ra những sản phẩm an toàn, chất lượng và hướng đến mục tiêu phát triển bền vững.',
+                    'description' => 'Lấy khách hàng làm trọng tâm cho mọi hoạt động, chúng tôi luôn tiên phong trong việc cung cấp các sản phẩm thiết bị điện tử chất lượng cao với giá cả hợp lý.',
                     'quote' => 'Giá trị cốt lõi của chúng tôi là Vì sự phát triển của khách hàng',
                     'services' => [
-                        ['title' => 'Bánh Ngọt Cao Cấp', 'desc' => 'Sản phẩm chất lượng từ nguyên liệu tự nhiên'],
+                        ['title' => 'Thiết bị chính hãng', 'desc' => 'Sản phẩm chất lượng từ các thương hiệu uy tín'],
                         ['title' => 'Quy Trình Chuẩn', 'desc' => 'Kiểm soát chất lượng nghiêm ngặt'],
-                        ['title' => 'Đào Tạo Chuyên Nghiệp', 'desc' => 'Hỗ trợ kỹ thuật và đào tạo'],
+                        ['title' => 'Hỗ trợ kỹ thuật', 'desc' => 'Tư vấn và hỗ trợ chuyên nghiệp'],
                         ['title' => 'Đội Ngũ Chuyên Gia', 'desc' => 'Kinh nghiệm nhiều năm trong ngành']
                     ]
                 ],
@@ -114,15 +114,15 @@ class WebDesign extends Model
             ],
             'courses-overview' => [
                 'component_name' => 'Tổng quan khóa học',
-                'title' => 'Khóa học làm bánh',
-                'subtitle' => 'Học từ những chuyên gia hàng đầu',
+                'title' => 'Hướng dẫn sử dụng',
+                'subtitle' => 'Tài liệu hướng dẫn từ chuyên gia',
                 'content' => [
                     'limit' => 6,
                     'show_duration' => true,
                     'show_price' => true
                 ],
-                'button_text' => 'Xem tất cả khóa học',
-                'button_url' => '/khoa-hoc',
+                'button_text' => 'Xem tất cả hướng dẫn',
+                'button_url' => '/huong-dan',
                 'position' => 7,
             ],
             'partners' => [
@@ -150,43 +150,34 @@ class WebDesign extends Model
             ],
             'homepage-cta' => [
                 'component_name' => 'Global CTA',
-                'title' => 'Bắt đầu hành trình<br>với <span class="italic">Vũ Phúc Baking</span>',
+                'title' => 'Bắt đầu hành trình<br>với <span class="italic">ESAT</span>',
                 'subtitle' => 'Trải nghiệm đẳng cấp',
                 'button_text' => 'Mua sắm ngay',
-                'button_url' => '/shop',
+                'button_url' => '/san-pham',
                 'position' => 10,
             ],
             'footer' => [
                 'component_name' => 'Footer',
                 'content' => [
                     'company_info' => [
-                        'name' => 'VUPHUC BAKING',
+                        'name' => 'ESAT',
                         'description' => 'Chất lượng tạo nên thương hiệu',
-                        'license' => 'Giấy phép kinh doanh số 1800935879 cấp ngày 29/4/2009',
-                        'director' => 'Chịu trách nhiệm nội dung: Trần Uy Vũ - Tổng Giám đốc',
                     ],
                     'contact' => [
-                        'address' => '19-21 Đường B17, Khu Dân Cư Hưng Phú 1, Phường Hưng Phú, Quận Cái Răng, TP Cần Thơ',
-                        'phone' => '1900636340',
-                        'email' => 'contact@vuphucbaking.com',
-                        'hours' => '6:00 - 22:00 (Thứ 2 - Chủ nhật)',
+                        'phone' => '0913.718.995 - 0913.880.616',
+                        'email' => 'kinhdoanh@esat.vn',
+                        'hours' => '8:00 - 17:00 (Thứ 2 - Thứ 7)',
                     ],
                     'social_links' => [
                         'facebook' => '#',
                         'youtube' => '#',
                         'instagram' => '#',
                     ],
-                    'certifications' => [
-                        'CBA',
-                        'Hội Nữ Doanh Nhân TP.Cần Thơ',
-                        'Mạng lưới Doanh nghiệp Thích ứng Đồng bằng sông Cửu Long',
-                    ],
                     'policies' => [
                         ['title' => 'CHÍNH SÁCH & ĐIỀU KHOẢN MUA BÁN HÀNG HÓA', 'url' => '/chinh-sach'],
-                        ['title' => 'HỆ THỐNG ĐẠI LÝ & ĐIỂM BÁN HÀNG', 'url' => '/he-thong-dai-ly'],
                         ['title' => 'BẢO MẬT & QUYỀN RIÊNG TƯ', 'url' => '/bao-mat'],
                     ],
-                    'copyright' => '© 2025 Copyright by VUPHUC BAKING - All Rights Reserved',
+                    'copyright' => '© 2025 Copyright by ESAT - All Rights Reserved',
                 ],
                 'position' => 11,
             ],

@@ -35,14 +35,14 @@ class Slider extends Model
         // Tự động sinh alt_text khi tạo mới
         static::creating(function ($slider) {
             if (empty($slider->alt_text) && !empty($slider->title)) {
-                $slider->alt_text = $slider->title . ' - Vũ Phúc Baking';
+                $slider->alt_text = $slider->title . ' - ESAT';
             }
         });
 
         // Tự động sinh alt_text khi cập nhật
         static::updating(function ($slider) {
             if (empty($slider->alt_text) && !empty($slider->title)) {
-                $slider->alt_text = $slider->title . ' - Vũ Phúc Baking';
+                $slider->alt_text = $slider->title . ' - ESAT';
             }
         });
     }
@@ -53,9 +53,9 @@ class Slider extends Model
     public function getAltTextAttribute($value)
     {
         if (empty($value) && !empty($this->title)) {
-            return $this->title . ' - Vũ Phúc Baking';
+            return $this->title . ' - ESAT';
         }
 
-        return $value ?: 'Slider Banner - Vũ Phúc Baking';
+        return $value ?: 'Slider Banner - ESAT';
     }
 }
