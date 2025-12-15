@@ -26,6 +26,7 @@ Route::controller(EcomerceController::class)->group(function () {
 Route::controller(ProductController::class)->group(function () {
     Route::get('/danh-muc/{slug}', 'category')->name('products.category');
     Route::get('/danh-muc', 'categories')->name('products.categories');
+    Route::get('/kho-hang', 'categories')->name('products.inventory');
     Route::get('/san-pham/{slug}', 'show')->name('products.show');
 });
 
