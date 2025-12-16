@@ -122,16 +122,12 @@
         @yield('content')
     </main>
 
-    <!-- Global CTA -->
-    <section class="py-12 md:py-16 bg-gradient-to-r from-red-800 via-red-700 to-red-600 text-white relative overflow-hidden">
-        @include('components.storefront.homepage-cta')
-    </section>
-
-    <!-- Footer & Components -->
-    @if(webDesignVisible('footer'))
-    <footer id="footer">
-        @include('components.public.footer')
-    </footer>
+    <!-- Footer -->
+    @php
+        $footerComponent = \App\Models\HomeComponent::where('type', 'footer')->active()->first();
+    @endphp
+    @if($footerComponent)
+        @include('components.home.footer', ['data' => $footerComponent->config])
     @endif
     @include('components.public.speedial')
     @livewire('notifications')

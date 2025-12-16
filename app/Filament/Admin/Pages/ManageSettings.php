@@ -202,10 +202,6 @@ class ManageSettings extends Page implements HasForms
                         TextInput::make('working_hours')
                             ->label('Giờ làm việc')
                             ->maxLength(255),
-                        Textarea::make('footer_description')
-                            ->label('Mô tả footer')
-                            ->rows(3)
-                            ->maxLength(500),
                     ])
                     ->columns(2),
             ])

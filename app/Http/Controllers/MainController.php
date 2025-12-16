@@ -10,7 +10,10 @@ class MainController extends Controller
 {
     public function storeFront()
     {
-        return view('shop.storeFront');
-    }
+        $components = \App\Models\HomeComponent::where('active', true)
+            ->orderBy('order')
+            ->get();
 
+        return view('shop.storeFront', compact('components'));
+    }
 }

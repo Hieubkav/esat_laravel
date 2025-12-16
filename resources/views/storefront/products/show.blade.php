@@ -21,13 +21,27 @@
                          onclick="openPopup()">
 
                     @if($images->count() > 1)
-                        <div class="grid grid-cols-4 gap-2 mt-4">
-                            @foreach($images as $image)
-                                <img src="{{ getProductImageUrlFromImage($image, $product->name) }}"
-                                     alt="{{ $product->name }}"
-                                     class="aspect-square object-cover rounded-lg cursor-pointer border-2 hover:border-red-500 {{ $loop->first ? 'border-red-500' : 'border-gray-200' }}"
-                                     onclick="changeImage(this.src, this)">
-                            @endforeach
+                        <div class="relative mt-4">
+                            <div class="swiper thumbnail-swiper">
+                                <div class="swiper-wrapper">
+                                    @foreach($images as $image)
+                                        <div class="swiper-slide">
+                                            <img src="{{ getProductImageUrlFromImage($image, $product->name) }}"
+                                                 alt="{{ $product->name }}"
+                                                 class="aspect-square object-cover rounded-lg cursor-pointer border-2 hover:border-red-500 transition-colors {{ $loop->first ? 'border-red-500 active-thumb' : 'border-gray-200' }}"
+                                                 onclick="changeImage(this.src, this)">
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @if($images->count() > 4)
+                                <button class="thumb-prev absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 z-10 w-8 h-8 bg-white shadow-md rounded-full flex items-center justify-center hover:bg-gray-100">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                                </button>
+                                <button class="thumb-next absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 z-10 w-8 h-8 bg-white shadow-md rounded-full flex items-center justify-center hover:bg-gray-100">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </button>
+                            @endif
                         </div>
                     @endif
                 @endif
@@ -119,9 +133,24 @@
 
 @push('scripts')
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const thumbSwiper = new Swiper('.thumbnail-swiper', {
+        slidesPerView: 4,
+        spaceBetween: 8,
+        navigation: {
+            nextEl: '.thumb-next',
+            prevEl: '.thumb-prev',
+        },
+    });
+});
+
 function changeImage(src, btn) {
     document.getElementById('main-image').src = src;
-    document.querySelectorAll('img[onclick*="changeImage"]').forEach(img => img.classList.remove('border-red-500'));
+    document.querySelectorAll('.thumbnail-swiper img').forEach(img => {
+        img.classList.remove('border-red-500');
+        img.classList.add('border-gray-200');
+    });
+    btn.classList.remove('border-gray-200');
     btn.classList.add('border-red-500');
 }
 

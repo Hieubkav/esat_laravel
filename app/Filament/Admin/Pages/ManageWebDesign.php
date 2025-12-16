@@ -31,6 +31,7 @@ class ManageWebDesign extends Page
     protected static ?string $navigationLabel = 'Cấu hình giao diện';
     protected static ?string $navigationGroup = NavigationGroups::WEBSITE_SETTINGS;
     protected static ?int $navigationSort = 42;
+    protected static bool $shouldRegisterNavigation = false;
 
     public ?array $data = [];
 

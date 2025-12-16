@@ -22,14 +22,18 @@
 
             <!-- Thanh tim kiem - Desktop -->
             <div class="hidden lg:block flex-1 max-w-2xl mx-8">
-                <form action="{{ route('products.categories') }}" method="GET" class="relative">
-                    <input type="text" name="search" placeholder="Tìm kiếm sản phẩm..."
-                        class="w-full px-4 py-2.5 pl-12 pr-4 text-gray-700 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 focus:bg-white transition-all duration-200"
-                        value="{{ request('search') }}">
-                    <button type="submit" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-red-600 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <form action="{{ route('products.categories') }}" method="GET" class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400 group-focus-within:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
+                    </div>
+                    <input type="text" name="search" placeholder="Tìm kiếm sản phẩm..."
+                        class="w-full py-3 pl-12 pr-20 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 shadow-sm hover:shadow-md transition-all duration-200 text-sm"
+                        value="{{ request('search') }}"
+                        autocomplete="off">
+                    <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg px-3 py-1.5 hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-sm hover:shadow-md text-sm font-medium">
+                        Tìm
                     </button>
                 </form>
             </div>
@@ -79,13 +83,14 @@
     <div class="lg:hidden hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg" id="mobile-menu">
         <div class="max-h-[80vh] overflow-y-auto">
             <!-- Thanh tim kiem Mobile -->
-            <div class="p-4 bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 border-b border-gray-200 dark:border-gray-700">
+            <div class="p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                 <form action="{{ route('products.categories') }}" method="GET" class="relative">
                     <input type="text" name="search" id="mobile-search-input" placeholder="Tìm kiếm sản phẩm..."
-                        class="w-full px-4 py-3 pl-12 pr-4 text-gray-700 bg-white border border-gray-200 rounded-full focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 shadow-sm"
-                        value="{{ request('search') }}">
-                    <button type="submit" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-red-600 transition-colors">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        class="w-full py-3 px-4 pr-12 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 shadow-sm transition-all duration-200"
+                        value="{{ request('search') }}"
+                        autocomplete="off">
+                    <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-red-600 hover:bg-red-700 text-white rounded-full p-2 transition-colors duration-200 shadow-sm">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </button>
