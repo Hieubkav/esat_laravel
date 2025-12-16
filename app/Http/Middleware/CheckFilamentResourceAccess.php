@@ -57,7 +57,6 @@ class CheckFilamentResourceAccess
             $forbiddenPaths = [
                 'admin/manage-settings',
                 'admin/manage-web-design',
-                'admin/visitor-analytics',
                 'admin/products',
                 'admin/product-categories',
                 'admin/users',

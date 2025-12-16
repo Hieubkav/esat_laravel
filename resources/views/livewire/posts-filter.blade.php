@@ -118,14 +118,14 @@
                                     <a href="{{ route('posts.show', $post->slug) }}" class="block h-full">
                                          <div class="post-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 h-full flex flex-col">
                                              <!-- Post Image -->
-                                             <div class="w-full h-60 overflow-hidden relative flex-shrink-0">
+                                             <div class="post-thumb relative flex-shrink-0">
                                                  @if($post->thumbnail)
                                                      <img src="{{ asset('storage/' . $post->thumbnail) }}"
                                                           alt="{{ $post->title }}"
                                                           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                                           loading="lazy">
                                                  @else
-                                                     <div class="w-full h-full bg-gradient-to-br from-red-50 to-red-100 flex flex-col items-center justify-center">
+                                                     <div class="image-placeholder w-full h-full bg-gradient-to-br from-red-50 to-red-100 flex flex-col items-center justify-center">
                                                          <div class="text-center">
                                                              <i class="fas fa-newspaper text-4xl text-red-300 mb-2"></i>
                                                              <p class="text-xs text-red-400 font-medium">ESAT</p>
@@ -216,5 +216,4 @@
         </div>
     </div>
 </div>
-
 

@@ -33,6 +33,22 @@
         transform: translateY(-4px);
     }
 
+    /* Cnh ?nh b…i vi?t c ng t? l?, cng chi?u cao */
+    .post-card .post-thumb {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        background: #f8fafc;
+        overflow: hidden;
+    }
+
+    .post-card .post-thumb img,
+    .post-card .post-thumb .image-placeholder {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
     .line-clamp-2 {
         display: -webkit-box;
         -webkit-line-clamp: 2;

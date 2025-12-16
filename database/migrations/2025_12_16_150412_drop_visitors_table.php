@@ -11,19 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('visitors', function (Blueprint $table) {
-            $table->id();
-            $table->string('ip_address');
-            $table->string('user_agent')->nullable();
-            $table->string('session_id')->nullable();
-            $table->string('url');
-            $table->string('referer')->nullable();
-            $table->timestamp('visited_at');
-            $table->timestamps();
-            
-            $table->index(['ip_address', 'visited_at']);
-            $table->index('visited_at');
-        });
+        Schema::dropIfExists('visitors');
     }
 
     /**
@@ -31,6 +19,15 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('visitors');
+        Schema::create('visitors', function (Blueprint $table) {
+            $table->id();
+            $table->string('ip_address', 45);
+            $table->text('user_agent')->nullable();
+            $table->string('session_id')->nullable();
+            $table->string('url');
+            $table->string('referer')->nullable();
+            $table->timestamp('visited_at');
+            $table->timestamps();
+        });
     }
 };
