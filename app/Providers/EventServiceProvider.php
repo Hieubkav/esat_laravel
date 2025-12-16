@@ -11,6 +11,7 @@ use App\Models\Slider;
 use App\Models\Partner;
 use App\Models\Association;
 use App\Models\Setting;
+use App\Models\HomeComponent;
 use App\Observers\PostObserver;
 use App\Observers\PostImageObserver;
 use App\Observers\ProductImageObserver;
@@ -20,6 +21,7 @@ use App\Observers\SliderObserver;
 use App\Observers\PartnerObserver;
 use App\Observers\AssociationObserver;
 use App\Observers\SettingObserver;
+use App\Observers\HomeComponentObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -52,6 +54,7 @@ class EventServiceProvider extends ServiceProvider
         Partner::observe(PartnerObserver::class);
         Association::observe(AssociationObserver::class);
         Setting::observe(SettingObserver::class);
+        HomeComponent::observe(HomeComponentObserver::class);
     }
 
     /**

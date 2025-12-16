@@ -24,6 +24,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use App\Constants\NavigationGroups;
 use App\Traits\HasRoleBasedAccess;
+use App\Services\ImageService;
 
 class HomeComponentResource extends Resource
 {
@@ -211,7 +212,12 @@ class HomeComponentResource extends Resource
                         ->image()
                         ->directory('banners')
                         ->disk('public')
-                        ->required(),
+                        ->required()
+                        ->saveUploadedFileUsing(function ($file) {
+                            return app(ImageService::class)->saveImageWithAspectRatio(
+                                $file, 'banners', 1920, 1080, 85, 'hero-banner'
+                            );
+                        }),
                 ])
                 ->reorderable()
                 ->collapsible()
@@ -294,7 +300,8 @@ class HomeComponentResource extends Resource
                                 ->label('Hình ảnh')
                                 ->image()
                                 ->directory('about')
-                                ->disk('public'),
+                                ->disk('public')
+                                ->saveUploadedFileUsing(fn ($file) => app(ImageService::class)->saveImage($file, 'about', 400, 300, 85, 'feature-1')),
                             TextInput::make('config.feature_1_title')
                                 ->label('Tiêu đề')
                                 ->required()
@@ -313,7 +320,8 @@ class HomeComponentResource extends Resource
                                 ->label('Hình ảnh')
                                 ->image()
                                 ->directory('about')
-                                ->disk('public'),
+                                ->disk('public')
+                                ->saveUploadedFileUsing(fn ($file) => app(ImageService::class)->saveImage($file, 'about', 400, 300, 85, 'feature-2')),
                             TextInput::make('config.feature_2_title')
                                 ->label('Tiêu đề')
                                 ->required()
@@ -332,7 +340,8 @@ class HomeComponentResource extends Resource
                                 ->label('Hình ảnh')
                                 ->image()
                                 ->directory('about')
-                                ->disk('public'),
+                                ->disk('public')
+                                ->saveUploadedFileUsing(fn ($file) => app(ImageService::class)->saveImage($file, 'about', 400, 300, 85, 'feature-3')),
                             TextInput::make('config.feature_3_title')
                                 ->label('Tiêu đề')
                                 ->required()
@@ -351,7 +360,8 @@ class HomeComponentResource extends Resource
                                 ->label('Hình ảnh')
                                 ->image()
                                 ->directory('about')
-                                ->disk('public'),
+                                ->disk('public')
+                                ->saveUploadedFileUsing(fn ($file) => app(ImageService::class)->saveImage($file, 'about', 400, 300, 85, 'feature-4')),
                             TextInput::make('config.feature_4_title')
                                 ->label('Tiêu đề')
                                 ->required()
@@ -383,7 +393,8 @@ class HomeComponentResource extends Resource
                         ->image()
                         ->directory('categories')
                         ->disk('public')
-                        ->required(),
+                        ->required()
+                        ->saveUploadedFileUsing(fn ($file) => app(ImageService::class)->saveImage($file, 'categories', 400, 300, 85, 'category')),
 
                     TextInput::make('name')
                         ->label('Tên danh mục')
@@ -564,7 +575,8 @@ class HomeComponentResource extends Resource
                         ->image()
                         ->directory('partners')
                         ->disk('public')
-                        ->required(),
+                        ->required()
+                        ->saveUploadedFileUsing(fn ($file) => app(ImageService::class)->saveImage($file, 'partners', 300, 200, 90, 'partner-logo')),
 
                     TextInput::make('name')
                         ->label('Tên đối tác')
@@ -795,7 +807,8 @@ class HomeComponentResource extends Resource
                                 ->label('Logo Bộ Công Thương')
                                 ->image()
                                 ->directory('footer')
-                                ->disk('public'),
+                                ->disk('public')
+                                ->saveUploadedFileUsing(fn ($file) => app(ImageService::class)->saveImage($file, 'footer', 200, 100, 90, 'bocongthuong')),
                             TextInput::make('config.bocongthuong_text')
                                 ->label('Text')
                                 ->default('Đã đăng ký với Bộ Công Thương')
@@ -817,7 +830,8 @@ class HomeComponentResource extends Resource
                                 ->label('Logo 1')
                                 ->image()
                                 ->directory('footer')
-                                ->disk('public'),
+                                ->disk('public')
+                                ->saveUploadedFileUsing(fn ($file) => app(ImageService::class)->saveImage($file, 'footer', 200, 100, 90, 'association-1')),
                             TextInput::make('config.association_1_link')
                                 ->label('Link 1')
                                 ->placeholder('https://vcci.com.vn'),
@@ -825,7 +839,8 @@ class HomeComponentResource extends Resource
                                 ->label('Logo 2')
                                 ->image()
                                 ->directory('footer')
-                                ->disk('public'),
+                                ->disk('public')
+                                ->saveUploadedFileUsing(fn ($file) => app(ImageService::class)->saveImage($file, 'footer', 200, 100, 90, 'association-2')),
                             TextInput::make('config.association_2_link')
                                 ->label('Link 2')
                                 ->placeholder('https://...'),
@@ -833,7 +848,8 @@ class HomeComponentResource extends Resource
                                 ->label('Logo 3')
                                 ->image()
                                 ->directory('footer')
-                                ->disk('public'),
+                                ->disk('public')
+                                ->saveUploadedFileUsing(fn ($file) => app(ImageService::class)->saveImage($file, 'footer', 200, 100, 90, 'association-3')),
                             TextInput::make('config.association_3_link')
                                 ->label('Link 3')
                                 ->placeholder('https://...'),
@@ -841,7 +857,8 @@ class HomeComponentResource extends Resource
                                 ->label('Logo 4')
                                 ->image()
                                 ->directory('footer')
-                                ->disk('public'),
+                                ->disk('public')
+                                ->saveUploadedFileUsing(fn ($file) => app(ImageService::class)->saveImage($file, 'footer', 200, 100, 90, 'association-4')),
                             TextInput::make('config.association_4_link')
                                 ->label('Link 4')
                                 ->placeholder('https://...'),

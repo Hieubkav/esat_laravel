@@ -37,9 +37,9 @@
             @foreach($partners as $partner)
             <div class="swiper-slide">
                 @if(!empty($partner['link']))
-                <a href="{{ $partner['link'] }}" target="_blank" rel="noopener" class="block p-4 grayscale hover:grayscale-0 transition-all">
+                <a href="{{ $partner['link'] }}" target="_blank" rel="noopener" class="block p-4 hover:scale-105 transition-transform">
                 @else
-                <div class="p-4 grayscale hover:grayscale-0 transition-all">
+                <div class="p-4 hover:scale-105 transition-transform">
                 @endif
                     <img src="{{ asset('storage/' . $partner['logo']) }}"
                          alt="{{ $partner['name'] }}"

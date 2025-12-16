@@ -21,20 +21,86 @@
             </a>
 
             <!-- Thanh tim kiem - Desktop -->
-            <div class="hidden lg:block flex-1 max-w-2xl mx-8">
+            <div class="hidden lg:block flex-1 max-w-2xl mx-8" x-data="searchSuggestions()" @click.away="open = false">
                 <form action="{{ route('products.categories') }}" method="GET" class="relative group">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <svg class="h-5 w-5 text-gray-400 group-focus-within:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
-                    <input type="text" name="search" placeholder="Tìm kiếm sản phẩm..."
+                    <input type="text" name="search" placeholder="Tìm kiếm sản phẩm, bài viết..."
                         class="w-full py-3 pl-12 pr-20 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 shadow-sm hover:shadow-md transition-all duration-200 text-sm"
-                        value="{{ request('search') }}"
+                        x-model="query"
+                        @input.debounce.300ms="search()"
+                        @focus="if(query.length >= 2) open = true"
                         autocomplete="off">
                     <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-lg px-3 py-1.5 hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-sm hover:shadow-md text-sm font-medium">
                         Tìm
                     </button>
+
+                    <!-- Dropdown gợi ý -->
+                    <div x-show="open && (products.length > 0 || posts.length > 0)"
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 translate-y-1"
+                         x-transition:enter-end="opacity-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 translate-y-1"
+                         class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 max-h-[70vh] overflow-y-auto">
+                        
+                        <!-- Sản phẩm -->
+                        <template x-if="products.length > 0">
+                            <div>
+                                <div class="px-4 py-2 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                                    <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Sản phẩm</span>
+                                </div>
+                                <template x-for="item in products" :key="'p-'+item.id">
+                                    <a :href="item.url" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b border-gray-100 dark:border-gray-700 last:border-0">
+                                        <div class="w-12 h-12 bg-gray-100 dark:bg-gray-600 rounded-lg overflow-hidden flex-shrink-0">
+                                            <img :src="item.thumbnail ? '/storage/' + item.thumbnail : '/images/placeholder.png'" :alt="item.name" class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white truncate" x-text="item.name"></p>
+                                            <p class="text-xs text-red-600 dark:text-red-400 font-semibold" x-text="item.price ? new Intl.NumberFormat('vi-VN').format(item.price) + ' đ' : 'Liên hệ'"></p>
+                                        </div>
+                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                    </a>
+                                </template>
+                            </div>
+                        </template>
+
+                        <!-- Bài viết -->
+                        <template x-if="posts.length > 0">
+                            <div>
+                                <div class="px-4 py-2 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                                    <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Bài viết</span>
+                                </div>
+                                <template x-for="item in posts" :key="'post-'+item.id">
+                                    <a :href="item.url" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors border-b border-gray-100 dark:border-gray-700 last:border-0">
+                                        <div class="w-12 h-12 bg-gray-100 dark:bg-gray-600 rounded-lg overflow-hidden flex-shrink-0">
+                                            <img :src="item.thumbnail ? '/storage/' + item.thumbnail : '/images/placeholder.png'" :alt="item.title" class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white truncate" x-text="item.title"></p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">Bài viết</p>
+                                        </div>
+                                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                    </a>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Loading -->
+                    <div x-show="loading" class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 z-50">
+                        <div class="flex items-center justify-center gap-2 text-gray-500">
+                            <svg class="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span class="text-sm">Đang tìm...</span>
+                        </div>
+                    </div>
                 </form>
             </div>
 
@@ -83,11 +149,13 @@
     <div class="lg:hidden hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 shadow-lg" id="mobile-menu">
         <div class="max-h-[80vh] overflow-y-auto">
             <!-- Thanh tim kiem Mobile -->
-            <div class="p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+            <div class="p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700" x-data="searchSuggestionsMobile()">
                 <form action="{{ route('products.categories') }}" method="GET" class="relative">
-                    <input type="text" name="search" id="mobile-search-input" placeholder="Tìm kiếm sản phẩm..."
+                    <input type="text" name="search" id="mobile-search-input" placeholder="Tìm kiếm sản phẩm, bài viết..."
                         class="w-full py-3 px-4 pr-12 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 shadow-sm transition-all duration-200"
-                        value="{{ request('search') }}"
+                        x-model="query"
+                        @input.debounce.300ms="search()"
+                        @focus="if(query.length >= 2) open = true"
                         autocomplete="off">
                     <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-red-600 hover:bg-red-700 text-white rounded-full p-2 transition-colors duration-200 shadow-sm">
                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -95,6 +163,54 @@
                         </svg>
                     </button>
                 </form>
+
+                <!-- Dropdown gợi ý Mobile -->
+                <div x-show="open && (products.length > 0 || posts.length > 0)"
+                     x-transition
+                     class="mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden max-h-[50vh] overflow-y-auto">
+                    
+                    <template x-if="products.length > 0">
+                        <div>
+                            <div class="px-4 py-2 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                                <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Sản phẩm</span>
+                            </div>
+                            <template x-for="item in products" :key="'mp-'+item.id">
+                                <a :href="item.url" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700 last:border-0">
+                                    <div class="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                                        <img :src="item.thumbnail ? '/storage/' + item.thumbnail : '/images/placeholder.png'" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-white truncate" x-text="item.name"></p>
+                                        <p class="text-xs text-red-600 font-semibold" x-text="item.price ? new Intl.NumberFormat('vi-VN').format(item.price) + ' đ' : 'Liên hệ'"></p>
+                                    </div>
+                                </a>
+                            </template>
+                        </div>
+                    </template>
+
+                    <template x-if="posts.length > 0">
+                        <div>
+                            <div class="px-4 py-2 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                                <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Bài viết</span>
+                            </div>
+                            <template x-for="item in posts" :key="'mpost-'+item.id">
+                                <a :href="item.url" class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700 border-b border-gray-100 dark:border-gray-700 last:border-0">
+                                    <div class="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                                        <img :src="item.thumbnail ? '/storage/' + item.thumbnail : '/images/placeholder.png'" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-white truncate" x-text="item.title"></p>
+                                        <p class="text-xs text-gray-500">Bài viết</p>
+                                    </div>
+                                </a>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+
+                <div x-show="loading" class="mt-2 bg-white rounded-xl p-3 text-center text-gray-500 text-sm">
+                    <span class="animate-pulse">Đang tìm...</span>
+                </div>
             </div>
 
             <!-- Menu Mobile -->
@@ -192,6 +308,67 @@
             });
         }
     });
+
+    // Alpine.js Search Suggestions Component
+    window.searchSuggestions = function() {
+        return {
+            query: '',
+            open: false,
+            loading: false,
+            products: [],
+            posts: [],
+            async search() {
+                if (this.query.length < 2) {
+                    this.open = false;
+                    this.products = [];
+                    this.posts = [];
+                    return;
+                }
+                this.loading = true;
+                try {
+                    const response = await fetch(`/api/search/suggestions?q=${encodeURIComponent(this.query)}`);
+                    const data = await response.json();
+                    this.products = data.products || [];
+                    this.posts = data.posts || [];
+                    this.open = true;
+                } catch (e) {
+                    console.error('Search error:', e);
+                } finally {
+                    this.loading = false;
+                }
+            }
+        }
+    }
+
+    window.searchSuggestionsMobile = function() {
+        return {
+            query: '',
+            open: false,
+            loading: false,
+            products: [],
+            posts: [],
+            async search() {
+                if (this.query.length < 2) {
+                    this.open = false;
+                    this.products = [];
+                    this.posts = [];
+                    return;
+                }
+                this.loading = true;
+                try {
+                    const response = await fetch(`/api/search/suggestions?q=${encodeURIComponent(this.query)}`);
+                    const data = await response.json();
+                    this.products = data.products || [];
+                    this.posts = data.posts || [];
+                    this.open = true;
+                } catch (e) {
+                    console.error('Search error:', e);
+                } finally {
+                    this.loading = false;
+                }
+            }
+        }
+    }
 </script>
 
 <style>
