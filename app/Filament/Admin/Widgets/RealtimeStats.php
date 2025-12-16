@@ -34,7 +34,6 @@ class RealtimeStats extends BaseWidget
         $totalProducts = Product::where('status', 'active')->count();
         $totalCustomers = Customer::where('status', 'active')->count();
         $pendingOrders = Order::where('status', 'pending')->count();
-        $lowStockProducts = Product::where('stock', '<=', 10)->count();
 
         return [
             Stat::make('Đơn hàng hôm nay', $todayOrders)
@@ -53,11 +52,6 @@ class RealtimeStats extends BaseWidget
                 ->description('Cần xử lý ngay')
                 ->descriptionIcon('heroicon-m-clock')
                 ->color($pendingOrders > 0 ? 'warning' : 'success'),
-
-            Stat::make('Sản phẩm sắp hết', $lowStockProducts)
-                ->description('Tồn kho ≤ 10')
-                ->descriptionIcon('heroicon-m-exclamation-triangle')
-                ->color($lowStockProducts > 0 ? 'danger' : 'success'),
 
             Stat::make('Tổng sản phẩm', $totalProducts)
                 ->description('Đang hoạt động')

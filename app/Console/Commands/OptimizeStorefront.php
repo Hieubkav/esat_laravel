@@ -149,7 +149,6 @@ class OptimizeStorefront extends Command
         // Warm up categories
         Cache::remember('storefront_categories', 7200, function () {
             return \App\Models\CatProduct::where('status', 'active')
-                ->whereNull('parent_id')
                 ->orderBy('order')
                 ->select(['id', 'name', 'slug', 'image', 'order'])
                 ->take(12)
@@ -163,7 +162,7 @@ class OptimizeStorefront extends Command
                 ->with(['category:id,name', 'images' => function($query) {
                     $query->where('status', 'active')->orderBy('order')->take(1);
                 }])
-                ->select(['id', 'name', 'slug', 'price', 'compare_price', 'is_hot', 'category_id', 'seo_title', 'order'])
+                ->select(['id', 'name', 'slug', 'price', 'is_hot', 'category_id', 'seo_title', 'order'])
                 ->orderBy('order')
                 ->take(8)
                 ->get();
@@ -195,10 +194,6 @@ class OptimizeStorefront extends Command
         Cache::remember('navigation_data', 7200, function () {
             return [
                 'mainCategories' => \App\Models\CatProduct::where('status', 'active')
-                    ->whereNull('parent_id')
-                    ->with(['children' => function ($query) {
-                        $query->where('status', 'active')->orderBy('order');
-                    }])
                     ->orderBy('order')
                     ->get(),
                 'menuItems' => \App\Models\MenuItem::where('status', 'active')

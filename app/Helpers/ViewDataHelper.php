@@ -41,7 +41,6 @@ class ViewDataHelper
                     ->get(),
 
                 'categories' => CatProduct::where('status', 'active')
-                    ->whereNull('parent_id')
                     ->orderBy('order')
                     ->take(12)
                     ->get(),
@@ -87,15 +86,10 @@ class ViewDataHelper
         return Cache::remember('navigation_data', 7200, function () {
             return [
                 'mainCategories' => CatProduct::where('status', 'active')
-                    ->whereNull('parent_id')
-                    ->with(['children' => function ($query) {
-                        $query->where('status', 'active')->orderBy('order');
-                    }])
                     ->orderBy('order')
                     ->get(),
 
                 'footerCategories' => CatProduct::where('status', 'active')
-                    ->whereNull('parent_id')
                     ->orderBy('order')
                     ->take(6)
                     ->get(),

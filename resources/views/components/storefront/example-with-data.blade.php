@@ -45,11 +45,7 @@
                 @foreach($featuredProducts as $product)
                     <div class="bg-white border rounded-lg p-4">
                         <h4 class="font-medium text-sm mb-2">{{ $product->name }}</h4>
-                        <p class="text-red-600 font-bold">{{ number_format($product->price) }}đ</p>
-                        @if($product->hasDiscount())
-                            <p class="text-gray-400 line-through text-sm">{{ number_format($product->compare_price) }}đ</p>
-                        @endif
-                        <span class="text-xs text-gray-400">SKU: {{ $product->sku }}</span>
+                        <p class="text-red-600 font-bold">{{ formatPrice($product->price) }}</p>
                     </div>
                 @endforeach
             </div>

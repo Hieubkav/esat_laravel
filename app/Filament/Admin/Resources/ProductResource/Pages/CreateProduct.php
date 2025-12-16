@@ -3,7 +3,9 @@
 namespace App\Filament\Admin\Resources\ProductResource\Pages;
 
 use App\Filament\Admin\Resources\ProductResource;
+use App\Models\Setting;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Str;
 
 class CreateProduct extends CreateRecord
 {
@@ -14,6 +16,33 @@ class CreateProduct extends CreateRecord
         return 'Thêm Sản phẩm Mới';
     }
 
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['seo_title'] = $data['name'];
+
+        $description = isset($data['description']) ? Str::limit(strip_tags($data['description']), 160) : '';
+        $data['seo_description'] = $data['name'] . ($description ? ' - ' . $description : '');
+
+        return $data;
+    }
+
+    protected function afterCreate(): void
+    {
+        $product = $this->record;
+        $firstImage = $product->productImages()->orderBy('order', 'asc')->first();
+
+        if ($firstImage && $firstImage->image_link) {
+            $product->og_image_link = $firstImage->image_link;
+        } else {
+            $settings = Setting::first();
+            if ($settings && $settings->og_image_link) {
+                $product->og_image_link = $settings->og_image_link;
+            }
+        }
+
+        $product->saveQuietly();
+    }
+
     protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
@@ -22,18 +51,5 @@ class CreateProduct extends CreateRecord
     protected function getCreatedNotificationTitle(): ?string
     {
         return 'Sản phẩm đã được thêm thành công';
-    }
-
-    protected function mutateFormDataBeforeCreate(array $data): array
-    {
-        // Đảm bảo stock không bao giờ là NULL
-        if (!isset($data['stock']) || $data['stock'] === null || $data['stock'] === '') {
-            $data['stock'] = 0;
-        }
-
-        // Đảm bảo stock là số nguyên không âm
-        $data['stock'] = max(0, (int) $data['stock']);
-
-        return $data;
     }
 }

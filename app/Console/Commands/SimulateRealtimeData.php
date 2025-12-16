@@ -36,17 +36,6 @@ class SimulateRealtimeData extends Command
             $orderCount++;
             $this->info("Tạo đơn hàng #{$orderCount}: {$order->order_number} - " . number_format($order->total) . " VNĐ");
 
-            // Đôi khi cập nhật stock của sản phẩm
-            if (rand(1, 3) === 1) {
-                $product = Product::inRandomOrder()->first();
-                if ($product) {
-                    $oldStock = $product->stock;
-                    $product->stock = max(0, $product->stock - rand(1, 5));
-                    $product->save();
-                    $this->info("Cập nhật stock sản phẩm {$product->name}: {$oldStock} → {$product->stock}");
-                }
-            }
-
             // Đôi khi thay đổi trạng thái đơn hàng cũ
             if (rand(1, 4) === 1) {
                 $oldOrder = Order::where('status', 'pending')->inRandomOrder()->first();

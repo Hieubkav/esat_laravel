@@ -54,9 +54,7 @@ class ProductImagesRelationManager extends RelationManager
                         );
                     }),
 
-                TextInput::make('order')
-                    ->label('Thứ tự hiển thị')
-                    ->integer()
+                Forms\Components\Hidden::make('order')
                     ->default(0),
 
                 Toggle::make('status')
@@ -71,10 +69,6 @@ class ProductImagesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                TextColumn::make('order')
-                    ->label('Thứ tự')
-                    ->sortable(),
-
                 ImageColumn::make('image_link')
                     ->label('Hình ảnh')
                     ->height(100),
@@ -99,6 +93,7 @@ class ProductImagesRelationManager extends RelationManager
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
+            ->reorderable('order')
             ->defaultSort('order', 'asc');
     }
 }

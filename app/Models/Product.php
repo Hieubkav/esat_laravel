@@ -6,10 +6,51 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\BroadcastsModelChanges;
 use App\Traits\ClearsViewCache;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
     use HasFactory, BroadcastsModelChanges, ClearsViewCache;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($product) {
+            if (empty($product->slug) && !empty($product->name)) {
+                $product->slug = static::generateUniqueSlug($product->name);
+            }
+        });
+
+        static::updating(function ($product) {
+            if (empty($product->slug) && !empty($product->name)) {
+                $product->slug = static::generateUniqueSlug($product->name, $product->id);
+            }
+        });
+    }
+
+    protected static function generateUniqueSlug(string $name, ?int $ignoreId = null): string
+    {
+        $slug = Str::slug($name);
+        $originalSlug = $slug;
+        $counter = 1;
+
+        $query = static::where('slug', $slug);
+        if ($ignoreId) {
+            $query->where('id', '!=', $ignoreId);
+        }
+
+        while ($query->exists()) {
+            $slug = $originalSlug . '-' . $counter;
+            $query = static::where('slug', $slug);
+            if ($ignoreId) {
+                $query->where('id', '!=', $ignoreId);
+            }
+            $counter++;
+        }
+
+        return $slug;
+    }
 
     protected $fillable = [
         'name',
@@ -19,11 +60,7 @@ class Product extends Model
         'og_image_link',
         'slug',
         'price',
-        'compare_price',
         'brand',
-        'sku',
-        'stock',
-        'unit',
         'is_hot',
         'order',
         'status',
@@ -32,15 +69,9 @@ class Product extends Model
 
     protected $casts = [
         'price' => 'decimal:2',
-        'compare_price' => 'decimal:2',
-        'stock' => 'integer',
         'is_hot' => 'boolean',
         'status' => 'string',
         'order' => 'integer',
-    ];
-
-    protected $attributes = [
-        'stock' => 0,
     ];
 
     public function productImages()
@@ -97,89 +128,4 @@ class Product extends Model
         return $firstImage ? $firstImage->image_link : null;
     }
 
-    /**
-     * Kiểm tra xem sản phẩm có đang giảm giá hay không
-     *
-     * @return bool
-     */
-    public function hasDiscount(): bool
-    {
-        return !is_null($this->compare_price) && $this->compare_price < $this->price;
-    }
-
-    /**
-     * Lấy giá hiện tại của sản phẩm (giá khuyến mãi hoặc giá gốc)
-     *
-     * @return float
-     */
-    public function getCurrentPrice(): float
-    {
-        return $this->hasDiscount() ? $this->compare_price : $this->price;
-    }
-
-    /**
-     * Lấy phần trăm giảm giá
-     *
-     * @return int|null
-     */
-    public function getDiscountPercentage(): ?int
-    {
-        if (!$this->hasDiscount()) {
-            return null;
-        }
-
-        return (int) (100 - ($this->compare_price / $this->price * 100));
-    }
-
-    /**
-     * Set stock attribute - đảm bảo luôn là số nguyên không âm
-     */
-    public function setStockAttribute($value)
-    {
-        $this->attributes['stock'] = max(0, (int) ($value ?? 0));
-    }
-
-    /**
-     * Kiểm tra xem sản phẩm có còn hàng không
-     */
-    public function isInStock(): bool
-    {
-        return $this->stock > 0;
-    }
-
-    /**
-     * Kiểm tra xem sản phẩm có sắp hết hàng không (dưới 10 sản phẩm)
-     */
-    public function isLowStock(): bool
-    {
-        return $this->stock > 0 && $this->stock <= 10;
-    }
-
-    /**
-     * Lấy trạng thái tồn kho
-     */
-    public function getStockStatus(): string
-    {
-        if ($this->stock === 0) {
-            return 'Hết hàng';
-        } elseif ($this->stock <= 10) {
-            return 'Sắp hết hàng';
-        } else {
-            return 'Còn hàng';
-        }
-    }
-
-    /**
-     * Lấy màu badge cho trạng thái tồn kho
-     */
-    public function getStockStatusColor(): string
-    {
-        if ($this->stock === 0) {
-            return 'danger';
-        } elseif ($this->stock <= 10) {
-            return 'warning';
-        } else {
-            return 'success';
-        }
-    }
 }

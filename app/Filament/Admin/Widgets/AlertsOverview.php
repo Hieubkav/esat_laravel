@@ -43,35 +43,6 @@ class AlertsOverview extends Widget
             ];
         }
 
-        // Sản phẩm hết hàng
-        $outOfStock = Product::where('stock', 0)->where('status', 'active')->count();
-        if ($outOfStock > 0) {
-            $alerts[] = [
-                'type' => 'warning',
-                'icon' => 'heroicon-o-x-circle',
-                'title' => "⚠️ {$outOfStock} sản phẩm hết hàng",
-                'description' => 'Cần nhập hàng hoặc tạm ẩn sản phẩm',
-                'action' => 'Xem sản phẩm',
-                'color' => 'danger'
-            ];
-        }
-
-        // Sản phẩm sắp hết hàng
-        $lowStock = Product::where('stock', '>', 0)
-            ->where('stock', '<=', 10)
-            ->where('status', 'active')
-            ->count();
-        if ($lowStock > 0) {
-            $alerts[] = [
-                'type' => 'warning',
-                'icon' => 'heroicon-o-exclamation-triangle',
-                'title' => "⚠️ {$lowStock} sản phẩm sắp hết",
-                'description' => 'Tồn kho dưới 10 sản phẩm, cần nhập thêm',
-                'action' => 'Xem chi tiết',
-                'color' => 'warning'
-            ];
-        }
-
         // Đơn hàng hôm nay
         $todayOrders = Order::whereDate('created_at', today())->count();
         $todayRevenue = Order::where('status', 'completed')

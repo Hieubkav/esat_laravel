@@ -32,7 +32,6 @@ class TopProducts extends BaseWidget
                         'products.id',
                         'products.name',
                         'products.price',
-                        'products.stock',
                         'products.category_id',
                         'products.created_at',
                         'products.updated_at'
@@ -56,7 +55,6 @@ class TopProducts extends BaseWidget
                         'products.id',
                         'products.name',
                         'products.price',
-                        'products.stock',
                         'products.category_id',
                         'products.created_at',
                         'products.updated_at'
@@ -90,15 +88,6 @@ class TopProducts extends BaseWidget
                     ->label('Giá bán')
                     ->money('VND')
                     ->sortable(),
-
-                TextColumn::make('stock')
-                    ->label('Tồn kho')
-                    ->sortable()
-                    ->color(fn (int $state): string => match (true) {
-                        $state > 50 => 'success',
-                        $state > 10 => 'warning',
-                        default => 'danger',
-                    }),
 
                 TextColumn::make('total_sold')
                     ->label('Đã bán')

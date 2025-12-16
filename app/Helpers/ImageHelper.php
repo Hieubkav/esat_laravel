@@ -68,14 +68,17 @@ if (!function_exists('getProductImageAlt')) {
 
 if (!function_exists('formatPrice')) {
     /**
-     * Format giá tiền
+     * Format giá tiền - trả về "Liên Hệ" nếu giá trống hoặc = 0
      *
-     * @param float|int $price
+     * @param float|int|null $price
      * @param string $currency
      * @return string
      */
     function formatPrice($price, string $currency = 'đ'): string
     {
+        if (empty($price) || $price <= 0) {
+            return 'Liên Hệ';
+        }
         return number_format($price, 0, ',', '.') . $currency;
     }
 }

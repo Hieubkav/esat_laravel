@@ -22,7 +22,6 @@ class QuickStats extends BaseWidget
         $totalProducts = Product::count();
         $activeProducts = Product::where('status', 'active')->count();
         $hotProducts = Product::where('is_hot', true)->count();
-        $lowStockProducts = Product::where('stock', '<=', 10)->count();
 
         $totalOrders = Order::count();
         $pendingOrders = Order::where('status', 'pending')->count();
@@ -48,11 +47,6 @@ class QuickStats extends BaseWidget
                 ->description('Được đánh dấu hot')
                 ->descriptionIcon('heroicon-m-fire')
                 ->color('warning'),
-
-            Stat::make('Sắp hết hàng', $lowStockProducts)
-                ->description('Tồn kho ≤ 10')
-                ->descriptionIcon('heroicon-m-exclamation-triangle')
-                ->color($lowStockProducts > 0 ? 'danger' : 'success'),
 
             Stat::make('Tổng đơn hàng', $totalOrders)
                 ->description("{$completedOrders} hoàn thành")

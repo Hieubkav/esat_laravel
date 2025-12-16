@@ -50,7 +50,7 @@ class RecentActivity extends Widget
                 'icon' => 'heroicon-o-cube',
                 'color' => 'info',
                 'title' => "Sản phẩm mới: {$product->name}",
-                'description' => "Giá: " . number_format($product->price) . " VNĐ - Tồn kho: {$product->stock}",
+                'description' => "Giá: " . number_format($product->price) . " VNĐ",
                 'time' => $product->created_at,
                 'url' => null, // route('filament.admin.resources.products.view', $product),
             ]);
@@ -67,25 +67,6 @@ class RecentActivity extends Widget
                 'description' => $customer->email,
                 'time' => $customer->created_at,
                 'url' => null, // route('filament.admin.resources.customers.view', $customer),
-            ]);
-        }
-
-        // Sản phẩm sắp hết hàng
-        $lowStockProducts = Product::where('stock', '<=', 10)
-            ->where('stock', '>', 0)
-            ->orderBy('stock')
-            ->limit(3)
-            ->get();
-
-        foreach ($lowStockProducts as $product) {
-            $activities->push([
-                'type' => 'warning',
-                'icon' => 'heroicon-o-exclamation-triangle',
-                'color' => 'warning',
-                'title' => "Sắp hết hàng: {$product->name}",
-                'description' => "Chỉ còn {$product->stock} {$product->unit}",
-                'time' => $product->updated_at,
-                'url' => null, // route('filament.admin.resources.products.edit', $product),
             ]);
         }
 

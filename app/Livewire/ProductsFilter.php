@@ -99,6 +99,7 @@ class ProductsFilter extends Component
     private function getQuery()
     {
         $query = Product::where('status', 'active')
+            ->whereNotNull('slug')
             ->with(['category', 'productImages' => function($query) {
                 $query->where('status', 'active')->orderBy('order');
             }]);
@@ -161,7 +162,6 @@ class ProductsFilter extends Component
     {
         return Cache::remember('products_categories_filter', 1800, function () {
             return CatProduct::where('status', 'active')
-                ->whereNull('parent_id')
                 ->withCount(['products' => function($query) {
                     $query->where('status', 'active');
                 }])

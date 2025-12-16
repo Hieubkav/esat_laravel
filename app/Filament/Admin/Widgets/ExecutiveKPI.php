@@ -48,10 +48,6 @@ class ExecutiveKPI extends BaseWidget
         // Tỷ lệ chuyển đổi
         $conversionRate = $totalOrders > 0 ? ($completedOrders / $totalOrders) * 100 : 0;
 
-        // Sản phẩm cần chú ý
-        $lowStockProducts = Product::where('stock', '<=', 10)->where('stock', '>', 0)->count();
-        $outOfStockProducts = Product::where('stock', 0)->count();
-
         // Khách hàng mới
         $newCustomers = Customer::whereBetween('created_at', [$startDate, $endDate])->count();
 
@@ -82,12 +78,6 @@ class ExecutiveKPI extends BaseWidget
                 ->description($completedOrders . '/' . $totalOrders . ' đơn hàng')
                 ->descriptionIcon('heroicon-m-chart-bar')
                 ->color($conversionRate >= 70 ? 'success' : ($conversionRate >= 50 ? 'warning' : 'danger')),
-
-            // Cảnh báo tồn kho
-            Stat::make('⚠️ Cảnh Báo Kho', $lowStockProducts + $outOfStockProducts)
-                ->description($lowStockProducts . ' sắp hết, ' . $outOfStockProducts . ' hết hàng')
-                ->descriptionIcon('heroicon-m-exclamation-triangle')
-                ->color(($lowStockProducts + $outOfStockProducts) > 0 ? 'danger' : 'success'),
 
             // Khách hàng mới
             Stat::make('👥 Khách Hàng Mới', number_format($newCustomers))

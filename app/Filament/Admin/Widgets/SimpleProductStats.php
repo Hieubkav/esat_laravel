@@ -64,15 +64,6 @@ class SimpleProductStats extends BaseWidget
                     ->money('VND')
                     ->sortable(),
 
-                TextColumn::make('stock')
-                    ->label('Tồn kho')
-                    ->sortable()
-                    ->color(fn (int $state): string => match (true) {
-                        $state > 50 => 'success',
-                        $state > 10 => 'warning',
-                        default => 'danger',
-                    }),
-
                 IconColumn::make('is_hot')
                     ->label('Nổi bật')
                     ->boolean()

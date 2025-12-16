@@ -4,9 +4,8 @@ namespace App\Filament\Admin\Resources;
 
 use App\Filament\Admin\Resources\ProductCategoryResource\Pages;
 use App\Models\CatProduct;
-use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -57,47 +56,16 @@ class ProductCategoryResource extends Resource
                         TextInput::make('name')
                             ->label('Tên danh mục')
                             ->required()
-                            ->maxLength(255)
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(fn (string $state, callable $set) => $set('slug', Str::slug($state))),
-
-                        TextInput::make('slug')
-                            ->label('Đường dẫn')
-                            ->required()
-                            ->unique(ignoreRecord: true)
                             ->maxLength(255),
 
-                        Select::make('parent_id')
-                            ->label('Danh mục cha')
-                            ->relationship('parent', 'name')
-                            ->searchable()
-                            ->nullable(),
-                    ])->columns(2),
-
-                Section::make('Mô tả danh mục')
-                    ->schema([
-                        RichEditor::make('description')
-                            ->label('Mô tả')
-                            ->fileAttachmentsDisk('public')
-                            ->fileAttachmentsDirectory('product-categories')
-                            ->nullable()
-                            ->columnSpanFull(),
-                    ]),
-
-                Section::make('Cấu hình hiển thị')
-                    ->schema([
-                        TextInput::make('order')
-                            ->label('Thứ tự hiển thị')
-                            ->integer()
-                            ->default(0)
-                            ->hidden(),
+                        Hidden::make('slug'),
 
                         Toggle::make('status')
                             ->label('Hiển thị')
                             ->default(true)
                             ->onColor('success')
                             ->offColor('danger'),
-                    ])->columns(2),
+                    ]),
             ]);
     }
 
@@ -105,17 +73,8 @@ class ProductCategoryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('order')
-                    ->label('Thứ tự')
-                    ->sortable(),
-
                 TextColumn::make('name')
                     ->label('Tên danh mục')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('parent.name')
-                    ->label('Danh mục cha')
                     ->searchable()
                     ->sortable(),
 
@@ -144,6 +103,7 @@ class ProductCategoryResource extends Resource
                         ->label('Xóa đã chọn'),
                 ]),
             ])
+            ->reorderable('order')
             ->defaultSort('order', 'asc');
     }
 

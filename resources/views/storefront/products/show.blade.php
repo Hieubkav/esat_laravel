@@ -45,30 +45,17 @@
                         <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">⭐ Nổi bật</span>
                     @endif
 
-                    <div class="mt-4 space-y-2 text-sm">
-                        @if($product->brand)<div>Thương hiệu: <strong>{{ $product->brand }}</strong></div>@endif
-                        @if($product->sku)<div>Mã SP: <strong>{{ $product->sku }}</strong></div>@endif
-                        @if($product->stock !== null)
-                            <div>Tình trạng:
-                                <strong class="{{ $product->stock > 0 ? 'text-green-600' : 'text-red-600' }}">
-                                    {{ $product->stock > 0 ? "Còn hàng ({$product->stock})" : 'Hết hàng' }}
-                                </strong>
-                            </div>
-                        @endif
+                    @if($product->brand)
+                    <div class="mt-4 text-sm">
+                        <div>Thương hiệu: <strong>{{ $product->brand }}</strong></div>
                     </div>
+                    @endif
                 </div>
 
                 <div class="bg-red-50 rounded-2xl p-6 border border-red-200">
                     <div class="flex items-baseline gap-3">
-                        @if($product->hasDiscount())
-                            <span class="text-3xl font-bold text-red-700">{{ formatPrice($product->getCurrentPrice()) }}</span>
-                            <span class="text-lg text-gray-500 line-through">{{ formatPrice($product->price) }}</span>
-                            <span class="bg-red-600 text-white text-xs px-2 py-1 rounded-full">-{{ $product->getDiscountPercentage() }}%</span>
-                        @else
-                            <span class="text-3xl font-bold text-red-700">{{ formatPrice($product->price) }}</span>
-                        @endif
+                        <span class="text-3xl font-bold text-red-700">{{ formatPrice($product->price) }}</span>
                     </div>
-                    @if($product->unit)<p class="text-sm text-gray-600 mt-2">Đơn vị: {{ $product->unit }}</p>@endif
                 </div>
 
                 <div class="bg-white rounded-2xl p-6">

@@ -39,11 +39,6 @@
 
                     <!-- Product badges -->
                     <div class="absolute top-2 left-2 flex flex-col gap-1">
-                        @if($product->hasDiscount())
-                            <span class="bg-red-600 text-white px-2 py-1 rounded-full text-xs font-bold">
-                                -{{ $product->getDiscountPercentage() }}%
-                            </span>
-                        @endif
                         @if($product->is_hot)
                             <span class="bg-yellow-500 text-white px-2 py-1 rounded-full text-xs font-bold">
                                 HOT
@@ -63,16 +58,7 @@
                     <!-- Price and Action -->
                     <div class="flex justify-between items-center">
                         <div>
-                            @if($product->price && $product->price > 0)
-                                @if($product->hasDiscount())
-                                    <div class="flex flex-col">
-                                        <span class="text-blue-700 font-bold text-sm md:text-base">{{ formatPrice($product->getCurrentPrice()) }}</span>
-                                        <span class="text-gray-400 line-through text-xs">{{ formatPrice($product->price) }}</span>
-                                    </div>
-                                @else
-                                    <span class="text-blue-700 font-bold text-sm md:text-base">{{ formatPrice($product->price) }}</span>
-                                @endif
-                            @endif
+                            <span class="text-blue-700 font-bold text-sm md:text-base">{{ formatPrice($product->price) }}</span>
                         </div>
 
                         <a href="{{ route('products.show', $product->slug) }}" class="inline-flex items-center text-xs text-blue-700 font-medium hover:text-blue-800 transition-colors">

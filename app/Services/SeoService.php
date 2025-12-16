@@ -106,16 +106,15 @@ class SeoService
             'description' => $product->seo_description ?: $product->description,
             'image' => self::getProductOgImage($product),
             'url' => route('products.show', $product->slug),
-            'sku' => $product->sku,
             'brand' => [
                 '@type' => 'Brand',
                 'name' => $product->brand ?: ($settings->site_name ?? 'ESAT')
             ],
             'offers' => [
                 '@type' => 'Offer',
-                'price' => $product->getCurrentPrice(),
+                'price' => $product->price,
                 'priceCurrency' => 'VND',
-                'availability' => $product->stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+                'availability' => 'https://schema.org/InStock',
                 'url' => route('products.show', $product->slug)
             ]
         ];
