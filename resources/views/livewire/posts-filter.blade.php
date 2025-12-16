@@ -32,16 +32,16 @@
                     <div class="filter-card rounded-xl p-5">
                         <h3 class="text-base font-semibold text-gray-900 mb-3 font-montserrat">Chuyên mục</h3>
                         <div class="space-y-1.5">
-                            <a href="{{ route('posts.index') }}"
+                            <button wire:click="$set('category', '')"
                                class="filter-btn block w-full text-left px-3 py-2 rounded-lg font-open-sans text-sm {{ !$category ? 'active' : '' }}">
                                 Tất cả chuyên mục
-                            </a>
+                            </button>
                             @foreach($this->categories as $cat)
-                                <a href="{{ route('posts.category', $cat->slug) }}"
+                                <button wire:click="$set('category', {{ $cat->id }})"
                                    class="filter-btn block w-full text-left px-3 py-2 rounded-lg font-open-sans text-sm {{ $category == $cat->id ? 'active' : '' }}">
                                     {{ $cat->name }}
                                     <span class="text-gray-400 text-xs">({{ $cat->posts_count }})</span>
-                                </a>
+                                </button>
                             @endforeach
                         </div>
                     </div>
@@ -79,9 +79,9 @@
                                 <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-blue-100 text-blue-800">
                                     <i class="fas fa-folder mr-1.5"></i>
                                     {{ $selectedCategory->name }}
-                                    <a href="{{ route('posts.index') }}" class="ml-2 hover:text-blue-600">
+                                    <button wire:click="$set('category', '')" class="ml-2 hover:text-blue-600">
                                         <i class="fas fa-times"></i>
-                                    </a>
+                                    </button>
                                 </span>
                             @endif
                         @endif

@@ -32,16 +32,16 @@
                     <div class="filter-card rounded-xl p-5">
                         <h3 class="text-base font-semibold text-gray-900 mb-3 font-montserrat">Danh mục</h3>
                         <div class="space-y-1.5">
-                            <a href="{{ route('products.categories') }}"
+                            <button wire:click="$set('category', '')"
                                class="filter-btn block w-full text-left px-3 py-2 rounded-lg font-open-sans text-sm {{ !$category ? 'active' : '' }}">
                                 Tất cả danh mục
-                            </a>
+                            </button>
                             @foreach($this->categories as $cat)
-                                <a href="{{ route('products.category', $cat->slug) }}"
+                                <button wire:click="$set('category', {{ $cat->id }})"
                                    class="filter-btn block w-full text-left px-3 py-2 rounded-lg font-open-sans text-sm {{ $category == $cat->id ? 'active' : '' }}">
                                     {{ $cat->name }}
                                     <span class="text-gray-400 text-xs">({{ $cat->products_count }})</span>
-                                </a>
+                                </button>
                             @endforeach
                         </div>
                     </div>
