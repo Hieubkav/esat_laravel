@@ -30,7 +30,7 @@
                 @endif
 
                 @if($quote)
-                <div class="mt-6 border-l-4 border-red-600 pl-6 italic">
+                <div class="mt-6 border-l-4 border-primary-600 pl-6 italic">
                     <p class="text-xl font-medium text-gray-800">"{{ $quote }}"</p>
                 </div>
                 @endif
@@ -38,7 +38,7 @@
 
             @if($buttonText && $buttonUrl)
             <div class="pt-4">
-                <a href="{{ $buttonUrl }}" class="inline-flex items-center px-6 py-3 bg-red-700 text-white font-medium rounded-lg hover:bg-red-800 transition-colors group">
+                <a href="{{ $buttonUrl }}" class="inline-flex items-center px-6 py-3 bg-primary-700 text-white font-medium rounded-lg hover:bg-primary-800 transition-colors group">
                     <span>{{ $buttonText }}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -54,15 +54,15 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 @foreach($services as $index => $service)
                     @if($index < 4 && (!empty($service['title']) || !empty($service['desc'])))
-                    <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-red-50 to-red-100 shadow-lg transform hover:scale-[1.02] transition-all duration-500 p-4 sm:p-6 lg:p-8">
+                    <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary-50 to-primary-100 shadow-lg transform hover:scale-[1.02] transition-all duration-500 p-4 sm:p-6 lg:p-8">
                         <div class="flex flex-col items-center text-center h-full">
                             <!-- Icon/Image Container - Responsive sizing -->
                             @if(!empty($service['image']))
-                                <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full overflow-hidden mb-3 sm:mb-4 border-3 sm:border-4 border-red-600 flex-shrink-0">
+                                <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full overflow-hidden mb-3 sm:mb-4 border-3 sm:border-4 border-primary-600 flex-shrink-0">
                                     <img src="{{ asset('storage/' . $service['image']) }}" alt="{{ $service['title'] }}" class="w-full h-full object-cover">
                                 </div>
                             @else
-                                <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-red-600 rounded-full flex items-center justify-center mb-3 sm:mb-4 flex-shrink-0">
+                                <div class="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-primary-600 rounded-full flex items-center justify-center mb-3 sm:mb-4 flex-shrink-0">
                                     @if($index === 0)
                                         <svg class="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
@@ -104,8 +104,8 @@
             </div>
 
             <!-- Decorative background elements - Hidden on mobile for cleaner look -->
-            <div class="hidden sm:block absolute -bottom-10 -right-10 w-40 h-40 bg-red-100 rounded-full opacity-70 -z-10"></div>
-            <div class="hidden sm:block absolute -top-10 -left-10 w-40 h-40 bg-red-100 rounded-full opacity-70 -z-10"></div>
+            <div class="hidden sm:block absolute -bottom-10 -right-10 w-40 h-40 bg-primary-100 rounded-full opacity-70 -z-10"></div>
+            <div class="hidden sm:block absolute -top-10 -left-10 w-40 h-40 bg-primary-100 rounded-full opacity-70 -z-10"></div>
         </div>
     </div>
 </div>

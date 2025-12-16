@@ -50,7 +50,7 @@
     }
 
     .prose a {
-        color: #dc2626;
+        color: var(--color-primary-600, #dc2626);
         text-decoration: none;
         font-weight: 500;
         border-bottom: 1px solid transparent;
@@ -58,7 +58,7 @@
     }
 
     .prose a:hover {
-        border-bottom-color: #dc2626;
+        border-bottom-color: var(--color-primary-600, #dc2626);
     }
 
     .prose img {
@@ -68,8 +68,8 @@
     }
 
     .prose blockquote {
-        border-left: 4px solid #dc2626;
-        background: #fef2f2;
+        border-left: 4px solid var(--color-primary-600, #dc2626);
+        background: var(--color-primary-50, #fef2f2);
         padding: 1.5rem;
         margin: 2rem 0;
         border-radius: 0.5rem;
@@ -85,11 +85,11 @@
         <!-- Breadcrumb -->
         <nav class="mb-6">
             <div class="flex items-center space-x-2 text-sm text-gray-500 font-open-sans">
-                <a href="{{ route('storeFront') }}" class="hover:text-red-600 transition-colors">
+                <a href="{{ route('storeFront') }}" class="hover:text-primary-600 transition-colors">
                     <i class="fas fa-home mr-1"></i>Trang chủ
                 </a>
                 <i class="fas fa-chevron-right text-xs"></i>
-                <a href="{{ route('posts.index') }}" class="hover:text-red-600 transition-colors">Bài viết</a>
+                <a href="{{ route('posts.index') }}" class="hover:text-primary-600 transition-colors">Bài viết</a>
                 <i class="fas fa-chevron-right text-xs"></i>
                 <span class="text-gray-900">{{ Str::limit($post->title, 40) }}</span>
             </div>
@@ -100,7 +100,7 @@
             <!-- Type Badge -->
             <div class="flex items-center gap-3 mb-4">
                 @if($post->categories->count() > 0)
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
                         <i class="fas fa-folder mr-1.5"></i>
                         {{ $post->categories->first()->name }}
                     </span>
@@ -214,7 +214,7 @@
                 <h3 class="text-2xl font-bold text-gray-900 mb-2 font-montserrat">
                     Bài viết liên quan
                 </h3>
-                <div class="w-16 h-0.5 bg-red-600 mx-auto"></div>
+                <div class="w-16 h-0.5 bg-primary-600 mx-auto"></div>
             </div>
 
             <!-- Related Posts Swiper -->
@@ -239,7 +239,7 @@
                                         @endif
 
                                         <div class="p-3 md:p-4">
-                                            <h4 class="font-semibold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-2 mb-2 font-montserrat text-sm md:text-base">
+                                            <h4 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors line-clamp-2 mb-2 font-montserrat text-sm md:text-base">
                                                 {{ $relatedPost->title }}
                                             </h4>
                                             @php
@@ -293,7 +293,7 @@
             <!-- View All Button -->
             <div class="text-center">
                 <a href="{{ route('posts.index') }}"
-                   class="inline-flex items-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-300 font-open-sans">
+                   class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg transition-colors duration-300 font-open-sans">
                     <span>Xem tất cả</span>
                     <i class="fas fa-arrow-right ml-2"></i>
                 </a>

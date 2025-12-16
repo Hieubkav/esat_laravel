@@ -76,7 +76,7 @@
         <div class="mb-8">
             <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Tất cả sản phẩm</h1>
             <div class="flex items-center text-sm text-gray-500">
-                <a href="{{ route('storeFront') }}" class="hover:text-red-700">Trang chủ</a>
+                <a href="{{ route('storeFront') }}" class="hover:text-primary-700">Trang chủ</a>
                 <span class="mx-2">/</span>
                 <span>Sản phẩm</span>
             </div>
@@ -123,7 +123,7 @@
                             <label class="block text-sm font-medium text-gray-700 mb-2">Tìm kiếm</label>
                             <input type="text" name="search" value="{{ request('search') }}"
                                    placeholder="Nhập tên sản phẩm..."
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                         </div>
 
                         <!-- Categories -->
@@ -133,14 +133,14 @@
                                 <label class="flex items-center">
                                     <input type="radio" name="category" value="all"
                                            {{ request('category', 'all') == 'all' ? 'checked' : '' }}
-                                           class="text-red-600 focus:ring-red-500">
+                                           class="text-primary-600 focus:ring-primary-500">
                                     <span class="ml-2 text-sm text-gray-700">Tất cả danh mục</span>
                                 </label>
                                 @foreach($categories as $category)
                                     <label class="flex items-center">
                                         <input type="radio" name="category" value="{{ $category->id }}"
                                                {{ request('category') == $category->id ? 'checked' : '' }}
-                                               class="text-red-600 focus:ring-red-500">
+                                               class="text-primary-600 focus:ring-primary-500">
                                         <span class="ml-2 text-sm text-gray-700">
                                             {{ $category->name }}
                                             <span class="text-gray-400">({{ $category->products_count }})</span>
@@ -157,10 +157,10 @@
                             <div class="grid grid-cols-2 gap-2">
                                 <input type="number" name="min_price" value="{{ request('min_price') }}"
                                        placeholder="Từ {{ number_format($priceRange->min_price) }}"
-                                       class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm">
+                                       class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
                                 <input type="number" name="max_price" value="{{ request('max_price') }}"
                                        placeholder="Đến {{ number_format($priceRange->max_price) }}"
-                                       class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm">
+                                       class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
                             </div>
                         </div>
                         @endif
@@ -172,7 +172,7 @@
                                 <label class="flex items-center">
                                     <input type="checkbox" name="is_hot" value="1"
                                            {{ request('is_hot') ? 'checked' : '' }}
-                                           class="text-red-600 focus:ring-red-500">
+                                           class="text-primary-600 focus:ring-primary-500">
                                     <span class="ml-2 text-sm text-gray-700">Sản phẩm nổi bật</span>
                                 </label>
                             </div>
@@ -180,7 +180,7 @@
 
                         <!-- Filter Buttons -->
                         <div class="flex gap-2">
-                            <button type="submit" class="flex-1 bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition-colors text-sm font-medium">
+                            <button type="submit" class="flex-1 bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors text-sm font-medium">
                                 Áp dụng
                             </button>
                             <a href="{{ route('products.categories') }}" class="flex-1 bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 transition-colors text-sm font-medium text-center">
@@ -204,7 +204,7 @@
                             <div class="flex items-center space-x-4">
                                 <label for="sort" class="text-sm text-gray-600">Sắp xếp:</label>
                                 <select id="sort" name="sort" onchange="updateSort(this.value)"
-                                        class="border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                                        class="border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                                     <option value="default" {{ request('sort') == 'default' ? 'selected' : '' }}>Mặc định</option>
                                     <option value="popular" {{ request('sort') == 'popular' ? 'selected' : '' }}>Phổ biến</option>
                                     <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Mới nhất</option>
@@ -232,12 +232,12 @@
                                                 alt="{{ getProductImageAlt($image, $product->name, $product->seo_title) }}"
                                                 class="w-full h-full object-center object-cover transform transition-transform duration-500 group-hover:scale-110">
                                         @else
-                                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-red-50 to-red-100">
+                                            <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-50 to-primary-100">
                                                 <div class="text-center">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-red-300 mx-auto mb-2" fill="currentColor" viewBox="0 0 24 24">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-primary-300 mx-auto mb-2" fill="currentColor" viewBox="0 0 24 24">
                                                         <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H9L3 7V9H21ZM12 19C10.9 19 10 18.1 10 17C10 15.9 10.9 15 12 15C13.1 15 14 15.9 14 17C14 18.1 13.1 19 12 19ZM12 13C9.8 13 8 14.8 8 17C8 19.2 9.8 21 12 21C14.2 21 16 19.2 16 17C16 14.8 14.2 13 12 13ZM5 11C3.9 11 3 11.9 3 13C3 14.1 3.9 15 5 15C6.1 15 7 14.1 7 13C7 11.9 6.1 11 5 11ZM19 11C17.9 11 17 11.9 17 13C17 14.1 17.9 15 19 15C20.1 15 21 14.1 21 13C21 11.9 20.1 11 19 11Z"/>
                                                     </svg>
-                                                    <p class="text-xs text-red-400 font-medium">Vũ Phúc Baking</p>
+                                                    <p class="text-xs text-primary-400 font-medium">ESAT</p>
                                                 </div>
                                             </div>
                                         @endif
@@ -251,16 +251,16 @@
                                     </div>
                                     <div class="p-4 flex-grow flex flex-col">
                                         @if($product->category)
-                                            <span class="text-xs text-red-500 font-medium uppercase tracking-wide mb-1">{{ $product->category->name }}</span>
+                                            <span class="text-xs text-primary-500 font-medium uppercase tracking-wide mb-1">{{ $product->category->name }}</span>
                                         @endif
-                                        <h3 class="text-sm md:text-base font-semibold text-gray-900 group-hover:text-red-700 transition-colors line-clamp-2 mb-3">{{ $product->name }}</h3>
+                                        <h3 class="text-sm md:text-base font-semibold text-gray-900 group-hover:text-primary-700 transition-colors line-clamp-2 mb-3">{{ $product->name }}</h3>
 
                                         <div class="mt-auto">
                                             <div class="flex items-center justify-between">
                                                 <div>
-                                                    <span class="text-red-600 font-bold text-sm md:text-base">{{ formatPrice($product->price) }}</span>
+                                                    <span class="text-primary-600 font-bold text-sm md:text-base">{{ formatPrice($product->price) }}</span>
                                                 </div>
-                                                <span class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-red-50 to-red-100 px-3 py-1.5 text-xs font-medium text-red-700 group-hover:from-red-100 group-hover:to-red-200 transition-all">
+                                                <span class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-primary-50 to-primary-100 px-3 py-1.5 text-xs font-medium text-primary-700 group-hover:from-primary-100 group-hover:to-primary-200 transition-all">
                                                     Chi tiết
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -285,7 +285,7 @@
                         </svg>
                         <h3 class="text-lg font-medium text-gray-900 mb-2">Không tìm thấy sản phẩm</h3>
                         <p class="text-gray-500 mb-4">Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm</p>
-                        <a href="{{ route('products.categories') }}" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+                        <a href="{{ route('products.categories') }}" class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                             </svg>

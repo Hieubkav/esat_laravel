@@ -30,7 +30,7 @@
                                  fetchpriority="high">
                         </div>
                     @else
-                        <div class="w-full h-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center">
+                        <div class="w-full h-full bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
                             <span class="text-white text-lg font-medium">{{ $slider->title ?? 'ESAT' }}</span>
                         </div>
                     @endif
@@ -46,7 +46,7 @@
                                         <p class="text-white text-sm sm:text-base md:text-lg lg:text-xl mb-3 md:mb-6 max-w-md md:max-w-2xl drop-shadow-md md:drop-shadow-lg leading-relaxed">{{ $slider->description }}</p>
                                     @endif
                                     @if($slider->link)
-                                        <a href="{{ $slider->link }}" class="inline-flex items-center bg-red-600/90 hover:bg-red-700 text-white px-3 py-1.5 md:px-5 md:py-2.5 lg:px-6 lg:py-3 rounded-md md:rounded-lg transition-colors duration-300 shadow-lg md:shadow-xl backdrop-blur-sm border border-red-500/30 text-sm md:text-base lg:text-lg font-medium">
+                                        <a href="{{ $slider->link }}" class="inline-flex items-center bg-primary-600/90 hover:bg-primary-700 text-white px-3 py-1.5 md:px-5 md:py-2.5 lg:px-6 lg:py-3 rounded-md md:rounded-lg transition-colors duration-300 shadow-lg md:shadow-xl backdrop-blur-sm border border-primary-500/30 text-sm md:text-base lg:text-lg font-medium">
                                             <span>Xem chi tiết</span>
                                             <svg class="h-3.5 w-3.5 md:h-4 md:w-4 lg:h-5 lg:w-5 ml-1.5 md:ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -59,7 +59,7 @@
                     @endif
                 </div>
             @empty
-                <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center">
+                <div class="absolute inset-0 w-full h-full bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
                     <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30 z-10"></div>
                     <div class="absolute inset-0 z-20 flex flex-col justify-center items-center text-center p-6 sm:p-8">
                         <h2 class="text-white text-xl sm:text-2xl md:text-3xl lg:text-5xl font-bold mb-2 md:mb-4 drop-shadow-lg md:drop-shadow-2xl">ESAT</h2>
@@ -241,7 +241,7 @@ const HeroSlider = {
 document.addEventListener('DOMContentLoaded', () => { if (document.getElementById('hero-slider')) HeroSlider.init(); });
 </script>
 @else
-<section class="bg-gradient-to-br from-red-500 to-red-700 py-20">
+<section class="bg-gradient-to-br from-primary-500 to-primary-700 py-20">
     <div class="container mx-auto px-4 text-center text-white">
         <h1 class="text-4xl font-bold mb-4">ESAT</h1>
         <p class="text-xl">Chuyên cung cấp thiết bị điện tử chất lượng cao</p>

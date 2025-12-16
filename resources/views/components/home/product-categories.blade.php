@@ -19,7 +19,7 @@
                 </div>
                 @endif
                 <div class="p-4 text-center">
-                    <h3 class="font-semibold text-gray-800 group-hover:text-red-600 transition-colors">{{ $category['name'] }}</h3>
+                    <h3 class="font-semibold text-gray-800 group-hover:text-primary-600 transition-colors">{{ $category['name'] }}</h3>
                 </div>
             </div>
         </a>

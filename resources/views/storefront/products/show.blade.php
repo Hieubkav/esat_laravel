@@ -5,8 +5,8 @@
 <div class="bg-gray-50 py-8">
     <div class="max-w-6xl mx-auto px-4">
         <nav class="text-sm text-gray-500 mb-6">
-            <a href="{{ route('storeFront') }}" class="hover:text-red-600">Trang chủ</a> /
-            <a href="{{ route('products.categories') }}" class="hover:text-red-600">Sản phẩm</a> /
+            <a href="{{ route('storeFront') }}" class="hover:text-primary-600">Trang chủ</a> /
+            <a href="{{ route('products.categories') }}" class="hover:text-primary-600">Sản phẩm</a> /
             {{ $product->name }}
         </nav>
 
@@ -28,7 +28,7 @@
                                         <div class="swiper-slide">
                                             <img src="{{ getProductImageUrlFromImage($image, $product->name) }}"
                                                  alt="{{ $product->name }}"
-                                                 class="aspect-square object-cover rounded-lg cursor-pointer border-2 hover:border-red-500 transition-colors {{ $loop->first ? 'border-red-500 active-thumb' : 'border-gray-200' }}"
+                                                 class="aspect-square object-cover rounded-lg cursor-pointer border-2 hover:border-primary-500 transition-colors {{ $loop->first ? 'border-primary-500 active-thumb' : 'border-gray-200' }}"
                                                  onclick="changeImage(this.src, this)">
                                         </div>
                                     @endforeach
@@ -50,7 +50,7 @@
             <div class="space-y-6">
                 <div class="bg-white rounded-2xl p-6">
                     @if($product->category)
-                        <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">{{ $product->category->name }}</span>
+                        <span class="bg-primary-100 text-primary-700 px-3 py-1 rounded-full text-sm">{{ $product->category->name }}</span>
                     @endif
 
                     <h1 class="text-3xl font-bold mt-3 mb-4">{{ $product->name }}</h1>
@@ -66,9 +66,9 @@
                     @endif
                 </div>
 
-                <div class="bg-red-50 rounded-2xl p-6 border border-red-200">
+                <div class="bg-primary-50 rounded-2xl p-6 border border-primary-200">
                     <div class="flex items-baseline gap-3">
-                        <span class="text-3xl font-bold text-red-700">{{ formatPrice($product->price) }}</span>
+                        <span class="text-3xl font-bold text-primary-700">{{ formatPrice($product->price) }}</span>
                     </div>
                 </div>
 
@@ -103,17 +103,17 @@
                                              alt="{{ $relatedProduct->name }}"
                                              class="w-full h-full object-cover group-hover:scale-105 transition-transform">
                                     @else
-                                        <div class="w-full h-full bg-gradient-to-br from-red-50 to-red-100 flex flex-col items-center justify-center">
+                                        <div class="w-full h-full bg-gradient-to-br from-primary-50 to-primary-100 flex flex-col items-center justify-center">
                                             <div class="text-center">
-                                                <i class="fas fa-birthday-cake text-3xl text-red-300 mb-1"></i>
-                                                <p class="text-xs text-red-400 font-medium">Vũ Phúc Baking</p>
+                                                <i class="fas fa-birthday-cake text-3xl text-primary-300 mb-1"></i>
+                                                <p class="text-xs text-primary-400 font-medium">ESAT</p>
                                             </div>
                                         </div>
                                     @endif
                                 </div>
                                 <div class="p-3">
                                     <h3 class="text-sm font-medium mb-2 line-clamp-2">{{ $relatedProduct->name }}</h3>
-                                    <p class="text-sm font-bold text-red-600">{{ formatPrice($relatedProduct->price) }}</p>
+                                    <p class="text-sm font-bold text-primary-600">{{ formatPrice($relatedProduct->price) }}</p>
                                 </div>
                             </div>
                         </a>
@@ -147,11 +147,11 @@ document.addEventListener('DOMContentLoaded', function() {
 function changeImage(src, btn) {
     document.getElementById('main-image').src = src;
     document.querySelectorAll('.thumbnail-swiper img').forEach(img => {
-        img.classList.remove('border-red-500');
+        img.classList.remove('border-primary-500');
         img.classList.add('border-gray-200');
     });
     btn.classList.remove('border-gray-200');
-    btn.classList.add('border-red-500');
+    btn.classList.add('border-primary-500');
 }
 
 function openPopup() {

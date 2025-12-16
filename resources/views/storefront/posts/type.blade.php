@@ -31,7 +31,7 @@
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
     <!-- Hero Section -->
-    <div class="relative bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white overflow-hidden">
+    <div class="relative bg-gradient-to-r from-primary-600 via-primary-700 to-primary-800 text-white overflow-hidden">
         <div class="absolute inset-0 hero-pattern"></div>
         <div class="relative py-24 md:py-32">
             <div class="container mx-auto px-4">
@@ -107,7 +107,7 @@
     <div class="bg-white/80 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-40">
         <div class="container mx-auto px-4 py-4">
             <nav class="flex items-center space-x-2 text-sm font-open-sans">
-                <a href="{{ route('storeFront') }}" class="flex items-center text-gray-600 hover:text-red-600 transition-colors">
+                <a href="{{ route('storeFront') }}" class="flex items-center text-gray-600 hover:text-primary-600 transition-colors">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                     </svg>
@@ -130,7 +130,7 @@
                     <!-- Search Box -->
                     <div class="mb-10">
                         <div class="flex items-center mb-6">
-                            <svg class="w-6 h-6 text-red-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-6 h-6 text-primary-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
                             <h3 class="text-xl font-bold text-gray-900 font-montserrat">Tìm kiếm</h3>
@@ -141,7 +141,7 @@
                                        name="search"
                                        value="{{ request('search') }}"
                                        placeholder="Tìm kiếm {{ strtolower($typeNames[$type]) }}..."
-                                       class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-red-500 focus:border-red-500 font-open-sans text-gray-700 bg-white/50 backdrop-blur-sm transition-all duration-300">
+                                       class="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 font-open-sans text-gray-700 bg-white/50 backdrop-blur-sm transition-all duration-300">
                                 <svg class="absolute left-4 top-4 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
@@ -166,28 +166,28 @@
                     <!-- Sort Options -->
                     <div class="mb-10">
                         <div class="flex items-center mb-6">
-                            <svg class="w-6 h-6 text-red-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-6 h-6 text-primary-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path>
                             </svg>
                             <h3 class="text-xl font-bold text-gray-900 font-montserrat">Sắp xếp</h3>
                         </div>
                         <div class="space-y-3">
                             <a href="{{ request()->fullUrlWithQuery(['sort' => 'newest']) }}"
-                               class="flex items-center px-4 py-3 rounded-2xl transition-all duration-300 font-open-sans {{ request('sort', 'newest') === 'newest' ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg transform scale-105' : 'text-gray-600 hover:bg-red-50 hover:text-red-600' }}">
+                               class="flex items-center px-4 py-3 rounded-2xl transition-all duration-300 font-open-sans {{ request('sort', 'newest') === 'newest' ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg transform scale-105' : 'text-gray-600 hover:bg-primary-50 hover:text-primary-600' }}">
                                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 Mới nhất
                             </a>
                             <a href="{{ request()->fullUrlWithQuery(['sort' => 'oldest']) }}"
-                               class="flex items-center px-4 py-3 rounded-2xl transition-all duration-300 font-open-sans {{ request('sort') === 'oldest' ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg transform scale-105' : 'text-gray-600 hover:bg-red-50 hover:text-red-600' }}">
+                               class="flex items-center px-4 py-3 rounded-2xl transition-all duration-300 font-open-sans {{ request('sort') === 'oldest' ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg transform scale-105' : 'text-gray-600 hover:bg-primary-50 hover:text-primary-600' }}">
                                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 Cũ nhất
                             </a>
                             <a href="{{ request()->fullUrlWithQuery(['sort' => 'featured']) }}"
-                               class="flex items-center px-4 py-3 rounded-2xl transition-all duration-300 font-open-sans {{ request('sort') === 'featured' ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg transform scale-105' : 'text-gray-600 hover:bg-red-50 hover:text-red-600' }}">
+                               class="flex items-center px-4 py-3 rounded-2xl transition-all duration-300 font-open-sans {{ request('sort') === 'featured' ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg transform scale-105' : 'text-gray-600 hover:bg-primary-50 hover:text-primary-600' }}">
                                 <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                                 </svg>
@@ -210,20 +210,20 @@
                     @if($categories->count() > 0)
                         <div>
                             <div class="flex items-center mb-6">
-                                <svg class="w-6 h-6 text-red-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-6 h-6 text-primary-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
                                 </svg>
                                 <h3 class="text-xl font-bold text-gray-900 font-montserrat">Danh mục</h3>
                             </div>
                             <div class="space-y-3">
                                 <a href="{{ request()->fullUrlWithQuery(['category' => null]) }}"
-                                   class="flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 font-open-sans {{ !request('category') ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg transform scale-105' : 'text-gray-600 hover:bg-red-50 hover:text-red-600' }}">
+                                   class="flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 font-open-sans {{ !request('category') ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg transform scale-105' : 'text-gray-600 hover:bg-primary-50 hover:text-primary-600' }}">
                                     <span>Tất cả</span>
                                     <span class="px-2 py-1 text-xs rounded-full {{ !request('category') ? 'bg-white/20' : 'bg-gray-200' }}">{{ $posts->total() }}</span>
                                 </a>
                                 @foreach($categories as $category)
                                     <a href="{{ request()->fullUrlWithQuery(['category' => $category->slug]) }}"
-                                       class="flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 font-open-sans {{ request('category') === $category->slug ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-lg transform scale-105' : 'text-gray-600 hover:bg-red-50 hover:text-red-600' }}">
+                                       class="flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 font-open-sans {{ request('category') === $category->slug ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg transform scale-105' : 'text-gray-600 hover:bg-primary-50 hover:text-primary-600' }}">
                                         <span>{{ $category->name }}</span>
                                         <span class="px-2 py-1 text-xs rounded-full {{ request('category') === $category->slug ? 'bg-white/20' : 'bg-gray-200' }}">{{ $category->posts_count }}</span>
                                     </a>
@@ -249,7 +249,7 @@
                             </h2>
                             @if(request('search'))
                                 <p class="text-lg text-gray-600 font-open-sans mb-2">
-                                    Từ khóa: <span class="font-semibold text-red-600">"{{ request('search') }}"</span>
+                                    Từ khóa: <span class="font-semibold text-primary-600">"{{ request('search') }}"</span>
                                 </p>
                             @endif
                             <div class="flex items-center text-gray-500 font-open-sans">
@@ -292,22 +292,22 @@
                                                          loading="lazy"></div>
                                             @else
                                                 <!-- Custom placeholder với aspect ratio cố định -->
-                                                <div class="aspect-[16/9] w-full bg-gradient-to-br from-red-50 to-red-100 flex flex-col items-center justify-center relative overflow-hidden">
+                                                <div class="aspect-[16/9] w-full bg-gradient-to-br from-primary-50 to-primary-100 flex flex-col items-center justify-center relative overflow-hidden">
                                                     <!-- Background pattern -->
                                                     <div class="absolute inset-0 opacity-10">
-                                                        <div class="absolute top-4 left-4 w-3 h-3 bg-red-200 rounded-full"></div>
-                                                        <div class="absolute top-8 right-6 w-2 h-2 bg-red-200 rounded-full"></div>
-                                                        <div class="absolute bottom-6 left-8 w-2 h-2 bg-red-200 rounded-full"></div>
-                                                        <div class="absolute bottom-4 right-4 w-3 h-3 bg-red-200 rounded-full"></div>
+                                                        <div class="absolute top-4 left-4 w-3 h-3 bg-primary-200 rounded-full"></div>
+                                                        <div class="absolute top-8 right-6 w-2 h-2 bg-primary-200 rounded-full"></div>
+                                                        <div class="absolute bottom-6 left-8 w-2 h-2 bg-primary-200 rounded-full"></div>
+                                                        <div class="absolute bottom-4 right-4 w-3 h-3 bg-primary-200 rounded-full"></div>
                                                     </div>
 
                                                     <!-- Main icon -->
                                                     <div class="relative z-10 flex flex-col items-center">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-primary-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0A1.5 1.5 0 013 15.546V12a9 9 0 0118 0v3.546z" />
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 16.5V21m0-4.5c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3s-4.5 4.03-4.5 9 2.015 9 4.5 9z" />
                                                         </svg>
-                                                        <span class="text-xs text-red-400 font-medium">{{ Str::limit($post->title, 20) }}</span>
+                                                        <span class="text-xs text-primary-400 font-medium">{{ Str::limit($post->title, 20) }}</span>
                                                     </div>
                                                 </div>
                                             @endif
@@ -325,7 +325,7 @@
                                                 @endif
                                             </div>
 
-                                            <h3 class="font-bold text-gray-900 group-hover:text-red-600 transition-colors line-clamp-2 mb-3 font-montserrat text-xl">
+                                            <h3 class="font-bold text-gray-900 group-hover:text-primary-600 transition-colors line-clamp-2 mb-3 font-montserrat text-xl">
                                                 {{ $post->title }}
                                             </h3>
 
@@ -340,7 +340,7 @@
                                                     </time>
                                                 </div>
 
-                                                <span class="inline-flex items-center text-red-600 font-medium text-sm group-hover:text-red-700 transition-colors">
+                                                <span class="inline-flex items-center text-primary-600 font-medium text-sm group-hover:text-primary-700 transition-colors">
                                                     <span>Xem chi tiết</span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -377,7 +377,7 @@
                             </p>
                             @if(request('search') || request('category'))
                                 <a href="{{ request()->url() }}"
-                                   class="inline-flex items-center mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors">
+                                   class="inline-flex items-center mt-4 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors">
                                     <span>Xem tất cả</span>
                                 </a>
                             @endif

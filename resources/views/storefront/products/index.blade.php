@@ -28,12 +28,12 @@
     }
 
     .filter-btn:hover {
-        background-color: #fef2f2;
-        color: #dc2626;
+        background-color: var(--color-primary-50);
+        color: var(--color-primary-600);
     }
 
     .filter-btn.active {
-        background-color: #dc2626;
+        background-color: var(--color-primary-600);
         color: white;
     }
 

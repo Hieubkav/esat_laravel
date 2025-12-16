@@ -4,6 +4,100 @@
 @tailwind utilities;
 @tailwind variants;
 
+/* Dynamic Primary Color Utilities - Using CSS Variables */
+@layer utilities {
+    /* Background colors */
+    .bg-primary-50 { background-color: var(--color-primary-50); }
+    .bg-primary-100 { background-color: var(--color-primary-100); }
+    .bg-primary-200 { background-color: var(--color-primary-200); }
+    .bg-primary-300 { background-color: var(--color-primary-300); }
+    .bg-primary-400 { background-color: var(--color-primary-400); }
+    .bg-primary-500 { background-color: var(--color-primary-500); }
+    .bg-primary-600 { background-color: var(--color-primary-600); }
+    .bg-primary-700 { background-color: var(--color-primary-700); }
+    .bg-primary-800 { background-color: var(--color-primary-800); }
+    .bg-primary-900 { background-color: var(--color-primary-900); }
+    .hover\:bg-primary-50:hover { background-color: var(--color-primary-50); }
+    .hover\:bg-primary-100:hover { background-color: var(--color-primary-100); }
+    .hover\:bg-primary-600:hover { background-color: var(--color-primary-600); }
+    .hover\:bg-primary-700:hover { background-color: var(--color-primary-700); }
+    .hover\:bg-primary-800:hover { background-color: var(--color-primary-800); }
+    .dark\:bg-primary-900\/20:is(.dark *) { background-color: color-mix(in srgb, var(--color-primary-900) 20%, transparent); }
+    .dark\:hover\:bg-primary-900\/30:is(.dark *):hover { background-color: color-mix(in srgb, var(--color-primary-900) 30%, transparent); }
+
+    /* Text colors */
+    .text-primary-100 { color: var(--color-primary-100); }
+    .text-primary-200 { color: var(--color-primary-200); }
+    .text-primary-300 { color: var(--color-primary-300); }
+    .text-primary-400 { color: var(--color-primary-400); }
+    .text-primary-500 { color: var(--color-primary-500); }
+    .text-primary-600 { color: var(--color-primary-600); }
+    .text-primary-700 { color: var(--color-primary-700); }
+    .text-primary-800 { color: var(--color-primary-800); }
+    .hover\:text-primary-600:hover { color: var(--color-primary-600); }
+    .hover\:text-primary-700:hover { color: var(--color-primary-700); }
+    .hover\:text-primary-800:hover { color: var(--color-primary-800); }
+    .group:hover .group-hover\:text-primary-600 { color: var(--color-primary-600); }
+    .group:hover .group-hover\:text-primary-700 { color: var(--color-primary-700); }
+    .dark\:text-primary-400:is(.dark *) { color: var(--color-primary-400); }
+
+    /* Border colors */
+    .border-primary-100 { border-color: var(--color-primary-100); }
+    .border-primary-200 { border-color: var(--color-primary-200); }
+    .border-primary-300 { border-color: var(--color-primary-300); }
+    .border-primary-500 { border-color: var(--color-primary-500); }
+    .border-primary-600 { border-color: var(--color-primary-600); }
+    .hover\:border-primary-500:hover { border-color: var(--color-primary-500); }
+    .focus\:border-primary-500:focus { border-color: var(--color-primary-500); }
+    .dark\:border-primary-600:is(.dark *) { border-color: var(--color-primary-600); }
+
+    /* Ring colors */
+    .ring-primary-500 { --tw-ring-color: var(--color-primary-500); }
+    .focus\:ring-primary-500:focus { --tw-ring-color: var(--color-primary-500); }
+
+    /* Gradient colors */
+    .from-primary-50 { --tw-gradient-from: var(--color-primary-50); --tw-gradient-to: transparent; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+    .from-primary-100 { --tw-gradient-from: var(--color-primary-100); --tw-gradient-to: transparent; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+    .from-primary-500 { --tw-gradient-from: var(--color-primary-500); --tw-gradient-to: transparent; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+    .from-primary-600 { --tw-gradient-from: var(--color-primary-600); --tw-gradient-to: transparent; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+    .from-primary-700 { --tw-gradient-from: var(--color-primary-700); --tw-gradient-to: transparent; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+    .to-primary-100 { --tw-gradient-to: var(--color-primary-100); }
+    .to-primary-200 { --tw-gradient-to: var(--color-primary-200); }
+    .to-primary-600 { --tw-gradient-to: var(--color-primary-600); }
+    .to-primary-700 { --tw-gradient-to: var(--color-primary-700); }
+    .to-primary-800 { --tw-gradient-to: var(--color-primary-800); }
+    .to-primary-900 { --tw-gradient-to: var(--color-primary-900); }
+    .via-primary-500 { --tw-gradient-via: var(--color-primary-500); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-via), var(--tw-gradient-to); }
+    .via-primary-700 { --tw-gradient-via: var(--color-primary-700); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-via), var(--tw-gradient-to); }
+    .via-primary-800 { --tw-gradient-via: var(--color-primary-800); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-via), var(--tw-gradient-to); }
+
+    /* Hover gradient colors */
+    .hover\:from-primary-100:hover { --tw-gradient-from: var(--color-primary-100); --tw-gradient-to: transparent; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+    .hover\:from-primary-600:hover { --tw-gradient-from: var(--color-primary-600); --tw-gradient-to: transparent; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+    .hover\:from-primary-700:hover { --tw-gradient-from: var(--color-primary-700); --tw-gradient-to: transparent; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+    .hover\:to-primary-200:hover { --tw-gradient-to: var(--color-primary-200); }
+    .hover\:to-primary-700:hover { --tw-gradient-to: var(--color-primary-700); }
+    .hover\:to-primary-800:hover { --tw-gradient-to: var(--color-primary-800); }
+
+    /* Group hover gradient colors */
+    .group:hover .group-hover\:from-primary-100 { --tw-gradient-from: var(--color-primary-100); --tw-gradient-to: transparent; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+    .group:hover .group-hover\:to-primary-200 { --tw-gradient-to: var(--color-primary-200); }
+
+    /* Dark mode text */
+    .dark\:text-primary-300:is(.dark *) { color: var(--color-primary-300); }
+    .dark\:text-primary-600:is(.dark *) { color: var(--color-primary-600); }
+    .dark\:hover\:text-primary-400:is(.dark *):hover { color: var(--color-primary-400); }
+
+    /* Dark mode backgrounds */
+    .dark\:bg-primary-700:is(.dark *) { background-color: var(--color-primary-700); }
+    .dark\:bg-primary-800:is(.dark *) { background-color: var(--color-primary-800); }
+    .dark\:hover\:bg-primary-800:is(.dark *):hover { background-color: var(--color-primary-800); }
+    .dark\:hover\:bg-primary-900:is(.dark *):hover { background-color: var(--color-primary-900); }
+
+    /* Dark mode borders */
+    .dark\:border-primary-700:is(.dark *) { border-color: var(--color-primary-700); }
+}
+
 /* Custom styles for storefront components */
 @layer components {
     /* Subtle background pattern for slogan and hero sections */
@@ -59,11 +153,11 @@
     .related-posts-swiper .swiper-button-prev {
         color: white;
         --swiper-navigation-size: 18px;
-        background: #dc2626;
+        background: var(--color-primary-600, #dc2626);
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        box-shadow: 0 4px 12px color-mix(in srgb, var(--color-primary-600, #dc2626) 30%, transparent);
         opacity: 0;
         transition: all 0.3s ease;
         margin-top: 0;
@@ -73,8 +167,8 @@
 
     .related-posts-swiper .swiper-button-next:hover,
     .related-posts-swiper .swiper-button-prev:hover {
-        background: #b91c1c;
-        box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
+        background: var(--color-primary-700, #b91c1c);
+        box-shadow: 0 6px 16px color-mix(in srgb, var(--color-primary-600, #dc2626) 40%, transparent);
         transform: translateY(-50%) scale(1.05);
     }
 
@@ -105,7 +199,7 @@
     }
 
     .related-posts-swiper .swiper-pagination-bullet-active {
-        background: #dc2626;
+        background: var(--color-primary-600, #dc2626);
         transform: scale(1.2);
     }
 

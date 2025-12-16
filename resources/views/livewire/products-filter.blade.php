@@ -5,7 +5,7 @@
             <button @click="$dispatch('toggle-mobile-filter')"
                     class="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 flex items-center justify-between text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
                 <span class="flex items-center font-medium">
-                    <i class="fas fa-filter mr-2 text-red-500"></i>
+                    <i class="fas fa-filter mr-2 text-primary-500"></i>
                     Bộ lọc & Tìm kiếm
                 </span>
                 <i class="fas fa-chevron-down text-gray-400"></i>
@@ -23,7 +23,7 @@
                             <input type="text"
                                    wire:model.live.debounce.300ms="search"
                                    placeholder="Nhập tên sản phẩm..."
-                                   class="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 font-open-sans text-sm">
+                                   class="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg focus:ring-1 focus:ring-primary-500 focus:border-primary-500 font-open-sans text-sm">
                             <i class="fas fa-search absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
                         </div>
                     </div>
@@ -65,10 +65,10 @@
                 <div class="mb-6">
                     <div class="flex flex-wrap items-center gap-3 mb-4">
                         @if($search)
-                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-red-100 text-red-800">
+                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-primary-100 text-primary-800">
                                 <i class="fas fa-search mr-1.5"></i>
                                 "{{ $search }}"
-                                <button wire:click="$set('search', '')" class="ml-2 hover:text-red-600">
+                                <button wire:click="$set('search', '')" class="ml-2 hover:text-primary-600">
                                     <i class="fas fa-times"></i>
                                 </button>
                             </span>
@@ -101,7 +101,7 @@
                         <div class="flex items-center gap-2">
                             <label class="text-sm text-gray-500 font-open-sans">Sắp xếp:</label>
                             <select wire:model.live="sort"
-                                    class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:ring-1 focus:ring-red-500 focus:border-red-500 bg-white">
+                                    class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:ring-1 focus:ring-primary-500 focus:border-primary-500 bg-white">
                                 @foreach($sortOptions as $sortKey => $sortName)
                                     <option value="{{ $sortKey }}">{{ $sortName }}</option>
                                 @endforeach
@@ -129,10 +129,10 @@
                                                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                                          loading="lazy">
                                                 @else
-                                                    <div class="image-placeholder w-full h-full bg-gradient-to-br from-red-50 to-red-100 flex flex-col items-center justify-center">
+                                                    <div class="image-placeholder w-full h-full bg-gradient-to-br from-primary-50 to-primary-100 flex flex-col items-center justify-center">
                                                         <div class="text-center">
-                                                            <i class="fas fa-box text-4xl text-red-300 mb-2"></i>
-                                                            <p class="text-xs text-red-400 font-medium">ESAT</p>
+                                                            <i class="fas fa-box text-4xl text-primary-300 mb-2"></i>
+                                                            <p class="text-xs text-primary-400 font-medium">ESAT</p>
                                                         </div>
                                                     </div>
                                                 @endif
@@ -147,18 +147,18 @@
 
                                             <!-- Product Info -->
                                             <div class="p-4 flex-grow flex flex-col">
-                                                <span class="text-xs text-red-500 font-medium uppercase tracking-wide mb-1 block h-4">
+                                                <span class="text-xs text-primary-500 font-medium uppercase tracking-wide mb-1 block h-4">
                                                     @if(isset($product->category) && $product->category)
                                                         {{ is_object($product->category) ? $product->category->name : $product->category['name'] }}
                                                     @endif
                                                 </span>
-                                                <h3 class="text-sm md:text-base font-semibold text-gray-900 group-hover:text-red-700 transition-colors line-clamp-2 mb-3 font-montserrat min-h-[2.5rem] md:min-h-[3rem]">
+                                                <h3 class="text-sm md:text-base font-semibold text-gray-900 group-hover:text-primary-700 transition-colors line-clamp-2 mb-3 font-montserrat min-h-[2.5rem] md:min-h-[3rem]">
                                                     {{ $product->name }}
                                                 </h3>
 
                                                 <div class="flex items-center justify-between mt-auto">
-                                                    <span class="text-red-600 font-bold text-sm md:text-base">{{ formatPrice($product->price) }}</span>
-                                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-red-50 to-red-100 text-red-700 group-hover:from-red-100 group-hover:to-red-200 transition-all">
+                                                    <span class="text-primary-600 font-bold text-sm md:text-base">{{ formatPrice($product->price) }}</span>
+                                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-primary-50 to-primary-100 text-primary-700 group-hover:from-primary-100 group-hover:to-primary-200 transition-all">
                                                         <i class="fas fa-arrow-right text-xs"></i>
                                                     </span>
                                                 </div>
@@ -196,7 +196,7 @@
                                 <h3 class="text-xl font-bold text-gray-900 mb-3 font-montserrat">Không tìm thấy sản phẩm</h3>
                                 <p class="text-gray-600 mb-6 font-open-sans">Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm để xem thêm kết quả.</p>
                                 <button wire:click="clearFilters"
-                                       class="inline-flex items-center px-6 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors font-medium font-open-sans">
+                                       class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors font-medium font-open-sans">
                                     <i class="fas fa-redo mr-2"></i>
                                     Xem tất cả sản phẩm
                                 </button>
@@ -208,7 +208,7 @@
                 <!-- Loading State -->
                 <div wire:loading class="text-center py-16">
                     <div class="inline-flex items-center px-6 py-3 bg-white rounded-xl shadow-sm">
-                        <i class="fas fa-spinner fa-spin text-red-500 mr-3"></i>
+                        <i class="fas fa-spinner fa-spin text-primary-500 mr-3"></i>
                         <span class="text-gray-700 font-medium">Đang tải sản phẩm...</span>
                     </div>
                 </div>
@@ -230,12 +230,12 @@
     }
 
     .filter-btn:hover {
-        background-color: #fef2f2;
-        color: #dc2626;
+        background-color: var(--color-primary-50);
+        color: var(--color-primary-600);
     }
 
     .filter-btn.active {
-        background-color: #dc2626;
+        background-color: var(--color-primary-600);
         color: white;
     }
 

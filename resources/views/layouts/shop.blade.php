@@ -10,7 +10,7 @@
     <meta name="description" content="@yield('description', 'ESAT - Chuyên cung cấp thiết bị điện tử chất lượng cao')">
     <meta name="keywords" content="ESAT, thiết bị điện tử, linh kiện điện tử, thiết bị công nghệ">
     <meta name="robots" content="all">
-    <meta name="theme-color" content="#b91c1c">
+    <meta name="theme-color" content="{{ \App\Helpers\ColorHelper::getColor($settings->primary_color ?? 'red', 700) }}">
 
     <!-- Open Graph -->
     <meta property="og:title" content="@yield('title', ($settings && $settings->site_name) ? $settings->site_name : 'ESAT')">
@@ -38,10 +38,61 @@
     <link rel="shortcut icon" href="{{ $favicon }}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{ $favicon }}">
 
-    <!-- Core Styles -->
+    <!-- Dynamic Color Variables -->
+    @php
+        $primaryColor = $settings->primary_color ?? 'red';
+        $palette = \App\Helpers\ColorHelper::getPalette($primaryColor);
+        // Tính hue-rotate từ màu đỏ (0°) sang màu primary
+        $hueMap = [
+            // Tailwind colors
+            'red' => 0, 'rose' => 350, 'pink' => 330, 'fuchsia' => 290,
+            'purple' => 270, 'violet' => 260, 'indigo' => 230, 'blue' => 210,
+            'sky' => 195, 'cyan' => 180, 'teal' => 170, 'emerald' => 160,
+            'green' => 130, 'lime' => 80, 'yellow' => 50, 'amber' => 40,
+            'orange' => 30, 'slate' => 210, 'gray' => 210, 'zinc' => 210,
+            'neutral' => 0, 'stone' => 30,
+            // Custom reds
+            'coral' => 15, 'crimson' => 350, 'maroon' => 0, 'burgundy' => 345, 'wine' => 345,
+            // Custom blues
+            'navy' => 230, 'azure' => 205, 'cerulean' => 195, 'sapphire' => 220, 'steel' => 205,
+            // Custom greens
+            'mint' => 155, 'sage' => 100, 'forest' => 120, 'olive' => 60, 'seafoam' => 150,
+            // Custom teals
+            'turquoise' => 175, 'aqua' => 180,
+            // Custom purples
+            'lavender' => 280, 'orchid' => 300, 'magenta' => 300, 'plum' => 290, 'berry' => 310,
+            // Custom oranges/browns
+            'peach' => 25, 'tangerine' => 25, 'rust' => 15, 'bronze' => 30, 'copper' => 20,
+            'chocolate' => 25, 'coffee' => 25, 'taupe' => 30,
+            // Golds
+            'gold' => 45, 'brass' => 50,
+            // Misc
+            'charcoal' => 200,
+        ];
+        $hueRotate = $hueMap[$primaryColor] ?? 0;
+    @endphp
     <style>
-        /* CSS Variables */
-        :root { --primary: #b91c1c; --primary-dark: #991b1b; }
+        /* CSS Variables - Dynamic from Settings */
+        :root {
+            --color-primary-50: {{ $palette[50] }};
+            --color-primary-100: {{ $palette[100] }};
+            --color-primary-200: {{ $palette[200] }};
+            --color-primary-300: {{ $palette[300] }};
+            --color-primary-400: {{ $palette[400] }};
+            --color-primary-500: {{ $palette[500] }};
+            --color-primary-600: {{ $palette[600] }};
+            --color-primary-700: {{ $palette[700] }};
+            --color-primary-800: {{ $palette[800] }};
+            --color-primary-900: {{ $palette[900] }};
+            --primary: {{ $palette[600] }};
+            --primary-dark: {{ $palette[700] }};
+            --hue-rotate: {{ $hueRotate }}deg;
+        }
+
+        /* Dynamic color filter for red icons */
+        .icon-primary-filter {
+            filter: hue-rotate(var(--hue-rotate)) saturate(1.2);
+        }
 
         /* Base Styles */
         [x-cloak] { display: none !important; }
@@ -104,11 +155,11 @@
             @if($settings && $settings->logo_link)
                 <img src="{{ asset('storage/' . $settings->logo_link) }}" alt="{{ ($settings && $settings->site_name) ? $settings->site_name : config('app.name') }}" class="h-18 w-auto mb-4 animate-pulse" loading="eager">
             @else
-                <div class="h-18 w-18 mb-4 bg-red-600 rounded-lg flex items-center justify-center animate-pulse">
+                <div class="h-18 w-18 mb-4 bg-primary-600 rounded-lg flex items-center justify-center animate-pulse">
                     <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2L3 7v11a1 1 0 001 1h12a1 1 0 001-1V7l-7-5z"/></svg>
                 </div>
             @endif
-            <div class="w-32 h-1 bg-gradient-to-r from-red-700 to-red-500 rounded-full animate-pulse"></div>
+            <div class="w-32 h-1 rounded-full animate-pulse" style="background: linear-gradient(to right, var(--color-primary-700), var(--color-primary-500));"></div>
             <p class="text-sm text-gray-600 mt-2 animate-pulse">{{ ($settings && $settings->site_name) ? $settings->site_name : 'Đang tải...' }}</p>
         </div>
     </div>

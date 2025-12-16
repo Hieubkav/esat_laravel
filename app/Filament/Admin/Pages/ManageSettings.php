@@ -7,6 +7,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
@@ -53,6 +54,102 @@ class ManageSettings extends Page implements HasForms
                         TextInput::make('slogan')
                             ->label('Slogan')
                             ->maxLength(255),
+                        Select::make('primary_color')
+                            ->label('Màu chủ đạo')
+                            ->options([
+                                // === TAILWIND COLORS ===
+                                'Đỏ & Hồng' => [
+                                    'red' => '🔴 Đỏ (Red)',
+                                    'rose' => '🌹 Hồng đậm (Rose)',
+                                    'pink' => '💗 Hồng (Pink)',
+                                ],
+                                'Tím' => [
+                                    'fuchsia' => '💜 Tím hồng (Fuchsia)',
+                                    'purple' => '🟣 Tím (Purple)',
+                                    'violet' => '💟 Tím nhạt (Violet)',
+                                ],
+                                'Xanh dương' => [
+                                    'indigo' => '🔵 Chàm (Indigo)',
+                                    'blue' => '🔵 Xanh dương (Blue)',
+                                    'sky' => '🩵 Xanh da trời (Sky)',
+                                    'cyan' => '🩵 Xanh ngọc (Cyan)',
+                                ],
+                                'Xanh lá' => [
+                                    'teal' => '🌊 Xanh mòng két (Teal)',
+                                    'emerald' => '💚 Xanh ngọc lục (Emerald)',
+                                    'green' => '🟢 Xanh lá (Green)',
+                                    'lime' => '🍀 Xanh chanh (Lime)',
+                                ],
+                                'Vàng & Cam' => [
+                                    'yellow' => '🟡 Vàng (Yellow)',
+                                    'amber' => '🟠 Hổ phách (Amber)',
+                                    'orange' => '🟠 Cam (Orange)',
+                                ],
+                                'Xám' => [
+                                    'slate' => '⚫ Xám xanh (Slate)',
+                                    'gray' => '⚫ Xám (Gray)',
+                                    'zinc' => '⚫ Xám kẽm (Zinc)',
+                                    'neutral' => '⚫ Xám trung tính (Neutral)',
+                                    'stone' => '🪨 Xám đá (Stone)',
+                                ],
+                                // === CUSTOM COLORS ===
+                                'Đỏ tùy chỉnh' => [
+                                    'coral' => '🪸 San hô (Coral)',
+                                    'crimson' => '❤️ Đỏ thẫm (Crimson)',
+                                    'maroon' => '🍷 Nâu đỏ (Maroon)',
+                                    'burgundy' => '🍇 Đỏ rượu (Burgundy)',
+                                    'wine' => '🍷 Rượu vang (Wine)',
+                                ],
+                                'Xanh dương tùy chỉnh' => [
+                                    'navy' => '⚓ Xanh hải quân (Navy)',
+                                    'azure' => '☁️ Xanh azure (Azure)',
+                                    'cerulean' => '🌊 Xanh cerulean (Cerulean)',
+                                    'sapphire' => '💎 Xanh sapphire (Sapphire)',
+                                    'steel' => '🔩 Xanh thép (Steel)',
+                                ],
+                                'Xanh lá tùy chỉnh' => [
+                                    'mint' => '🌿 Xanh bạc hà (Mint)',
+                                    'sage' => '🌿 Xanh xô thơm (Sage)',
+                                    'forest' => '🌲 Xanh rừng (Forest)',
+                                    'olive' => '🫒 Xanh ô liu (Olive)',
+                                    'seafoam' => '🌊 Xanh biển (Seafoam)',
+                                ],
+                                'Xanh ngọc tùy chỉnh' => [
+                                    'turquoise' => '💠 Ngọc lam (Turquoise)',
+                                    'aqua' => '💧 Xanh nước (Aqua)',
+                                ],
+                                'Tím tùy chỉnh' => [
+                                    'lavender' => '💜 Oải hương (Lavender)',
+                                    'orchid' => '🌸 Lan tím (Orchid)',
+                                    'magenta' => '🔮 Hồng tím (Magenta)',
+                                    'plum' => '🟣 Mận (Plum)',
+                                    'berry' => '🫐 Quả mọng (Berry)',
+                                ],
+                                'Cam & Nâu' => [
+                                    'peach' => '🍑 Đào (Peach)',
+                                    'tangerine' => '🍊 Quýt (Tangerine)',
+                                    'rust' => '🧱 Gỉ sắt (Rust)',
+                                    'bronze' => '🥉 Đồng (Bronze)',
+                                    'copper' => '🪙 Đồng đỏ (Copper)',
+                                ],
+                                'Nâu' => [
+                                    'chocolate' => '🍫 Sô cô la (Chocolate)',
+                                    'coffee' => '☕ Cà phê (Coffee)',
+                                    'taupe' => '🤎 Nâu xám (Taupe)',
+                                ],
+                                'Vàng kim loại' => [
+                                    'gold' => '🥇 Vàng (Gold)',
+                                    'brass' => '🔔 Đồng vàng (Brass)',
+                                ],
+                                'Xám đặc biệt' => [
+                                    'charcoal' => '⬛ Than chì (Charcoal)',
+                                ],
+                            ])
+                            ->default('red')
+                            ->native(false)
+                            ->searchable()
+                            ->helperText('Chọn màu chủ đạo cho website (nút, menu, links...)')
+                            ->columnSpanFull(),
                         TextInput::make('hotline')
                             ->label('Hotline')
                             ->required()

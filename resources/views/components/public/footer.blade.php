@@ -3,7 +3,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             <!-- Cột 1: Giới thiệu & Liên hệ -->
             <div class="flex flex-col justify-start">
-                <h3 class="text-lg font-semibold text-red-700 mb-4">CÔNG TY TNHH ESAT</h3>
+                <h3 class="text-lg font-semibold text-primary-700 mb-4">CÔNG TY TNHH ESAT</h3>
                 <div class="space-y-2 text-gray-600 text-sm">
                     <p>Chuyên cung cấp thiết bị điện tử chất lượng cao</p>
                     <p class="flex items-center">
@@ -23,7 +23,7 @@
 
             <!-- Cột 2: Chính sách & Liên kết -->
             <div class="flex flex-col justify-start">
-                <h3 class="text-lg font-semibold text-red-700 mb-4">Chính sách</h3>
+                <h3 class="text-lg font-semibold text-primary-700 mb-4">Chính sách</h3>
                 <ul class="space-y-2 text-gray-600 text-sm">
                     @php
                         $policies = webDesignContent('footer', 'policies', [
@@ -33,7 +33,7 @@
                         ]);
                     @endphp
                     @foreach($policies as $policy)
-                        <li><a href="{{ $policy['url'] ?? '#' }}" class="hover:text-red-700 transition-colors">{{ $policy['title'] ?? '' }}</a></li>
+                        <li><a href="{{ $policy['url'] ?? '#' }}" class="hover:text-primary-700 transition-colors">{{ $policy['title'] ?? '' }}</a></li>
                     @endforeach
                 </ul>
 
@@ -59,18 +59,18 @@
 
                 @if(!empty($socialLinks))
                     <div class="mt-6">
-                        <h4 class="text-md font-medium text-red-700 mb-3">Kết nối với chúng tôi</h4>
+                        <h4 class="text-md font-medium text-primary-700 mb-3">Kết nối với chúng tôi</h4>
                         <div class="flex items-center gap-3">
                             @foreach($socialLinks as $social)
                                 <a href="{{ $social['href'] }}" target="_blank" rel="noopener noreferrer"
                                    class="hover:opacity-80 transition-all duration-300 transform hover:scale-110"
                                    aria-label="{{ $social['label'] }}">
                                     @if($social['type'] === 'youtube')
-                                        <img src="{{ asset('images/youtube_icon.webp') }}" alt="{{ $social['label'] }}" class="h-6 w-6">
+                                        <img src="{{ asset('images/youtube_icon.webp') }}" alt="{{ $social['label'] }}" class="h-6 w-6 icon-primary-filter">
                                     @elseif($social['type'] === 'tiktok')
-                                        <img src="{{ asset('images/tiktok_icon.webp') }}" alt="{{ $social['label'] }}" class="h-6 w-6">
+                                        <img src="{{ asset('images/tiktok_icon.webp') }}" alt="{{ $social['label'] }}" class="h-6 w-6 icon-primary-filter">
                                     @else
-                                        <img src="{{ asset('images/icon_' . $social['type'] . '.webp') }}" alt="{{ $social['label'] }}" class="h-6 w-6">
+                                        <img src="{{ asset('images/icon_' . $social['type'] . '.webp') }}" alt="{{ $social['label'] }}" class="h-6 w-6 icon-primary-filter">
                                     @endif
                                 </a>
                             @endforeach
@@ -81,7 +81,7 @@
 
             <!-- Cột 3: Hiệp hội – Chứng nhận -->
             <div class="flex flex-col justify-start">
-                <h3 class="text-lg font-semibold text-red-700 mb-4">Hiệp hội – Chứng nhận</h3>
+                <h3 class="text-lg font-semibold text-primary-700 mb-4">Hiệp hội – Chứng nhận</h3>
 
                 <!-- Logo Bộ Công Thương -->
                 <div class="mb-6">
@@ -126,7 +126,7 @@
     </div>
 
     <!-- Copyright -->
-    <div class="bg-red-700 py-4 text-white">
+    <div class="bg-primary-700 py-4 text-white">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <p class="text-sm">

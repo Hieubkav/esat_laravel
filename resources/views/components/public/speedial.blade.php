@@ -18,14 +18,14 @@
 @endphp
 
 <!-- Nút cuộn lên trên -->
-<button id="scroll-to-top" class="fixed bottom-80 right-6 z-30 bg-red-600 text-white rounded-full w-12 h-12 shadow-lg flex items-center justify-center hover:bg-red-700 focus:outline-none transition-all opacity-0 invisible" aria-label="Cuộn lên trên">
+<button id="scroll-to-top" class="fixed bottom-80 right-6 z-30 bg-primary-600 text-white rounded-full w-12 h-12 shadow-lg flex items-center justify-center hover:bg-primary-700 focus:outline-none transition-all opacity-0 invisible" aria-label="Cuộn lên trên">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
     </svg>
 </button>
 
 <!-- Nút cuộn xuống -->
-<button id="scroll-to-bottom" class="fixed bottom-80 right-6 z-30 bg-red-600 text-white rounded-full w-12 h-12 shadow-lg flex items-center justify-center hover:bg-red-700 focus:outline-none transition-all opacity-0 invisible" aria-label="Cuộn xuống dưới">
+<button id="scroll-to-bottom" class="fixed bottom-80 right-6 z-30 bg-primary-600 text-white rounded-full w-12 h-12 shadow-lg flex items-center justify-center hover:bg-primary-700 focus:outline-none transition-all opacity-0 invisible" aria-label="Cuộn xuống dưới">
     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V4" />
     </svg>
@@ -40,7 +40,7 @@
         @if(!empty($phone))
         <a href="tel:{{ $phone }}" class="speedial-btn group flex items-center rounded-full w-14 h-14 transition-all duration-300 hover:scale-105" aria-label="Gọi điện">
             <div class="flex items-center justify-center w-full">
-                <img src="{{ asset('images/icon_phone.webp') }}" alt="Phone" class="h-12 w-12">
+                <img src="{{ asset('images/icon_phone.webp') }}" alt="Phone" class="h-12 w-12 icon-primary-filter">
             </div>
             <!-- Tooltip -->
             <span class="absolute right-16 bg-gray-800 text-white text-sm px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
@@ -53,7 +53,7 @@
         @if(!empty($messenger) && isset($messenger))
         <a href="{{ $messenger }}" target="_blank" class="speedial-btn group flex items-center rounded-full w-14 h-14 transition-all duration-300 hover:scale-105" aria-label="Messenger">
             <div class="flex items-center justify-center w-full">
-                <img src="{{ asset('images/icon_messenger.webp') }}" alt="Messenger" class="h-12 w-12">
+                <img src="{{ asset('images/icon_messenger.webp') }}" alt="Messenger" class="h-12 w-12 icon-primary-filter">
             </div>
             <!-- Tooltip -->
             <span class="absolute right-16 bg-gray-800 text-white text-sm px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
@@ -66,7 +66,7 @@
         @if(!empty($zalo) && isset($zalo))
         <a href="{{ $zalo }}" target="_blank" class="speedial-btn group flex items-center rounded-full w-14 h-14 transition-all duration-300 hover:scale-105" aria-label="Zalo">
             <div class="flex items-center justify-center w-full">
-                <img src="{{ asset('images/icon_zalo.webp') }}" alt="Zalo" class="h-12 w-12">
+                <img src="{{ asset('images/icon_zalo.webp') }}" alt="Zalo" class="h-12 w-12 icon-primary-filter">
             </div>
             <!-- Tooltip -->
             <span class="absolute right-16 bg-gray-800 text-white text-sm px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
@@ -154,12 +154,12 @@
     /* Scroll buttons */
     #scroll-to-top, #scroll-to-bottom {
         transition: all 0.3s ease;
-        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+        box-shadow: 0 4px 12px color-mix(in srgb, var(--color-primary-600, #dc2626) 20%, transparent);
         backdrop-filter: blur(10px);
         z-index: 35; /* Thấp hơn speedial để không đè lên */
     }
     #scroll-to-top:hover, #scroll-to-bottom:hover {
-        box-shadow: 0 6px 16px rgba(220, 38, 38, 0.3);
+        box-shadow: 0 6px 16px color-mix(in srgb, var(--color-primary-600, #dc2626) 30%, transparent);
         transform: translateY(-2px);
     }
     #scroll-to-top.visible, #scroll-to-bottom.visible {

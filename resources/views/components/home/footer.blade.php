@@ -55,7 +55,7 @@
 
 {{-- CTA Section --}}
 @if($ctaTitle)
-<section class="bg-gradient-to-r from-red-600 to-red-700 py-12 md:py-16">
+<section class="bg-gradient-to-r from-primary-600 to-primary-700 py-12 md:py-16">
     <div class="container mx-auto px-4">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="text-center md:text-left">
@@ -65,7 +65,7 @@
                 <h2 class="text-2xl md:text-4xl font-bold text-white italic">{{ $ctaTitle }}</h2>
             </div>
             @if($ctaButtonText && $ctaButtonUrl)
-            <a href="{{ $ctaButtonUrl }}" class="px-8 py-3 bg-white text-red-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors">
+            <a href="{{ $ctaButtonUrl }}" class="px-8 py-3 bg-white text-primary-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors">
                 {{ $ctaButtonText }}
             </a>
             @endif
@@ -79,7 +79,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             {{-- Column 1 - Company Info --}}
             <div class="flex flex-col justify-start">
-                <h3 class="text-lg font-semibold text-red-700 mb-4">{{ $companyName }}</h3>
+                <h3 class="text-lg font-semibold text-primary-700 mb-4">{{ $companyName }}</h3>
                 <div class="space-y-2 text-gray-600 text-sm">
                     @if($companyDesc)
                     <p>{{ $companyDesc }}</p>
@@ -107,11 +107,11 @@
 
             {{-- Column 2 - Policies & Social --}}
             <div class="flex flex-col justify-start">
-                <h3 class="text-lg font-semibold text-red-700 mb-4">{{ $policyTitle }}</h3>
+                <h3 class="text-lg font-semibold text-primary-700 mb-4">{{ $policyTitle }}</h3>
                 <ul class="space-y-2 text-gray-600 text-sm">
                     @foreach($policies as $policy)
                     <li>
-                        <a href="{{ $policy['link'] }}" class="hover:text-red-700 transition-colors">{{ $policy['label'] }}</a>
+                        <a href="{{ $policy['link'] }}" class="hover:text-primary-700 transition-colors">{{ $policy['label'] }}</a>
                     </li>
                     @endforeach
                 </ul>
@@ -122,41 +122,41 @@
                 @endphp
                 @if($hasSocials)
                 <div class="mt-6">
-                    <h4 class="text-md font-medium text-red-700 mb-3">{{ $socialTitle }}</h4>
+                    <h4 class="text-md font-medium text-primary-700 mb-3">{{ $socialTitle }}</h4>
                     <div class="flex items-center gap-3">
                         @if($socials['facebook'])
                         <a href="{{ $socials['facebook'] }}" target="_blank" rel="noopener noreferrer"
                            class="hover:opacity-80 transition-all duration-300 transform hover:scale-110"
                            aria-label="Facebook">
-                            <img src="{{ asset('images/icon_facebook.webp') }}" alt="Facebook" class="h-6 w-6">
+                            <img src="{{ asset('images/icon_facebook.webp') }}" alt="Facebook" class="h-6 w-6 icon-primary-filter">
                         </a>
                         @endif
                         @if($socials['zalo'])
                         <a href="{{ $socials['zalo'] }}" target="_blank" rel="noopener noreferrer"
                            class="hover:opacity-80 transition-all duration-300 transform hover:scale-110"
                            aria-label="Zalo">
-                            <img src="{{ asset('images/icon_zalo.webp') }}" alt="Zalo" class="h-6 w-6">
+                            <img src="{{ asset('images/icon_zalo.webp') }}" alt="Zalo" class="h-6 w-6 icon-primary-filter">
                         </a>
                         @endif
                         @if($socials['youtube'])
                         <a href="{{ $socials['youtube'] }}" target="_blank" rel="noopener noreferrer"
                            class="hover:opacity-80 transition-all duration-300 transform hover:scale-110"
                            aria-label="Youtube">
-                            <img src="{{ asset('images/youtube_icon.webp') }}" alt="Youtube" class="h-6 w-6">
+                            <img src="{{ asset('images/youtube_icon.webp') }}" alt="Youtube" class="h-6 w-6 icon-primary-filter">
                         </a>
                         @endif
                         @if($socials['tiktok'])
                         <a href="{{ $socials['tiktok'] }}" target="_blank" rel="noopener noreferrer"
                            class="hover:opacity-80 transition-all duration-300 transform hover:scale-110"
                            aria-label="Tiktok">
-                            <img src="{{ asset('images/tiktok_icon.webp') }}" alt="Tiktok" class="h-6 w-6">
+                            <img src="{{ asset('images/tiktok_icon.webp') }}" alt="Tiktok" class="h-6 w-6 icon-primary-filter">
                         </a>
                         @endif
                         @if($socials['messenger'])
                         <a href="{{ $socials['messenger'] }}" target="_blank" rel="noopener noreferrer"
                            class="hover:opacity-80 transition-all duration-300 transform hover:scale-110"
                            aria-label="Messenger">
-                            <img src="{{ asset('images/icon_messenger.webp') }}" alt="Messenger" class="h-6 w-6">
+                            <img src="{{ asset('images/icon_messenger.webp') }}" alt="Messenger" class="h-6 w-6 icon-primary-filter">
                         </a>
                         @endif
                     </div>
@@ -166,7 +166,7 @@
 
             {{-- Column 3 - Certifications --}}
             <div class="flex flex-col justify-start">
-                <h3 class="text-lg font-semibold text-red-700 mb-4">{{ $certTitle }}</h3>
+                <h3 class="text-lg font-semibold text-primary-700 mb-4">{{ $certTitle }}</h3>
 
                 {{-- Logo Bộ Công Thương --}}
                 @if($bctLogo || $bctText)
@@ -214,7 +214,7 @@
     </div>
 
     {{-- Copyright --}}
-    <div class="bg-red-700 py-4 text-white">
+    <div class="bg-primary-700 py-4 text-white">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <p class="text-sm">{{ $copyright }}</p>

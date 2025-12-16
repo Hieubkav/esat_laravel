@@ -59,11 +59,11 @@
 
             <div class="flex mb-6 bg-gray-100 rounded-lg p-1">
                 <button x-on:click="switchTab('login')" id="loginTab"
-                        x-bind:class="activeTab === 'login' ? 'flex-1 py-2 px-3 text-sm font-medium rounded-md bg-white text-red-600 shadow-sm' : 'flex-1 py-2 px-3 text-sm font-medium rounded-md text-gray-500'">
+                        x-bind:class="activeTab === 'login' ? 'flex-1 py-2 px-3 text-sm font-medium rounded-md bg-white text-primary-600 shadow-sm' : 'flex-1 py-2 px-3 text-sm font-medium rounded-md text-gray-500'">
                     Đăng nhập
                 </button>
                 <button x-on:click="switchTab('register')" id="registerTab"
-                        x-bind:class="activeTab === 'register' ? 'flex-1 py-2 px-3 text-sm font-medium rounded-md bg-white text-red-600 shadow-sm' : 'flex-1 py-2 px-3 text-sm font-medium rounded-md text-gray-500'">
+                        x-bind:class="activeTab === 'register' ? 'flex-1 py-2 px-3 text-sm font-medium rounded-md bg-white text-primary-600 shadow-sm' : 'flex-1 py-2 px-3 text-sm font-medium rounded-md text-gray-500'">
                     Đăng ký
                 </button>
                 <button x-on:click="switchTab('createPassword')" id="createPasswordTab"
@@ -80,7 +80,7 @@
                     <!-- Display login errors -->
                     @if (session('modal_login_error') && $errors->has('login'))
                         <div class="bg-red-50 border border-red-200 rounded-lg p-3">
-                            <div class="text-sm text-red-600">
+                            <div class="text-sm text-primary-600">
                                 {{ $errors->first('login') }}
                             </div>
                         </div>
@@ -89,10 +89,10 @@
                     <div>
                         <div class="relative">
                             <input type="tel" name="login" id="login-phone" required value="{{ old('login') }}"
-                                   class="w-full px-3 py-2 pr-10 border rounded-lg focus:outline-none focus:border-red-500 @error('login') border-red-500 @else border-gray-200 @enderror"
+                                   class="w-full px-3 py-2 pr-10 border rounded-lg focus:outline-none focus:border-primary-500 @error('login') border-red-500 @else border-gray-200 @enderror"
                                    placeholder="Số điện thoại (8-12 chữ số)">
                             <button type="button" id="clear-phone-btn"
-                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-red-500 focus:outline-none hidden">
+                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary-500 focus:outline-none hidden">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                 </svg>
@@ -105,11 +105,11 @@
                     <div>
                         <div class="relative">
                             <input type="password" name="password" id="login-password" required
-                                   class="w-full px-3 py-2 pr-20 border rounded-lg focus:outline-none focus:border-red-500 @error('password') border-red-500 @else border-gray-200 @enderror"
+                                   class="w-full px-3 py-2 pr-20 border rounded-lg focus:outline-none focus:border-primary-500 @error('password') border-red-500 @else border-gray-200 @enderror"
                                    placeholder="Mật khẩu">
                             <div class="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center space-x-2">
                                 <button type="button" id="clear-password-btn"
-                                        class="text-gray-400 hover:text-red-500 focus:outline-none hidden">
+                                        class="text-gray-400 hover:text-primary-500 focus:outline-none hidden">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                     </svg>
@@ -131,7 +131,7 @@
                         @enderror
                     </div>
                     <button type="submit"
-                            class="w-full bg-red-600 text-white py-2 font-medium rounded-lg hover:bg-red-700">
+                            class="w-full bg-primary-600 text-white py-2 font-medium rounded-lg hover:bg-primary-700">
                         Đăng nhập
                     </button>
 
@@ -147,8 +147,8 @@
                 <div class="mb-8">
                     <div class="flex items-center justify-center space-x-6">
                         <div class="flex items-center">
-                            <div id="step1-indicator" class="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center text-base font-medium">1</div>
-                            <span id="step1-label" class="ml-3 text-base font-medium text-red-600">Số điện thoại</span>
+                            <div id="step1-indicator" class="w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center text-base font-medium">1</div>
+                            <span id="step1-label" class="ml-3 text-base font-medium text-primary-600">Số điện thoại</span>
                         </div>
                         <div class="w-12 h-0.5 bg-gray-200" id="step-connector"></div>
                         <div class="flex items-center">
@@ -168,13 +168,13 @@
                     <div class="space-y-6">
                         <div>
                             <input type="tel" id="step1-phone" required x-model="step1Phone" x-on:input="step1Phone = $event.target.value.replace(/[^0-9]/g, ''); $event.target.value = step1Phone"
-                                   class="w-full px-5 py-4 border rounded-lg focus:outline-none focus:border-red-500 border-gray-200 text-center text-lg"
+                                   class="w-full px-5 py-4 border rounded-lg focus:outline-none focus:border-primary-500 border-gray-200 text-center text-lg"
                                    placeholder="Nhập số điện thoại của bạn">
                             <div id="step1-phone-message" class="text-sm mt-3 hidden"></div>
                         </div>
 
                         <button type="button" id="step1-continue" x-bind:disabled="(step1Phone || '').replace(/[^0-9]/g, '').length < 10"
-                                class="w-full bg-red-600 text-white py-4 font-semibold text-lg rounded-lg hover:bg-red-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                                class="w-full bg-primary-600 text-white py-4 font-semibold text-lg rounded-lg hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
                                 disabled>
                             <span class="continue-text">Tiếp tục</span>
                             <span class="continue-loading hidden">
@@ -215,7 +215,7 @@
                         <!-- Display validation errors -->
                         @if (session('modal_register_error') && $errors->any())
                             <div class="bg-red-50 border border-red-200 rounded-lg p-3">
-                                <div class="text-sm text-red-600">
+                                <div class="text-sm text-primary-600">
                                     @foreach ($errors->all() as $error)
                                         <div>{{ $error }}</div>
                                     @endforeach
@@ -267,7 +267,7 @@
                                             Họ và tên <span class="text-red-500">*</span>
                                         </label>
                                         <input type="text" name="name" id="register-name" required value="{{ old('name', '') }}"
-                                               class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-500 @error('name') border-red-500 @else border-gray-200 @enderror text-base"
+                                               class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-primary-500 @error('name') border-red-500 @else border-gray-200 @enderror text-base"
                                                placeholder="Nhập họ và tên đầy đủ">
                                         @error('name')
                                             <div class="text-sm text-red-500 mt-2">{{ $message }}</div>
@@ -278,7 +278,7 @@
                                             Email
                                         </label>
                                         <input type="email" name="email" id="register-email" value="{{ old('email', '') }}"
-                                               class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-500 @error('email') border-red-500 @else border-gray-200 @enderror text-base"
+                                               class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-primary-500 @error('email') border-red-500 @else border-gray-200 @enderror text-base"
                                                placeholder="example@email.com">
                                         @error('email')
                                             <div class="text-sm text-red-500 mt-2">{{ $message }}</div>
@@ -293,7 +293,7 @@
                                             Giới tính
                                         </label>
                                         <select name="gender" id="register-gender"
-                                                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-500 @error('gender') border-red-500 @else border-gray-200 @enderror text-base">
+                                                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-primary-500 @error('gender') border-red-500 @else border-gray-200 @enderror text-base">
                                             <option value="" {{ old('gender', '') == '' ? 'selected' : '' }}>Chọn giới tính</option>
                                             <option value="0" {{ old('gender') == '0' ? 'selected' : '' }}>Nam</option>
                                             <option value="1" {{ old('gender') == '1' ? 'selected' : '' }}>Nữ</option>
@@ -307,7 +307,7 @@
                                             Số CMND/CCCD
                                         </label>
                                         <input type="text" name="identify_number" id="register-identify-number" value="{{ old('identify_number', '') }}"
-                                               class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-500 @error('identify_number') border-red-500 @else border-gray-200 @enderror text-base"
+                                               class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-primary-500 @error('identify_number') border-red-500 @else border-gray-200 @enderror text-base"
                                                placeholder="Nhập số CMND hoặc CCCD">
                                         @error('identify_number')
                                             <div class="text-sm text-red-500 mt-2">{{ $message }}</div>
@@ -320,7 +320,7 @@
                                         Địa chỉ
                                     </label>
                                     <input type="text" name="address" id="register-address" value="{{ old('address', '') }}"
-                                           class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-500 @error('address') border-red-500 @else border-gray-200 @enderror text-base"
+                                           class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-primary-500 @error('address') border-red-500 @else border-gray-200 @enderror text-base"
                                            placeholder="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành phố">
                                     @error('address')
                                         <div class="text-sm text-red-500 mt-2">{{ $message }}</div>
@@ -339,7 +339,7 @@
                                             Mật khẩu <span class="text-red-500">*</span>
                                         </label>
                                         <input type="password" name="password" id="register-password" required
-                                               class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-500 @error('password') border-red-500 @else border-gray-200 @enderror text-base"
+                                               class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-primary-500 @error('password') border-red-500 @else border-gray-200 @enderror text-base"
                                                placeholder="Tối thiểu 8 ký tự">
                                         @error('password')
                                             <div class="text-sm text-red-500 mt-2">{{ $message }}</div>
@@ -350,7 +350,7 @@
                                             Xác nhận mật khẩu <span class="text-red-500">*</span>
                                         </label>
                                         <input type="password" name="password_confirmation" id="register-password-confirmation" required
-                                               class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-red-500 @error('password_confirmation') border-red-500 @else border-gray-200 @enderror text-base"
+                                               class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-primary-500 @error('password_confirmation') border-red-500 @else border-gray-200 @enderror text-base"
                                                placeholder="Nhập lại mật khẩu">
                                         @error('password_confirmation')
                                             <div class="text-sm text-red-500 mt-2">{{ $message }}</div>
@@ -360,7 +360,7 @@
                             </div>
 
                             <button type="submit"
-                                    class="w-full bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-200 font-medium text-lg">
+                                    class="w-full bg-primary-600 text-white py-3 px-6 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition duration-200 font-medium text-lg">
                                 Đăng ký tài khoản
                             </button>
 
@@ -400,14 +400,14 @@
                     <form id="verificationForm" class="space-y-4">
                         <div>
                             <input type="text" id="verifyName" required
-                                   class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-red-500"
+                                   class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary-500"
                                    placeholder="Họ và tên đầy đủ *">
                             <div class="text-xs text-red-500 mt-1 hidden" id="verifyNameError"></div>
                         </div>
 
                         <div>
                             <input type="email" id="verifyEmail"
-                                   class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-red-500"
+                                   class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary-500"
                                    placeholder="Email (nếu có)">
                             <div class="text-xs text-red-500 mt-1 hidden" id="verifyEmailError"></div>
                         </div>
@@ -442,20 +442,20 @@
                         @csrf
                         <div>
                             <input type="password" name="password" id="newPassword" required
-                                   class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-red-500"
+                                   class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary-500"
                                    placeholder="Mật khẩu mới (tối thiểu 6 ký tự) *">
                             <div class="text-xs text-red-500 mt-1 hidden" id="newPasswordError"></div>
                         </div>
 
                         <div>
                             <input type="password" name="password_confirmation" id="confirmPassword" required
-                                   class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-red-500"
+                                   class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary-500"
                                    placeholder="Xác nhận mật khẩu *">
                             <div class="text-xs text-red-500 mt-1 hidden" id="confirmPasswordError"></div>
                         </div>
 
                         <button type="submit" id="createPasswordButton"
-                                class="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                class="w-full bg-primary-600 text-white py-2 rounded-lg hover:bg-primary-700 transition-colors">
                             <span class="create-text">Tạo mật khẩu và đăng nhập</span>
                             <span class="create-loading hidden">
                                 <svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -1029,7 +1029,7 @@ function showRegistrationError(message) {
             <svg class="w-4 h-4 text-red-500 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
             </svg>
-            <div class="text-sm text-red-600 flex-1">
+            <div class="text-sm text-primary-600 flex-1">
                 ${displayMessage}
             </div>
         </div>
@@ -1376,7 +1376,7 @@ function showPhoneCheckMessage(message, type = 'info') {
     const colors = {
         success: 'text-green-600',
         warning: 'text-yellow-600',
-        error: 'text-red-600',
+        error: 'text-primary-600',
         info: 'text-blue-600'
     };
 
@@ -1494,8 +1494,8 @@ function goToStep(step) {
         step2Container.classList.add('hidden');
 
         // Update indicators
-        step1Indicator.className = 'w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center text-base font-medium';
-        step1Label.className = 'ml-3 text-base font-medium text-red-600';
+        step1Indicator.className = 'w-10 h-10 rounded-full bg-primary-600 text-white flex items-center justify-center text-base font-medium';
+        step1Label.className = 'ml-3 text-base font-medium text-primary-600';
         step2Indicator.className = 'w-10 h-10 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center text-base font-medium';
         step2Label.className = 'ml-3 text-base text-gray-500';
         stepConnector.className = 'w-12 h-0.5 bg-gray-200';
@@ -1509,8 +1509,8 @@ function goToStep(step) {
         // Update indicators
         step1Indicator.className = 'w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium';
         step1Label.className = 'ml-2 text-sm font-medium text-green-600';
-        step2Indicator.className = 'w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center text-sm font-medium';
-        step2Label.className = 'ml-2 text-sm font-medium text-red-600';
+        step2Indicator.className = 'w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center text-sm font-medium';
+        step2Label.className = 'ml-2 text-sm font-medium text-primary-600';
         stepConnector.className = 'w-8 h-0.5 bg-green-500';
 
         currentStep = 2;
@@ -1684,7 +1684,7 @@ function clearStep1PhoneMessage() {
 function showStep1Error(message) {
     const messageDiv = document.getElementById('step1-phone-message');
     if (messageDiv) {
-        messageDiv.className = 'text-xs mt-2 text-red-600';
+        messageDiv.className = 'text-xs mt-2 text-primary-600';
         messageDiv.textContent = '❌ ' + message;
         messageDiv.classList.remove('hidden');
     }

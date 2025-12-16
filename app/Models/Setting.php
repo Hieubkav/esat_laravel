@@ -29,6 +29,7 @@ class Setting extends Model
         'messenger_link',
         'working_hours',
         'footer_description',
+        'primary_color',
         'order',
         'status',
     ];
