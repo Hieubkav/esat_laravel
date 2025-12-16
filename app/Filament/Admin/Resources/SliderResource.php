@@ -34,6 +34,11 @@ class SliderResource extends Resource
 
     protected static ?string $navigationLabel = 'Ảnh cuộn';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
     protected static ?string $modelLabel = 'slider banner';
 
     protected static ?string $pluralModelLabel = 'slider banner';

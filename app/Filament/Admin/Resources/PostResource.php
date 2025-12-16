@@ -46,11 +46,11 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
-    protected static ?string $navigationGroup = NavigationGroups::CONTENT_MANAGEMENT;
+    protected static ?string $navigationGroup = null;
 
     protected static ?string $navigationLabel = 'Bài viết';
 
-    protected static ?int $navigationSort = 30;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {

@@ -50,27 +50,29 @@ class ManageSettings extends Page implements HasForms
                             ->label('Tên website')
                             ->required()
                             ->maxLength(255),
-                        TextInput::make('email')
-                            ->label('Email')
-                            ->email()
-                            ->required()
+                        TextInput::make('slogan')
+                            ->label('Slogan')
                             ->maxLength(255),
                         TextInput::make('hotline')
                             ->label('Hotline')
                             ->required()
                             ->tel()
                             ->maxLength(20),
-                        TextInput::make('slogan')
-                            ->label('Slogan')
+                        TextInput::make('email')
+                            ->label('Email')
+                            ->email()
+                            ->required()
                             ->maxLength(255),
-                    ])
-                    ->columns(2),
-
-                Section::make('Logo và Favicon')
-                    ->schema([
+                        Textarea::make('address')
+                            ->label('Địa chỉ')
+                            ->rows(2)
+                            ->maxLength(500),
+                        TextInput::make('working_hours')
+                            ->label('Giờ làm việc')
+                            ->maxLength(255),
                         FileUpload::make('logo_link')
                             ->label('Logo')
-                            ->helperText('Tỷ lệ tối ưu: 2:1 (400x200px). Tránh logo vuông hoặc quá dài.')
+                            ->helperText('Tỷ lệ 2:1 (400x200px)')
                             ->image()
                             ->directory('settings/logos')
                             ->visibility('public')
@@ -81,20 +83,11 @@ class ManageSettings extends Page implements HasForms
                             ->saveUploadedFileUsing(function ($file, $get) {
                                 $imageService = app(\App\Services\ImageService::class);
                                 $siteName = $get('site_name') ?? 'website';
-                                return $imageService->saveImageWithAspectRatio(
-                                    $file,
-                                    'settings/logos',
-                                    400,   // max width
-                                    200,   // max height
-                                    100,   // quality
-                                    "logo-{$siteName}" // SEO-friendly name
-                                );
-                            })
-                            ->columnSpan(1),
-
+                                return $imageService->saveImageWithAspectRatio($file, 'settings/logos', 400, 200, 100, "logo-{$siteName}");
+                            }),
                         FileUpload::make('favicon_link')
                             ->label('Favicon')
-                            ->helperText('Kích thước: 32x32px (vuông). Chỉ dùng icon, không text.')
+                            ->helperText('32x32px')
                             ->image()
                             ->directory('settings/favicons')
                             ->visibility('public')
@@ -105,30 +98,22 @@ class ManageSettings extends Page implements HasForms
                             ->saveUploadedFileUsing(function ($file, $get) {
                                 $imageService = app(\App\Services\ImageService::class);
                                 $siteName = $get('site_name') ?? 'website';
-                                return $imageService->saveImageWithAspectRatio(
-                                    $file,
-                                    'settings/favicons',
-                                    32,    // max width
-                                    32,    // max height
-                                    100,   // quality
-                                    "favicon-{$siteName}" // SEO-friendly name
-                                );
-                            })
-                            ->columnSpan(1),
+                                return $imageService->saveImageWithAspectRatio($file, 'settings/favicons', 32, 32, 100, "favicon-{$siteName}");
+                            }),
                     ])
                     ->columns(2),
 
-                Section::make('Liên kết mạng xã hội')
+                Section::make('Mạng xã hội & SEO')
                     ->schema([
-                        TextInput::make('youtube_link')
-                            ->label('YouTube')
+                        TextInput::make('facebook_link')
+                            ->label('Facebook')
                             ->url()
                             ->maxLength(255),
                         TextInput::make('zalo_link')
                             ->label('Zalo')
                             ->maxLength(255),
-                        TextInput::make('facebook_link')
-                            ->label('Facebook')
+                        TextInput::make('youtube_link')
+                            ->label('YouTube')
                             ->url()
                             ->maxLength(255),
                         TextInput::make('tiktok_link')
@@ -139,21 +124,17 @@ class ManageSettings extends Page implements HasForms
                             ->label('Messenger')
                             ->url()
                             ->maxLength(255),
-                    ])
-                    ->columns(2),
-
-                Section::make('SEO và Thông tin khác')
-                    ->schema([
                         TextInput::make('seo_title')
                             ->label('Tiêu đề SEO')
                             ->maxLength(255),
                         Textarea::make('seo_description')
                             ->label('Mô tả SEO')
-                            ->rows(3)
-                            ->maxLength(255),
+                            ->rows(2)
+                            ->maxLength(255)
+                            ->columnSpanFull(),
                         FileUpload::make('og_image_link')
-                            ->label('Hình ảnh OG (Social Media)')
-                            ->helperText('Kích thước: 1200x630px. Logo ở góc, text ở giữa.')
+                            ->label('Ảnh OG (Social)')
+                            ->helperText('1200x630px')
                             ->image()
                             ->directory('settings/og-images')
                             ->visibility('public')
@@ -164,18 +145,11 @@ class ManageSettings extends Page implements HasForms
                             ->saveUploadedFileUsing(function ($file, $get) {
                                 $imageService = app(\App\Services\ImageService::class);
                                 $siteName = $get('site_name') ?? 'website';
-                                return $imageService->saveImageWithAspectRatio(
-                                    $file,
-                                    'settings/og-images',
-                                    1200,  // max width
-                                    630,   // max height
-                                    85,    // quality
-                                    "og-image-{$siteName}" // SEO-friendly name
-                                );
+                                return $imageService->saveImageWithAspectRatio($file, 'settings/og-images', 1200, 630, 85, "og-image-{$siteName}");
                             }),
                         FileUpload::make('placeholder_image')
-                            ->label('Ảnh tạm thời (Placeholder)')
-                            ->helperText('Ảnh hiển thị khi không có ảnh chính cho sản phẩm, bài viết, nhân viên... (sẽ giữ nguyên tỷ lệ)')
+                            ->label('Ảnh Placeholder')
+                            ->helperText('Ảnh mặc định khi không có ảnh')
                             ->image()
                             ->directory('settings/placeholders')
                             ->visibility('public')
@@ -186,24 +160,11 @@ class ManageSettings extends Page implements HasForms
                             ->saveUploadedFileUsing(function ($file, $get) {
                                 $imageService = app(\App\Services\ImageService::class);
                                 $siteName = $get('site_name') ?? 'website';
-                                return $imageService->saveImageWithAspectRatio(
-                                    $file,
-                                    'settings/placeholders',
-                                    400,   // max width
-                                    400,   // max height
-                                    90,    // quality
-                                    "placeholder-{$siteName}" // SEO-friendly name
-                                );
+                                return $imageService->saveImageWithAspectRatio($file, 'settings/placeholders', 400, 400, 90, "placeholder-{$siteName}");
                             }),
-                        Textarea::make('address')
-                            ->label('Địa chỉ')
-                            ->rows(3)
-                            ->maxLength(500),
-                        TextInput::make('working_hours')
-                            ->label('Giờ làm việc')
-                            ->maxLength(255),
                     ])
-                    ->columns(2),
+                    ->columns(2)
+                    ->collapsible(),
             ])
             ->statePath('data');
     }

@@ -31,11 +31,11 @@ class PostCategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
-    protected static ?string $navigationGroup = NavigationGroups::CONTENT_MANAGEMENT;
+    protected static ?string $navigationGroup = null;
 
     protected static ?string $navigationLabel = 'Chuyên mục';
 
-    protected static ?int $navigationSort = 31;
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {

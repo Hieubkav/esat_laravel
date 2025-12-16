@@ -29,11 +29,11 @@ class ProductCategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
-    protected static ?string $navigationGroup = NavigationGroups::PRODUCT_MANAGEMENT;
+    protected static ?string $navigationGroup = null;
 
     protected static ?string $navigationLabel = 'Danh mục sản phẩm';
 
-    protected static ?int $navigationSort = 21;
+    protected static ?int $navigationSort = 2;
 
 
 

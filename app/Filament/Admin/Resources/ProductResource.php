@@ -38,11 +38,11 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
-    protected static ?string $navigationGroup = NavigationGroups::PRODUCT_MANAGEMENT;
+    protected static ?string $navigationGroup = null;
 
     protected static ?string $navigationLabel = 'Sản phẩm';
 
-    protected static ?int $navigationSort = 20;
+    protected static ?int $navigationSort = 1;
 
 
 

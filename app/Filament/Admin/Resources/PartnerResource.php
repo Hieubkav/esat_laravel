@@ -37,6 +37,11 @@ class PartnerResource extends Resource
 
     protected static ?int $navigationSort = 33;
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
