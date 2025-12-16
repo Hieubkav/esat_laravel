@@ -157,9 +157,8 @@
                                                         <i class="far fa-calendar mr-1.5"></i>
                                                         {{ $post->created_at->format('d/m/Y') }}
                                                     </div>
-                                                    <span class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-red-50 to-red-100 px-3 py-1.5 text-xs font-medium text-red-700 group-hover:from-red-100 group-hover:to-red-200 transition-all">
-                                                        Đọc thêm
-                                                        <i class="fas fa-arrow-right ml-1"></i>
+                                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-red-50 to-red-100 text-red-700 group-hover:from-red-100 group-hover:to-red-200 transition-all">
+                                                        <i class="fas fa-arrow-right text-xs"></i>
                                                     </span>
                                                 </div>
                                             </div>
