@@ -2,18 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Cat;
-use App\Models\Product;
+use App\Models\HomeComponent;
+use App\Services\HomeComponentDataService;
 
 class MainController extends Controller
 {
+    public function __construct(
+        protected HomeComponentDataService $componentDataService
+    ) {}
+
     public function storeFront()
     {
-        $components = \App\Models\HomeComponent::where('active', true)
+        $components = HomeComponent::where('active', true)
             ->orderBy('order')
             ->get();
 
-        return view('shop.storeFront', compact('components'));
+        // Pre-load data cho từng component (tránh query trong Blade)
+        $componentData = [];
+        foreach ($components as $component) {
+            $componentData[$component->id] = $this->componentDataService->loadComponentData(
+                $component->type,
+                $component->config ?? []
+            );
+        }
+
+        return view('shop.storeFront', compact('components', 'componentData'));
     }
 }

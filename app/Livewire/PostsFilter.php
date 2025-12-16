@@ -15,6 +15,7 @@ class PostsFilter extends Component
     public $perPage = 12;
     public $loadedPosts = [];
     public $hasMorePosts = true;
+    public $totalPosts = 0;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -81,11 +82,12 @@ class PostsFilter extends Component
     {
         $query = $this->getQuery();
 
+        // Lấy total count một lần duy nhất (tránh query duplicate)
+        $this->totalPosts = $query->count();
+
         $posts = $query->take($this->perPage)->get();
         $this->loadedPosts = $posts;
-
-        $totalPosts = $this->getQuery()->count();
-        $this->hasMorePosts = $posts->count() < $totalPosts;
+        $this->hasMorePosts = $posts->count() < $this->totalPosts;
     }
 
     private function getQuery()
@@ -139,11 +141,10 @@ class PostsFilter extends Component
 
     public function render()
     {
-        $totalPosts = $this->getQuery()->count();
-
+        // $this->totalPosts đã được tính trong loadPosts() (tránh query duplicate)
         return view('livewire.posts-filter', [
             'posts' => collect($this->loadedPosts),
-            'totalPosts' => $totalPosts
+            'totalPosts' => $this->totalPosts
         ]);
     }
 }

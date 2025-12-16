@@ -1,23 +1,8 @@
 @php
     $title = $data['title'] ?? 'Tin tức';
     $subtitle = $data['subtitle'] ?? '';
-    $displayMode = $data['display_mode'] ?? 'latest';
-    $limit = $data['limit'] ?? 6;
     $viewAllLink = $data['view_all_link'] ?? '/bai-viet';
-
-    // Lấy bài viết
-    if ($displayMode === 'manual' && !empty($data['posts'])) {
-        $postIds = collect($data['posts'])->pluck('post_id')->filter();
-        $posts = \App\Models\Post::whereIn('id', $postIds)
-            ->where('status', 'active')
-            ->get();
-    } else {
-        $posts = \App\Models\Post::where('status', 'active')
-            ->orderBy('created_at', 'desc')
-            ->limit($limit)
-            ->get();
-    }
-
+    // $posts được truyền từ Controller
     $postsCount = $posts->count();
     $featuredPost = $posts->first();
     $remainingPosts = $posts->slice(1);

@@ -117,15 +117,21 @@ class Product extends Model
 
     /**
      * Lấy hình ảnh đại diện của sản phẩm (hình đầu tiên trong danh sách)
+     * Sử dụng eager loaded relationship để tránh N+1 query
      *
      * @return string|null
      */
     public function getThumbnailAttribute(): ?string
     {
-        // Lấy hình ảnh đầu tiên trong danh sách hình ảnh sản phẩm
-        $firstImage = $this->productImages()->orderBy('order', 'asc')->first();
+        // Nếu đã eager load productImages, dùng collection thay vì query mới
+        if ($this->relationLoaded('productImages')) {
+            $firstImage = $this->productImages->sortBy('order')->first();
+            return $firstImage?->image_link;
+        }
 
-        return $firstImage ? $firstImage->image_link : null;
+        // Fallback: query nếu chưa eager load (tránh breaking change)
+        $firstImage = $this->productImages()->orderBy('order', 'asc')->first();
+        return $firstImage?->image_link;
     }
 
 }

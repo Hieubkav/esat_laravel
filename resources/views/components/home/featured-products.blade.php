@@ -1,24 +1,8 @@
 @php
     $title = $data['title'] ?? 'Sản phẩm nổi bật';
     $subtitle = $data['subtitle'] ?? '';
-    $displayMode = $data['display_mode'] ?? 'featured';
-    $limit = $data['limit'] ?? 8;
     $viewAllLink = $data['view_all_link'] ?? '/san-pham';
-
-    // Lấy sản phẩm dựa trên display mode
-    if ($displayMode === 'manual' && !empty($data['products'])) {
-        $productIds = collect($data['products'])->pluck('product_id')->filter();
-        $products = \App\Models\Product::with('category')
-            ->whereIn('id', $productIds)
-            ->where('status', 'active')
-            ->get();
-    } else {
-        $products = \App\Models\Product::with('category')
-            ->where('status', 'active')
-            ->orderBy('created_at', 'desc')
-            ->limit($limit)
-            ->get();
-    }
+    // $products được truyền từ Controller (đã eager load productImages)
     $productsCount = $products->count();
 @endphp
 

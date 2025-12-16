@@ -1,26 +1,8 @@
 @php
     $title = $data['title'] ?? 'Đối tác';
     $subtitle = $data['subtitle'] ?? '';
-    $displayMode = $data['display_mode'] ?? 'auto';
-    $limit = $data['limit'] ?? 10;
     $autoScroll = $data['auto_scroll'] ?? true;
-
-    // Lấy đối tác
-    if ($displayMode === 'manual' && !empty($data['partners'])) {
-        $partners = collect($data['partners']);
-    } else {
-        $partners = \App\Models\Partner::where('status', true)
-            ->orderBy('order')
-            ->limit($limit)
-            ->get()
-            ->map(function($p) {
-                return [
-                    'logo' => $p->logo_link,
-                    'name' => $p->name,
-                    'link' => $p->website_link,
-                ];
-            });
-    }
+    // $partners được truyền từ Controller
 @endphp
 
 <div class="container mx-auto px-4">

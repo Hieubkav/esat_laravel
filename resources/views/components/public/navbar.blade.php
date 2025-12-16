@@ -39,7 +39,8 @@
                     </button>
 
                     <!-- Dropdown gợi ý -->
-                    <div x-show="open && (products.length > 0 || posts.length > 0)"
+                    <div x-cloak
+                         x-show="open && (products.length > 0 || posts.length > 0)"
                          x-transition:enter="transition ease-out duration-200"
                          x-transition:enter-start="opacity-0 translate-y-1"
                          x-transition:enter-end="opacity-100 translate-y-0"
@@ -92,7 +93,7 @@
                     </div>
 
                     <!-- Loading -->
-                    <div x-show="loading" class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 z-50">
+                    <div x-cloak x-show="loading" class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 z-50">
                         <div class="flex items-center justify-center gap-2 text-gray-500">
                             <svg class="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -165,7 +166,8 @@
                 </form>
 
                 <!-- Dropdown gợi ý Mobile -->
-                <div x-show="open && (products.length > 0 || posts.length > 0)"
+                <div x-cloak
+                     x-show="open && (products.length > 0 || posts.length > 0)"
                      x-transition
                      class="mt-2 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden max-h-[50vh] overflow-y-auto">
                     
@@ -208,7 +210,7 @@
                     </template>
                 </div>
 
-                <div x-show="loading" class="mt-2 bg-white rounded-xl p-3 text-center text-gray-500 text-sm">
+                <div x-cloak x-show="loading" class="mt-2 bg-white rounded-xl p-3 text-center text-gray-500 text-sm">
                     <span class="animate-pulse">Đang tìm...</span>
                 </div>
             </div>
@@ -372,6 +374,7 @@
 </script>
 
 <style>
+    [x-cloak] { display: none !important; }
     @keyframes slideDown {
         from { opacity: 0; transform: translateY(-10px); }
         to { opacity: 1; transform: translateY(0); }
