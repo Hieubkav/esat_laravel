@@ -4,7 +4,6 @@ namespace App\Filament\Admin\Widgets;
 
 use App\Models\Product;
 use App\Models\Order;
-use App\Models\Customer;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Filament\Widgets\Concerns\InteractsWithPageFilters;
@@ -48,42 +47,33 @@ class ExecutiveKPI extends BaseWidget
         // Tỷ lệ chuyển đổi
         $conversionRate = $totalOrders > 0 ? ($completedOrders / $totalOrders) * 100 : 0;
 
-        // Khách hàng mới
-        $newCustomers = Customer::whereBetween('created_at', [$startDate, $endDate])->count();
-
         return [
             // KPI tài chính - Quan trọng nhất
-            Stat::make('💰 Tổng Doanh Thu', number_format($totalRevenue, 0, ',', '.') . ' VNĐ')
-                ->description($this->getChangeDescription($totalRevenue, $previousRevenue, 'VNĐ'))
+            Stat::make('Tong Doanh Thu', number_format($totalRevenue, 0, ',', '.') . ' VND')
+                ->description($this->getChangeDescription($totalRevenue, $previousRevenue, 'VND'))
                 ->descriptionIcon($this->getChangeIcon($totalRevenue, $previousRevenue))
                 ->color($this->getChangeColor($totalRevenue, $previousRevenue))
                 ->chart($this->getRevenueChart())
                 ->extraAttributes(['class' => 'executive-kpi-primary']),
 
             // Đơn hàng
-            Stat::make('📦 Tổng Đơn Hàng', number_format($totalOrders))
-                ->description($this->getChangeDescription($totalOrders, $previousOrders, 'đơn'))
+            Stat::make('Tong Don Hang', number_format($totalOrders))
+                ->description($this->getChangeDescription($totalOrders, $previousOrders, 'don'))
                 ->descriptionIcon($this->getChangeIcon($totalOrders, $previousOrders))
                 ->color($this->getChangeColor($totalOrders, $previousOrders))
                 ->chart($this->getOrdersChart()),
 
             // Giá trị đơn hàng trung bình
-            Stat::make('💳 Giá Trị TB/Đơn', number_format($avgOrderValue, 0, ',', '.') . ' VNĐ')
-                ->description('Từ ' . number_format($completedOrders) . ' đơn hoàn thành')
+            Stat::make('Gia Tri TB/Don', number_format($avgOrderValue, 0, ',', '.') . ' VND')
+                ->description('Tu ' . number_format($completedOrders) . ' don hoan thanh')
                 ->descriptionIcon('heroicon-m-calculator')
                 ->color('info'),
 
             // Tỷ lệ chuyển đổi
-            Stat::make('📈 Tỷ Lệ Hoàn Thành', number_format($conversionRate, 1) . '%')
-                ->description($completedOrders . '/' . $totalOrders . ' đơn hàng')
+            Stat::make('Ty Le Hoan Thanh', number_format($conversionRate, 1) . '%')
+                ->description($completedOrders . '/' . $totalOrders . ' don hang')
                 ->descriptionIcon('heroicon-m-chart-bar')
                 ->color($conversionRate >= 70 ? 'success' : ($conversionRate >= 50 ? 'warning' : 'danger')),
-
-            // Khách hàng mới
-            Stat::make('👥 Khách Hàng Mới', number_format($newCustomers))
-                ->description('Trong kỳ báo cáo')
-                ->descriptionIcon('heroicon-m-user-plus')
-                ->color('success'),
         ];
     }
 

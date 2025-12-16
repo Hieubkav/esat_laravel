@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\Customer;
 use App\Models\CatProduct;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -32,20 +31,6 @@ class GenerateSampleData extends Command
                 'name' => $name,
                 'status' => 'active',
                 'order' => $index,
-            ]);
-        }
-
-        // Create sample customers
-        $customers = [];
-        for ($i = 0; $i < min($count, 20); $i++) {
-            $customers[] = Customer::create([
-                'name' => fake()->name(),
-                'email' => fake()->unique()->email(),
-                'phone' => fake()->phoneNumber(),
-                'address' => fake()->address(),
-                'status' => 'active',
-                'order' => 0,
-                'password' => bcrypt('password'),
             ]);
         }
 
@@ -76,13 +61,11 @@ class GenerateSampleData extends Command
         $paymentMethods = ['cod', 'bank_transfer', 'online'];
 
         for ($i = 0; $i < $count; $i++) {
-            $customer = fake()->optional(0.7)->randomElement($customers);
             $status = fake()->randomElement($statuses);
 
             $order = Order::create([
-                'customer_id' => $customer?->id,
                 'order_number' => Order::generateOrderNumber(),
-                'total' => 0, // Will be calculated later
+                'total' => 0,
                 'status' => $status,
                 'payment_method' => fake()->randomElement($paymentMethods),
                 'shipping_address' => fake()->address(),
@@ -118,7 +101,6 @@ class GenerateSampleData extends Command
         $this->info("Sample data generated successfully!");
         $this->info("Created:");
         $this->info("- " . count($categories) . " categories");
-        $this->info("- " . count($customers) . " customers");
         $this->info("- " . count($products) . " products");
         $this->info("- {$count} orders");
     }

@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources\PostResource\Pages;
 
 use App\Filament\Admin\Resources\PostResource;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Str;
 
 class CreatePost extends CreateRecord
 {
@@ -47,6 +48,18 @@ class CreatePost extends CreateRecord
         // Ghi nhận người tạo bài viết
         $data['created_by'] = auth()->id();
         $data['updated_by'] = auth()->id();
+
+        // Tự động tạo slug từ title
+        if (!empty($data['title'])) {
+            $data['slug'] = Str::slug($data['title']);
+            // Đảm bảo slug unique
+            $originalSlug = $data['slug'];
+            $counter = 1;
+            while (\App\Models\Post::where('slug', $data['slug'])->exists()) {
+                $data['slug'] = $originalSlug . '-' . $counter;
+                $counter++;
+            }
+        }
 
         // Loại bỏ categories khỏi data vì nó sẽ được xử lý trong afterCreate
         if (isset($data['categories'])) {

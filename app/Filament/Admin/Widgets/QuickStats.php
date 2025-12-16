@@ -4,7 +4,6 @@ namespace App\Filament\Admin\Widgets;
 
 use App\Models\Product;
 use App\Models\Order;
-use App\Models\Customer;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -27,9 +26,6 @@ class QuickStats extends BaseWidget
         $pendingOrders = Order::where('status', 'pending')->count();
         $completedOrders = Order::where('status', 'completed')->count();
         $todayOrders = Order::whereDate('created_at', today())->count();
-
-        $totalCustomers = Customer::count();
-        $activeCustomers = Customer::where('status', 'active')->count();
 
         // Doanh thu
         $totalRevenue = Order::where('status', 'completed')->sum('total');
@@ -62,11 +58,6 @@ class QuickStats extends BaseWidget
                 ->description('Đơn hàng mới')
                 ->descriptionIcon('heroicon-m-calendar-days')
                 ->color('success'),
-
-            Stat::make('Tổng khách hàng', $totalCustomers)
-                ->description("{$activeCustomers} đang hoạt động")
-                ->descriptionIcon('heroicon-m-users')
-                ->color('info'),
 
             Stat::make('Tổng doanh thu', number_format($totalRevenue, 0, ',', '.') . ' VNĐ')
                 ->description('Từ đơn hoàn thành')

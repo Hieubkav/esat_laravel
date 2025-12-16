@@ -4,7 +4,7 @@ namespace App\Filament\Admin\Widgets;
 
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\Customer;
+use App\Models\Post;
 use Filament\Widgets\Widget;
 use Illuminate\Support\Collection;
 
@@ -38,7 +38,7 @@ class RecentActivity extends Widget
                 'title' => "Đơn hàng {$order->order_number}",
                 'description' => $this->getOrderDescription($order),
                 'time' => $order->created_at,
-                'url' => null, // route('filament.admin.resources.orders.view', $order),
+                'url' => null,
             ]);
         }
 
@@ -52,21 +52,21 @@ class RecentActivity extends Widget
                 'title' => "Sản phẩm mới: {$product->name}",
                 'description' => "Giá: " . number_format($product->price) . " VNĐ",
                 'time' => $product->created_at,
-                'url' => null, // route('filament.admin.resources.products.view', $product),
+                'url' => null,
             ]);
         }
 
-        // Khách hàng mới (3 khách hàng gần nhất)
-        $recentCustomers = Customer::latest()->limit(3)->get();
-        foreach ($recentCustomers as $customer) {
+        // Bài viết mới (3 bài viết gần nhất)
+        $recentPosts = Post::latest()->limit(3)->get();
+        foreach ($recentPosts as $post) {
             $activities->push([
-                'type' => 'customer',
-                'icon' => 'heroicon-o-user-plus',
+                'type' => 'post',
+                'icon' => 'heroicon-o-document-text',
                 'color' => 'success',
-                'title' => "Khách hàng mới: {$customer->name}",
-                'description' => $customer->email,
-                'time' => $customer->created_at,
-                'url' => null, // route('filament.admin.resources.customers.view', $customer),
+                'title' => "Bài viết mới: {$post->title}",
+                'description' => $post->excerpt ?? 'Không có mô tả',
+                'time' => $post->created_at,
+                'url' => null,
             ]);
         }
 

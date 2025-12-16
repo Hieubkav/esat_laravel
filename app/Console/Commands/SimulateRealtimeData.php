@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\Customer;
 use Illuminate\Console\Command;
 
 class SimulateRealtimeData extends Command

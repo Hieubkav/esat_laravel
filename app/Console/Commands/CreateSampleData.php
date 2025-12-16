@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\Customer;
 use App\Models\CatProduct;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -33,19 +32,6 @@ class CreateSampleData extends Command
                 'name' => $name,
                 'status' => 'active',
                 'order' => $index,
-            ]);
-        }
-
-        // Tạo customers
-        for ($i = 0; $i < 5; $i++) {
-            Customer::create([
-                'name' => 'Khách hàng ' . ($i + 1),
-                'email' => 'customer' . ($i + 1) . '@example.com',
-                'phone' => '0123456' . str_pad($i, 3, '0', STR_PAD_LEFT),
-                'address' => 'Địa chỉ khách hàng ' . ($i + 1),
-                'status' => 'active',
-                'order' => $i,
-                'password' => bcrypt('password'),
             ]);
         }
 
@@ -85,7 +71,6 @@ class CreateSampleData extends Command
         $this->info('Sample data created successfully!');
         $this->info('Created:');
         $this->info('- ' . CatProduct::count() . ' categories');
-        $this->info('- ' . Customer::count() . ' customers');
         $this->info('- ' . Product::count() . ' products');
         $this->info('- ' . Order::count() . ' orders');
     }

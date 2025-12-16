@@ -46,40 +46,7 @@ class PostCategoryResource extends Resource
                         TextInput::make('name')
                             ->label('Tên chuyên mục')
                             ->required()
-                            ->maxLength(255)
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(fn (string $state, callable $set) => $set('slug', Str::slug($state))),
-
-                        TextInput::make('slug')
-                            ->label('Đường dẫn')
-                            ->required()
-                            ->unique(ignoreRecord: true)
                             ->maxLength(255),
-
-                        Textarea::make('description')
-                            ->label('Mô tả')
-                            ->rows(3)
-                            ->maxLength(1000),
-
-                        Select::make('type')
-                            ->label('Loại chuyên mục')
-                            ->options([
-                                'normal' => 'Bài viết thường',
-                                'news' => 'Tin tức',
-                                'service' => 'Dịch vụ',
-                                'course' => 'Khóa học',
-                            ])
-                            ->default('normal')
-                            ->required(),
-                    ]),
-
-                Section::make('Cấu hình hiển thị')
-                    ->schema([
-                        TextInput::make('order')
-                            ->label('Thứ tự hiển thị')
-                            ->integer()
-                            ->default(0)
-                            ->hidden(),
 
                         Toggle::make('status')
                             ->label('Hiển thị')
@@ -103,29 +70,6 @@ class PostCategoryResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('slug')
-                    ->label('Đường dẫn')
-                    ->searchable(),
-
-                TextColumn::make('type')
-                    ->label('Loại')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'normal' => 'gray',
-                        'news' => 'info',
-                        'service' => 'success',
-                        'course' => 'warning',
-                        default => 'gray',
-                    })
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'normal' => 'Bài viết thường',
-                        'news' => 'Tin tức',
-                        'service' => 'Dịch vụ',
-                        'course' => 'Khóa học',
-                        default => $state,
-                    })
-                    ->sortable(),
-
                 TextColumn::make('posts_count')
                     ->label('Số bài viết')
                     ->counts('posts')
@@ -134,12 +78,8 @@ class PostCategoryResource extends Resource
                 ToggleColumn::make('status')
                     ->label('Hiển thị')
                     ->sortable(),
-
-                TextColumn::make('created_at')
-                    ->label('Ngày tạo')
-                    ->dateTime('d/m/Y H:i')
-                    ->sortable(),
             ])
+            ->reorderable('order')
             ->filters([
                 //
             ])

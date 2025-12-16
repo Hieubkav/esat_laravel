@@ -4,7 +4,6 @@ namespace App\Filament\Admin\Widgets;
 
 use App\Models\Product;
 use App\Models\Order;
-use App\Models\Customer;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -32,7 +31,6 @@ class RealtimeStats extends BaseWidget
 
         // Thống kê tổng
         $totalProducts = Product::where('status', 'active')->count();
-        $totalCustomers = Customer::where('status', 'active')->count();
         $pendingOrders = Order::where('status', 'pending')->count();
 
         return [
@@ -56,11 +54,6 @@ class RealtimeStats extends BaseWidget
             Stat::make('Tổng sản phẩm', $totalProducts)
                 ->description('Đang hoạt động')
                 ->descriptionIcon('heroicon-m-cube')
-                ->color('info'),
-
-            Stat::make('Tổng khách hàng', $totalCustomers)
-                ->description('Đã đăng ký')
-                ->descriptionIcon('heroicon-m-users')
                 ->color('info'),
         ];
     }

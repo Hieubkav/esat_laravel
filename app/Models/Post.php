@@ -55,6 +55,12 @@ class Post extends Model
         return $this->belongsToMany(CatPost::class, 'post_categories', 'post_id', 'cat_post_id');
     }
 
+    // Alias cho Filament AttachAction
+    public function catPosts()
+    {
+        return $this->categories();
+    }
+
     // Alias để tương thích với code cũ - lấy category đầu tiên
     public function getCategoryAttribute()
     {

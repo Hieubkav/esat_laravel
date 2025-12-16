@@ -4,7 +4,6 @@ namespace App\Filament\Admin\Widgets;
 
 use App\Models\Product;
 use App\Models\Order;
-use App\Models\Customer;
 use App\Models\Post;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -58,13 +57,13 @@ class StatsOverview extends BaseWidget
             ->when($startDate, fn (Builder $query) => $query->whereDate('created_at', '<', $startDate))
             ->sum('total');
 
-        // Total Customers
-        $totalCustomers = Customer::query()
+        // Total Posts
+        $totalPosts = Post::query()
             ->when($startDate, fn (Builder $query) => $query->whereDate('created_at', '>=', $startDate))
             ->when($endDate, fn (Builder $query) => $query->whereDate('created_at', '<=', $endDate))
             ->count();
 
-        $previousCustomers = Customer::query()
+        $previousPosts = Post::query()
             ->when($startDate, fn (Builder $query) => $query->whereDate('created_at', '<', $startDate))
             ->count();
 
@@ -87,11 +86,11 @@ class StatsOverview extends BaseWidget
                 ->color($this->getChangeColor($totalRevenue, $previousRevenue))
                 ->chart($this->getRevenueChart()),
 
-            Stat::make('Khách hàng', $totalCustomers)
-                ->description($this->getChangeDescription($totalCustomers, $previousCustomers))
-                ->descriptionIcon($this->getChangeIcon($totalCustomers, $previousCustomers))
-                ->color($this->getChangeColor($totalCustomers, $previousCustomers))
-                ->chart($this->getCustomerChart()),
+            Stat::make('Bài viết', $totalPosts)
+                ->description($this->getChangeDescription($totalPosts, $previousPosts))
+                ->descriptionIcon($this->getChangeIcon($totalPosts, $previousPosts))
+                ->color($this->getChangeColor($totalPosts, $previousPosts))
+                ->chart($this->getPostChart()),
         ];
     }
 
@@ -166,9 +165,9 @@ class StatsOverview extends BaseWidget
             ->toArray();
     }
 
-    private function getCustomerChart(): array
+    private function getPostChart(): array
     {
-        return Customer::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+        return Post::selectRaw('DATE(created_at) as date, COUNT(*) as count')
             ->where('created_at', '>=', now()->subDays(7))
             ->groupBy('date')
             ->orderBy('date')

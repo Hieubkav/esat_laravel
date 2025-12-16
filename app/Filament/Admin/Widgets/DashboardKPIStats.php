@@ -3,7 +3,6 @@
 namespace App\Filament\Admin\Widgets;
 
 use App\Models\Order;
-use App\Models\Customer;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Carbon\Carbon;
@@ -31,9 +30,6 @@ class DashboardKPIStats extends BaseWidget
         // Tổng đơn hàng
         $totalOrders = Order::whereBetween('created_at', $dateRange)->count();
 
-        // Tổng khách hàng mới
-        $totalCustomers = Customer::whereBetween('created_at', $dateRange)->count();
-
         // Tỉ lệ hoàn thành đơn hàng
         $completedOrders = Order::whereBetween('created_at', $dateRange)
             ->where('status', 'completed')
@@ -49,12 +45,9 @@ class DashboardKPIStats extends BaseWidget
 
         $previousOrders = Order::whereBetween('created_at', $previousDateRange)->count();
 
-        $previousCustomers = Customer::whereBetween('created_at', $previousDateRange)->count();
-
         // Tính phần trăm thay đổi
         $revenueChange = $this->calculatePercentageChange($totalRevenue, $previousRevenue);
         $ordersChange = $this->calculatePercentageChange($totalOrders, $previousOrders);
-        $customersChange = $this->calculatePercentageChange($totalCustomers, $previousCustomers);
 
         return [
             Stat::make('Tổng doanh thu', number_format($totalRevenue, 0, ',', '.') . ' ₫')
@@ -69,11 +62,10 @@ class DashboardKPIStats extends BaseWidget
                 ->color($ordersChange >= 0 ? 'success' : 'danger')
                 ->chart($this->getOrdersChart($period)),
 
-            Stat::make('Khách hàng mới', number_format($totalCustomers))
-                ->description($this->getChangeDescription($customersChange, 'khách hàng'))
-                ->descriptionIcon($customersChange >= 0 ? 'heroicon-m-arrow-trending-up' : 'heroicon-m-arrow-trending-down')
-                ->color($customersChange >= 0 ? 'success' : 'danger')
-                ->chart($this->getCustomersChart($period)),
+            Stat::make('Đơn hoàn thành', number_format($completedOrders))
+                ->description('Trong kỳ báo cáo')
+                ->descriptionIcon('heroicon-m-check-circle')
+                ->color('success'),
 
             Stat::make('Tỉ lệ hoàn thành', $completionRate . '%')
                 ->description('Đơn hàng hoàn thành / Tổng đơn hàng')
@@ -147,15 +139,4 @@ class DashboardKPIStats extends BaseWidget
             ->toArray();
     }
 
-    private function getCustomersChart(string $period): array
-    {
-        $dateRange = $this->getDateRange($period);
-
-        return Customer::whereBetween('created_at', $dateRange)
-            ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
-            ->groupBy('date')
-            ->orderBy('date')
-            ->pluck('count')
-            ->toArray();
-    }
 }

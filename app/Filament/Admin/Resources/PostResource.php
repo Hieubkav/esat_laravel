@@ -66,26 +66,7 @@ class PostResource extends Resource
                                         TextInput::make('title')
                                             ->label('Tiêu đề')
                                             ->required()
-                                            ->maxLength(255)
-                                            ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (string $state, callable $set) => $set('slug', Str::slug($state))),
-
-                                        TextInput::make('slug')
-                                            ->label('Đường dẫn')
-                                            ->required()
-                                            ->unique(ignoreRecord: true)
-                                            ->maxLength(255)
-                                            ->suffixAction(
-                                                Action::make('generateSlug')
-                                                    ->icon('heroicon-m-link')
-                                                    ->tooltip('Tự động tạo từ tiêu đề')
-                                                    ->action(function (Set $set, Get $get) {
-                                                        $title = $get('title');
-                                                        if (!empty($title)) {
-                                                            $set('slug', Str::slug($title));
-                                                        }
-                                                    })
-                                            ),
+                                            ->maxLength(255),
 
                                         Select::make('categories')
                                             ->label('Chuyên mục')
@@ -203,10 +184,7 @@ class PostResource extends Resource
                                             ->default('active')
                                             ->required(),
 
-                                        TextInput::make('order')
-                                            ->label('Thứ tự hiển thị')
-                                            ->integer()
-                                            ->default(0),
+
                                     ])->columns(3),
 
                                 Section::make('Nội dung bài viết')
@@ -404,89 +382,7 @@ class PostResource extends Resource
                                     ]),
                             ]),
 
-                        Tabs\Tab::make('SEO & Cấu hình')
-                            ->icon('heroicon-m-cog-6-tooth')
-                            ->schema([
-                                Section::make('SEO và Thông tin khác')
-                                    ->description('Các thông tin SEO sẽ được tự động tạo khi lưu nếu để trống. Bạn cũng có thể sử dụng nút bên dưới để tạo thủ công.')
-                                    ->schema([
-                                        Actions::make([
-                                            Action::make('generateAllSeo')
-                                                ->label('🚀 Tự động tạo SEO')
-                                                ->icon('heroicon-m-sparkles')
-                                                ->color('success')
-                                                ->size('lg')
-                                                ->action(function (Set $set, Get $get) {
-                                                    $title = $get('title');
-                                                    $content = $get('content');
 
-                                                    $messages = [];
-
-                                                    // Tạo SEO title
-                                                    if (!empty($title)) {
-                                                        $seoTitle = static::generateSeoTitle($title);
-                                                        $set('seo_title', $seoTitle);
-                                                        $messages[] = 'SEO title';
-                                                    }
-
-                                                    // Tạo SEO description
-                                                    if (!empty($content)) {
-                                                        $seoDescription = static::generateSeoDescription($content);
-                                                        $set('seo_description', $seoDescription);
-                                                        $messages[] = 'SEO description';
-                                                    }
-
-                                                    // Thông báo kết quả
-                                                    if (empty($messages)) {
-                                                        \Filament\Notifications\Notification::make()
-                                                            ->title('Chưa thể tạo SEO')
-                                                            ->body('Vui lòng nhập tiêu đề và nội dung trước khi tạo SEO.')
-                                                            ->warning()
-                                                            ->send();
-                                                    } else {
-                                                        \Filament\Notifications\Notification::make()
-                                                            ->title('Đã tạo SEO thành công!')
-                                                            ->body('Đã tạo: ' . implode(', ', $messages) . '. OG image sẽ tự động copy từ hình đại diện khi lưu.')
-                                                            ->success()
-                                                            ->send();
-                                                    }
-                                                })
-                                        ])->columnSpanFull(),
-
-                                        TextInput::make('seo_title')
-                                            ->label('Tiêu đề SEO')
-                                            ->helperText('Tối đa 60 ký tự cho SEO tốt nhất. Để trống sẽ tự động tạo từ tiêu đề.')
-                                            ->maxLength(255),
-
-                                        Textarea::make('seo_description')
-                                            ->label('Mô tả SEO')
-                                            ->helperText('Tối đa 155 ký tự cho SEO tốt nhất. Để trống sẽ tự động tạo từ nội dung.')
-                                            ->rows(3)
-                                            ->maxLength(255),
-
-                                        FileUpload::make('og_image_link')
-                                            ->label('Hình ảnh OG (Social Media)')
-                                            ->helperText('Kích thước tối ưu: 1200x630px. Để trống sẽ tự động copy từ hình đại diện.')
-                                            ->image()
-                                            ->directory('posts/og-images')
-                                            ->visibility('public')
-                                            ->imageResizeMode('cover')
-                                            ->imageResizeTargetWidth(1200)
-                                            ->imageResizeTargetHeight(630)
-                                            ->saveUploadedFileUsing(function ($file, $get) {
-                                                $imageService = app(\App\Services\ImageService::class);
-                                                $title = $get('title') ?? 'bai-viet';
-                                                return $imageService->saveImage(
-                                                    $file,
-                                                    'posts/og-images',
-                                                    1200,
-                                                    630,
-                                                    85,
-                                                    "og-image-{$title}"
-                                                );
-                                            }),
-                                    ])->columns(2),
-                            ]),
                     ])
                     ->columnSpanFull()
             ]);
@@ -535,9 +431,7 @@ class PostResource extends Resource
                     })
                     ->sortable(),
 
-                TextColumn::make('order')
-                    ->label('Thứ tự')
-                    ->sortable(),
+
 
                 TextColumn::make('updater.name')
                     ->label('Người chỉnh sửa')

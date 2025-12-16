@@ -6,6 +6,7 @@ use App\Filament\Admin\Resources\PostResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class EditPost extends EditRecord
 {
@@ -85,6 +86,26 @@ class EditPost extends EditRecord
         // Xử lý thumbnail từ array về string nếu cần
         if (isset($data['thumbnail']) && is_array($data['thumbnail'])) {
             $data['thumbnail'] = !empty($data['thumbnail']) ? $data['thumbnail'][0] : null;
+        }
+
+        // Tự động tạo/cập nhật slug từ title nếu slug trống hoặc thay đổi title
+        if (!empty($data['title'])) {
+            $currentRecord = $this->getRecord();
+            $newSlug = Str::slug($data['title']);
+            
+            // Chỉ cập nhật slug nếu title đã thay đổi hoặc slug hiện tại trống
+            if (empty($currentRecord->slug) || $currentRecord->title !== $data['title']) {
+                $data['slug'] = $newSlug;
+                // Đảm bảo slug unique (trừ record hiện tại)
+                $originalSlug = $data['slug'];
+                $counter = 1;
+                while (\App\Models\Post::where('slug', $data['slug'])
+                    ->where('id', '!=', $currentRecord->id)
+                    ->exists()) {
+                    $data['slug'] = $originalSlug . '-' . $counter;
+                    $counter++;
+                }
+            }
         }
 
         // Loại bỏ categories khỏi data vì nó sẽ được xử lý trong afterSave
