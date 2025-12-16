@@ -3,20 +3,8 @@
     $coursesWebDesign = webDesignData('courses-overview');
     $isVisible = webDesignVisible('courses-overview');
 
-    // Lấy 3 bài viết course mới nhất
+    // Component tạm thời disabled do đã bỏ type khỏi bảng posts
     $courses = collect();
-    if ($isVisible) {
-        try {
-            $courses = \App\Models\Post::where('status', 'active')
-                ->where('type', 'course')
-                ->with(['categories', 'images'])
-                ->orderBy('created_at', 'desc')
-                ->limit(3)
-                ->get();
-        } catch (\Exception $e) {
-            $courses = collect();
-        }
-    }
 @endphp
 
 @if($isVisible && $courses->count() > 0)

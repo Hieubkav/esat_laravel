@@ -98,21 +98,13 @@
         <!-- Article Header -->
         <div class="max-w-7xl">
             <!-- Type Badge -->
-            @php
-                $typeConfig = [
-                    'service' => ['label' => 'Dịch vụ', 'icon' => 'fas fa-cogs', 'color' => 'bg-blue-100 text-blue-800'],
-                    'news' => ['label' => 'Tin tức', 'icon' => 'fas fa-newspaper', 'color' => 'bg-green-100 text-green-800'],
-                    'course' => ['label' => 'Khóa học', 'icon' => 'fas fa-graduation-cap', 'color' => 'bg-purple-100 text-purple-800'],
-                    'normal' => ['label' => 'Bài viết', 'icon' => 'fas fa-file-alt', 'color' => 'bg-gray-100 text-gray-800']
-                ];
-                $config = $typeConfig[$post->type] ?? $typeConfig['normal'];
-            @endphp
-
             <div class="flex items-center gap-3 mb-4">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium {{ $config['color'] }}">
-                    <i class="{{ $config['icon'] }} mr-1.5"></i>
-                    {{ $config['label'] }}
-                </span>
+                @if($post->categories->count() > 0)
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                        <i class="fas fa-folder mr-1.5"></i>
+                        {{ $post->categories->first()->name }}
+                    </span>
+                @endif
 
                 @if($post->is_featured)
                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
@@ -220,15 +212,7 @@
             <!-- Section Header -->
             <div class="text-center mb-12">
                 <h3 class="text-2xl font-bold text-gray-900 mb-2 font-montserrat">
-                    @php
-                        $relatedTitle = [
-                            'service' => 'Dịch vụ liên quan',
-                            'news' => 'Tin tức liên quan',
-                            'course' => 'Khóa học liên quan',
-                            'normal' => 'Bài viết liên quan'
-                        ];
-                    @endphp
-                    {{ $relatedTitle[$post->type] ?? 'Bài viết liên quan' }}
+                    Bài viết liên quan
                 </h3>
                 <div class="w-16 h-0.5 bg-red-600 mx-auto"></div>
             </div>
@@ -308,7 +292,7 @@
 
             <!-- View All Button -->
             <div class="text-center">
-                <a href="{{ route('posts.index', ['type' => $post->type]) }}"
+                <a href="{{ route('posts.index') }}"
                    class="inline-flex items-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-300 font-open-sans">
                     <span>Xem tất cả</span>
                     <i class="fas fa-arrow-right ml-2"></i>

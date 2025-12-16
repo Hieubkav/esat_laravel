@@ -110,18 +110,8 @@ class ViewDataHelper
                     ->with([
                         'children' => function ($query) {
                             $query->where('status', 'active')
-                                ->with([
-                                    'post:id,slug',
-                                    'catPost:id,slug',
-                                    'product:id,slug',
-                                    'catProduct:id,slug',
-                                ])
                                 ->orderBy('order');
                         },
-                        'post:id,slug',
-                        'catPost:id,slug',
-                        'product:id,slug',
-                        'catProduct:id,slug',
                     ])
                     ->orderBy('order')
                     ->get(),

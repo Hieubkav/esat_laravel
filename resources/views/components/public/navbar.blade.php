@@ -93,150 +93,16 @@
             </div>
 
             <!-- Menu Mobile -->
-            <div class="py-3 space-y-1">
-                <!-- Trang chủ -->
-                <a href="{{ route('storeFront') }}"
-                   class="flex items-center px-5 py-3 mx-3 text-base font-semibold {{ request()->routeIs('storeFront') ? 'text-white bg-gradient-to-r from-red-600 to-red-700' : 'text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:text-red-600' }} rounded-xl transition-all duration-200 shadow-sm">
-                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                    </svg>
-                    Trang chủ
-                </a>
-
-                @if(isset($menuItems) && $menuItems->count() > 0)
-                    @foreach($menuItems->where('parent_id', null)->sortBy('order') as $item)
-                        @php
-                            $hasChildren = $menuItems->where('parent_id', $item->id)->count() > 0;
-                            $isActive = request()->url() === $item->getUrl();
-                        @endphp
-                        @if($hasChildren)
-                            <div x-data="{ open: {{ $isActive ? 'true' : 'false' }} }" class="mx-3">
-                                <button @click="open = !open"
-                                        class="flex items-center justify-between w-full px-5 py-3 text-base font-medium {{ $isActive ? 'text-white bg-gradient-to-r from-red-600 to-red-700' : 'text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:text-red-600' }} rounded-xl transition-all duration-200 shadow-sm group">
-                                    <div class="flex items-center">
-                                        <svg class="w-5 h-5 mr-3 {{ $isActive ? 'text-white' : 'text-gray-400 group-hover:text-red-500' }} transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                                        </svg>
-                                        {{ $item->label }}
-                                    </div>
-                                    <svg class="w-5 h-5 transition-transform duration-200 {{ $isActive ? 'text-white' : '' }}" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </button>
-                                <div x-show="open" x-collapse x-transition class="mt-2 ml-4 space-y-1 pl-4 border-l-2 border-red-200">
-                                    @foreach($menuItems->where('parent_id', $item->id)->sortBy('order') as $child)
-                                        @php $isChildActive = request()->url() === $child->getUrl(); @endphp
-                                        <a href="{{ $child->getUrl() }}"
-                                           class="flex items-center px-4 py-2.5 text-sm {{ $isChildActive ? 'text-white bg-gradient-to-r from-red-500 to-red-600' : 'text-gray-600 dark:text-gray-400 hover:bg-red-50 dark:hover:bg-gray-700 hover:text-red-600' }} rounded-lg transition-all duration-200">
-                                            <svg class="w-4 h-4 mr-2 {{ $isChildActive ? 'text-white' : 'text-gray-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                            </svg>
-                                            {{ $child->label }}
-                                        </a>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @else
-                            <a href="{{ $item->getUrl() }}"
-                               class="flex items-center px-5 py-3 mx-3 text-base font-medium {{ $isActive ? 'text-white bg-gradient-to-r from-red-600 to-red-700' : 'text-gray-700 dark:text-gray-300 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:text-red-600' }} rounded-xl transition-all duration-200 shadow-sm group">
-                                <svg class="w-5 h-5 mr-3 {{ $isActive ? 'text-white' : 'text-gray-400 group-hover:text-red-500' }} transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                {{ $item->label }}
-                            </a>
-                        @endif
-                    @endforeach
-                @else
-                    <a href="{{ route('products.categories') }}" class="flex items-center px-5 py-3 mx-3 text-base font-medium text-gray-700 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 hover:text-red-600 rounded-xl transition-all duration-200 shadow-sm group">
-                     <svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                     </svg>
-                     Sản phẩm
-                    </a>
-                    <a href="{{ route('posts.index') }}" class="flex items-center px-5 py-3 mx-3 text-base font-medium text-gray-700 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 hover:text-red-600 rounded-xl transition-all duration-200 shadow-sm group">
-                        <svg class="w-5 h-5 mr-3 text-gray-400 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
-                         </svg>
-                         Tin tức
-                    </a>
-                @endif
+            <div class="py-2">
+                @livewire('public.dynamic-menu', ['isMobile' => true])
             </div>
         </div>
     </div>
 
     <!-- Menu Navigation Bar - Desktop -->
-    <div class="bg-gradient-to-r from-red-600 via-red-600 to-red-700 dark:from-red-700 dark:via-red-700 dark:to-red-800 border-t border-red-500 dark:border-red-600 hidden lg:block shadow-md">
+    <div class="bg-red-600 dark:bg-red-700 border-t border-red-500 dark:border-red-600 hidden lg:block">
         <div class="container mx-auto px-4">
-            <nav class="flex items-center justify-center py-1">
-                <!-- Trang chủ -->
-                <a href="{{ route('storeFront') }}"
-                   class="flex items-center px-5 py-2 text-base font-medium {{ request()->routeIs('storeFront') ? 'text-white bg-red-700/50 dark:bg-red-800/50' : 'text-white hover:bg-red-700/30 dark:hover:bg-red-800/30' }} rounded-lg transition-all duration-200 mx-1">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-                    </svg>
-                    Trang chủ
-                </a>
-
-                @if(isset($menuItems) && $menuItems->count() > 0)
-                    @foreach($menuItems->where('parent_id', null)->sortBy('order') as $item)
-                        @php
-                            $hasChildren = $menuItems->where('parent_id', $item->id)->count() > 0;
-                            $isActive = request()->url() === $item->getUrl();
-                            $hasActiveChild = false;
-                            if ($hasChildren) {
-                                foreach ($menuItems->where('parent_id', $item->id) as $child) {
-                                    if (request()->url() === $child->getUrl()) {
-                                        $hasActiveChild = true;
-                                        break;
-                                    }
-                                }
-                            }
-                            $isMenuActive = $isActive || $hasActiveChild;
-                        @endphp
-                        @if($hasChildren)
-                            <div class="relative group mx-1">
-                                <a href="{{ $item->getUrl() }}"
-                                   class="flex items-center px-5 py-2 text-base font-medium {{ $isMenuActive ? 'text-white bg-red-700/50 dark:bg-red-800/50' : 'text-white hover:bg-red-700/30 dark:hover:bg-red-800/30' }} rounded-lg transition-all duration-200">
-                                    {{ $item->label }}
-                                    <svg class="w-4 h-4 ml-2 transform group-hover:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </a>
-                                <!-- Dropdown -->
-                                <div class="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-red-100 dark:border-red-700 overflow-hidden">
-                                        <div class="px-4 py-3 bg-gradient-to-r from-red-50 to-orange-50 dark:from-gray-700 dark:to-gray-600 border-b border-red-100 dark:border-red-700">
-                                            <h3 class="text-sm font-bold text-red-700 dark:text-red-300">{{ $item->label }}</h3>
-                                        </div>
-                                        <div class="py-2">
-                                            @foreach($menuItems->where('parent_id', $item->id)->sortBy('order') as $child)
-                                                @php $isChildActive = request()->url() === $child->getUrl(); @endphp
-                                                <a href="{{ $child->getUrl() }}"
-                                                   class="flex items-center px-4 py-3 text-sm {{ $isChildActive ? 'text-white bg-red-600 hover:bg-red-700' : 'text-gray-700 dark:text-gray-300 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400' }} transition-all duration-200 group/item">
-                                                    <div class="w-2 h-2 {{ $isChildActive ? 'bg-white' : 'bg-red-400 opacity-0 group-hover/item:opacity-100' }} rounded-full mr-3 transition-opacity duration-200"></div>
-                                                    {{ $child->label }}
-                                                </a>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @else
-                            <a href="{{ $item->getUrl() }}"
-                               class="flex items-center px-5 py-2 text-base font-medium {{ $isActive ? 'text-white bg-red-700/50 dark:bg-red-800/50' : 'text-white hover:bg-red-700/30 dark:hover:bg-red-800/30' }} rounded-lg transition-all duration-200 mx-1">
-                                {{ $item->label }}
-                            </a>
-                        @endif
-                    @endforeach
-                @else
-                    <a href="{{ route('products.categories') }}" class="flex items-center px-5 py-2 text-base font-medium text-white hover:bg-red-700/30 dark:hover:bg-red-800/30 rounded-lg transition-all duration-200 mx-1">
-                         Sản phẩm
-                    </a>
-                    <a href="{{ route('posts.index') }}" class="flex items-center px-5 py-2 text-base font-medium text-white hover:bg-red-700/30 dark:hover:bg-red-800/30 rounded-lg transition-all duration-200 mx-1">
-                        Tin tức
-                    </a>
-                @endif
-            </nav>
+            @livewire('public.dynamic-menu', ['isMobile' => false])
         </div>
     </div>
 </header>

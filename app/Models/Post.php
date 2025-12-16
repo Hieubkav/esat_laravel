@@ -21,7 +21,6 @@ class Post extends Model
         'thumbnail',
         'display_thumbnail',
         'is_featured',
-        'type',
         'order',
         'status',
         'created_by',
@@ -33,7 +32,6 @@ class Post extends Model
         'is_featured' => 'boolean',
         'display_thumbnail' => 'boolean',
         'status' => 'string',
-        'type' => 'string',
         'order' => 'integer',
     ];
 
@@ -61,24 +59,6 @@ class Post extends Model
     public function getCategoryAttribute()
     {
         return $this->categories()->first();
-    }
-
-    // Quan hệ với PostView
-    public function views()
-    {
-        return $this->hasMany(PostView::class);
-    }
-
-    // Lấy tổng số lượt xem
-    public function getTotalViewsAttribute()
-    {
-        return $this->views()->count();
-    }
-
-    // Lấy số người xem khác nhau
-    public function getUniqueViewsAttribute()
-    {
-        return $this->views()->distinct('ip_address')->count();
     }
 
     // Quan hệ với User - người tạo bài viết

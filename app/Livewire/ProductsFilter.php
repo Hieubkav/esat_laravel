@@ -12,10 +12,6 @@ class ProductsFilter extends Component
     public $search = '';
     public $category = '';
     public $sort = 'newest';
-    public $minPrice = '';
-    public $maxPrice = '';
-    public $isHot = false;
-    public $hasDiscount = false;
     public $perPage = 12;
     public $loadedProducts = [];
     public $hasMoreProducts = true;
@@ -33,21 +29,20 @@ class ProductsFilter extends Component
         'search' => ['except' => ''],
         'category' => ['except' => ''],
         'sort' => ['except' => 'newest'],
-        'minPrice' => ['except' => ''],
-        'maxPrice' => ['except' => ''],
-        'isHot' => ['except' => false],
-        'hasDiscount' => ['except' => false],
     ];
 
-    public function mount()
+    public function mount($selectedCategory = null)
     {
         $this->search = request('search', '');
-        $this->category = request('category', '');
         $this->sort = request('sort', 'newest');
-        $this->minPrice = request('minPrice', '');
-        $this->maxPrice = request('maxPrice', '');
-        $this->isHot = request('isHot', false);
-        $this->hasDiscount = request('hasDiscount', false);
+
+        // Ưu tiên selectedCategory từ route, sau đó mới đến query string
+        if ($selectedCategory) {
+            $this->category = $selectedCategory->id;
+        } else {
+            $this->category = request('category', '');
+        }
+
         $this->loadProducts();
     }
 
@@ -66,26 +61,6 @@ class ProductsFilter extends Component
         $this->resetProducts();
     }
 
-    public function updatedMinPrice()
-    {
-        $this->resetProducts();
-    }
-
-    public function updatedMaxPrice()
-    {
-        $this->resetProducts();
-    }
-
-    public function updatedIsHot()
-    {
-        $this->resetProducts();
-    }
-
-    public function updatedHasDiscount()
-    {
-        $this->resetProducts();
-    }
-
     public function loadMore()
     {
         $this->loadProducts();
@@ -96,10 +71,6 @@ class ProductsFilter extends Component
         $this->search = '';
         $this->category = '';
         $this->sort = 'newest';
-        $this->minPrice = '';
-        $this->maxPrice = '';
-        $this->isHot = false;
-        $this->hasDiscount = false;
         $this->resetProducts();
     }
 
@@ -143,25 +114,6 @@ class ProductsFilter extends Component
                 $q->where('name', 'like', "%{$this->search}%")
                   ->orWhere('description', 'like', "%{$this->search}%");
             });
-        }
-
-        // Lọc theo giá
-        if ($this->minPrice) {
-            $query->where('price', '>=', $this->minPrice);
-        }
-        if ($this->maxPrice) {
-            $query->where('price', '<=', $this->maxPrice);
-        }
-
-        // Lọc sản phẩm nổi bật
-        if ($this->isHot) {
-            $query->where('is_hot', true);
-        }
-
-        // Lọc sản phẩm giảm giá
-        if ($this->hasDiscount) {
-            $query->whereNotNull('compare_price')
-                  ->whereColumn('compare_price', '>', 'price');
         }
 
         // Sắp xếp
@@ -215,15 +167,6 @@ class ProductsFilter extends Component
                 }])
                 ->orderBy('order')
                 ->get();
-        });
-    }
-
-    public function getPriceRangeProperty()
-    {
-        return Cache::remember('products_price_range', 1800, function () {
-            return Product::where('status', 'active')
-                ->selectRaw('MIN(price) as min_price, MAX(price) as max_price')
-                ->first();
         });
     }
 

@@ -42,14 +42,7 @@ class ProductResource extends Resource
 
     protected static ?int $navigationSort = 20;
 
-    /**
-     * Tạm ẩn khỏi navigation - sẽ kết nối với eshop API sau
-     * TODO: Kích hoạt lại khi cần thiết
-     */
-    public static function shouldRegisterNavigation(): bool
-    {
-        return false;
-    }
+
 
     public static function form(Form $form): Form
     {
@@ -168,7 +161,8 @@ class ProductResource extends Resource
                         TextInput::make('order')
                             ->label('Thứ tự hiển thị')
                             ->integer()
-                            ->default(0),
+                            ->default(0)
+                            ->hidden(),
 
                         Toggle::make('is_hot')
                             ->label('Nổi bật')

@@ -94,7 +94,8 @@ class AssociationResource extends Resource
                             ->integer()
                             ->default(0)
                             ->minValue(0)
-                            ->columnSpan(1),
+                            ->columnSpan(1)
+                            ->hidden(),
 
                         Toggle::make('status')
                             ->label('Hiển thị')

@@ -114,22 +114,9 @@ class ViewServiceProvider extends ServiceProvider
                     ->get();
             }),
 
-            // Services data - Cache 1 giờ
-            'services' => Cache::remember('storefront_services', 3600, function () {
+            // Featured Posts - Cache 30 phút (thay thế services, news, courses)
+            'featuredPosts' => Cache::remember('storefront_featured_posts', 1800, function () {
                 return Post::where('status', 'active')
-                    ->where('type', 'service')
-                    ->with(['categories:id,name', 'images' => function($query) {
-                        $query->where('status', 'active')->orderBy('order')->take(1);
-                    }])
-                    ->select(['id', 'title', 'slug', 'seo_description', 'thumbnail', 'order'])
-                    ->orderBy('order')
-                    ->get();
-            }),
-
-            // News Posts - Cache 30 phút
-            'newsPosts' => Cache::remember('storefront_news', 1800, function () {
-                return Post::where('status', 'active')
-                    ->where('type', 'news')
                     ->where('is_featured', true)
                     ->with(['categories:id,name', 'images' => function($query) {
                         $query->where('status', 'active')->orderBy('order')->take(1);
@@ -137,23 +124,14 @@ class ViewServiceProvider extends ServiceProvider
                     ->select(['id', 'title', 'slug', 'seo_description', 'thumbnail', 'order', 'created_at'])
                     ->orderBy('order')
                     ->orderBy('created_at', 'desc')
-                    ->take(4)
-                    ->get();
-            }),
-
-            // Courses - Cache 1 giờ
-            'courses' => Cache::remember('storefront_courses', 3600, function () {
-                return Post::where('status', 'active')
-                    ->where('type', 'course')
-                    ->with(['categories:id,name', 'images' => function($query) {
-                        $query->where('status', 'active')->orderBy('order')->take(1);
-                    }])
-                    ->select(['id', 'title', 'slug', 'seo_description', 'seo_title', 'thumbnail', 'order', 'created_at'])
-                    ->orderBy('order')
-                    ->orderBy('created_at', 'desc')
                     ->take(6)
                     ->get();
             }),
+
+            // Backward compatibility - return empty collections
+            'services' => collect([]),
+            'newsPosts' => collect([]),
+            'courses' => collect([]),
 
             // Partners - Cache 2 giờ
             'partners' => Cache::remember('storefront_partners', 7200, function () {
@@ -203,18 +181,8 @@ class ViewServiceProvider extends ServiceProvider
                     ->with([
                         'children' => function ($query) {
                             $query->where('status', 'active')
-                                ->with([
-                                    'post:id,slug',
-                                    'catPost:id,slug',
-                                    'product:id,slug',
-                                    'catProduct:id,slug',
-                                ])
                                 ->orderBy('order');
                         },
-                        'post:id,slug',
-                        'catPost:id,slug',
-                        'product:id,slug',
-                        'catProduct:id,slug',
                     ])
                     ->orderBy('order')
                     ->get(),
@@ -240,9 +208,7 @@ class ViewServiceProvider extends ServiceProvider
         Cache::forget('storefront_sliders');
         Cache::forget('storefront_categories');
         Cache::forget('storefront_products');
-        Cache::forget('storefront_services');
-        Cache::forget('storefront_news');
-        Cache::forget('storefront_courses');
+        Cache::forget('storefront_featured_posts');
         Cache::forget('storefront_partners');
 
         Cache::forget('navigation_data');
@@ -264,9 +230,7 @@ class ViewServiceProvider extends ServiceProvider
                 Cache::forget('storefront_sliders');
                 Cache::forget('storefront_categories');
                 Cache::forget('storefront_products');
-                Cache::forget('storefront_services');
-                Cache::forget('storefront_news');
-                Cache::forget('storefront_courses');
+                Cache::forget('storefront_featured_posts');
                 Cache::forget('storefront_partners');
                 Cache::forget('posts_categories_filter');
                 break;

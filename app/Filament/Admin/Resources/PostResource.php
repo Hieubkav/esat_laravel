@@ -87,81 +87,19 @@ class PostResource extends Resource
                                                     })
                                             ),
 
-                                        Select::make('type')
-                                            ->label('Loại bài viết')
-                                            ->options([
-                                                'normal' => 'Bài viết thường',
-                                                'news' => 'Tin tức',
-                                                'service' => 'Dịch vụ',
-                                                'course' => 'Khóa học',
-                                            ])
-                                            ->default('normal')
-                                            ->required()
-                                            ->live()
-                                            ->afterStateUpdated(function (Set $set) {
-                                                // Clear categories khi thay đổi type
-                                                $set('categories', []);
-                                            }),
-
                                         Select::make('categories')
                                             ->label('Chuyên mục')
                                             ->multiple()
                                             ->relationship(
                                                 'categories',
                                                 'name',
-                                                fn (EloquentBuilder $query, Get $get) => $query
+                                                fn (EloquentBuilder $query) => $query
                                                     ->where('status', 'active')
-                                                    ->where('type', $get('type') ?? 'normal')
                                                     ->orderBy('order')
                                             )
-                                            ->options(function (Get $get) {
-                                                $type = $get('type');
-                                                if (!$type) {
-                                                    return [];
-                                                }
-                                                return CatPost::where('type', $type)
-                                                    ->where('status', 'active')
-                                                    ->orderBy('order')
-                                                    ->pluck('name', 'id');
-                                            })
-                                            ->searchable(false)
+                                            ->searchable()
                                             ->preload()
-                                            ->live()
-                                            ->reactive()
                                             ->native(false)
-                                            ->disabled(fn (Get $get) => !$get('type'))
-                                            ->helperText(function (Get $get) {
-                                                $type = $get('type');
-                                                if (!$type) {
-                                                    return 'Chọn loại bài viết trước để lọc chuyên mục phù hợp';
-                                                }
-                                                $typeNames = [
-                                                    'normal' => 'bài viết thường',
-                                                    'news' => 'tin tức',
-                                                    'service' => 'dịch vụ',
-                                                    'course' => 'khóa học'
-                                                ];
-                                                return "Chỉ hiển thị chuyên mục dành cho {$typeNames[$type]}";
-                                            })
-                                            ->rules([
-                                                function (Get $get) {
-                                                    return function ($attribute, $value, \Closure $fail) use ($get) {
-                                                        if (!$value) return;
-
-                                                        $postType = $get('type');
-                                                        $categoryIds = is_array($value) ? $value : [$value];
-
-                                                        $invalidCategories = CatPost::whereIn('id', $categoryIds)
-                                                            ->where('type', '!=', $postType)
-                                                            ->pluck('name')
-                                                            ->toArray();
-
-                                                        if (!empty($invalidCategories)) {
-                                                            $fail("Chuyên mục '" . implode(', ', $invalidCategories) . "' không phù hợp với loại bài viết đã chọn.");
-                                                        }
-                                                    };
-                                                }
-                                            ])
                                             ->createOptionForm([
                                                 TextInput::make('name')
                                                     ->label('Tên chuyên mục')
@@ -173,19 +111,6 @@ class PostResource extends Resource
                                                     ->label('Đường dẫn')
                                                     ->required()
                                                     ->maxLength(255),
-                                                Select::make('type')
-                                                    ->label('Loại chuyên mục')
-                                                    ->options([
-                                                        'normal' => 'Bài viết thường',
-                                                        'news' => 'Tin tức',
-                                                        'service' => 'Dịch vụ',
-                                                        'course' => 'Khóa học',
-                                                    ])
-                                                    ->default(function (Get $get) {
-                                                        // Tự động set type theo type của bài viết hiện tại
-                                                        return $get('../../type') ?? 'normal';
-                                                    })
-                                                    ->required(),
                                                 TextInput::make('description')
                                                     ->label('Mô tả')
                                                     ->maxLength(500),
@@ -198,11 +123,8 @@ class PostResource extends Resource
                                                     ->default('active')
                                                     ->required(),
                                             ])
-                                            ->createOptionUsing(function (array $data, Get $get) {
-                                                // Đảm bảo type được set đúng
-                                                $data['type'] = $data['type'] ?? $get('type') ?? 'normal';
+                                            ->createOptionUsing(function (array $data) {
                                                 $data['order'] = CatPost::max('order') + 1;
-
                                                 return CatPost::create($data)->getKey();
                                             }),
 
@@ -589,23 +511,6 @@ class PostResource extends Resource
                     ->wrap()
                     ->width('200px'),
 
-                TextColumn::make('type')
-                    ->label('Loại')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'service' => 'danger',
-                        'news' => 'info',
-                        'course' => 'warning',
-                        'normal' => 'gray',
-                    })
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'service' => 'Dịch vụ',
-                        'news' => 'Tin tức',
-                        'course' => 'Khóa học',
-                        'normal' => 'Bài viết',
-                    })
-                    ->sortable(),
-
                 TextColumn::make('categories.name')
                     ->label('Chuyên mục')
                     ->badge()
@@ -655,15 +560,6 @@ class PostResource extends Resource
             ])
             ->reorderable('order')
             ->filters([
-                Tables\Filters\SelectFilter::make('type')
-                    ->label('Loại bài viết')
-                    ->options([
-                        'normal' => 'Bài viết thường',
-                        'news' => 'Tin tức',
-                        'service' => 'Dịch vụ',
-                        'course' => 'Khóa học',
-                    ]),
-
                 Tables\Filters\SelectFilter::make('categories')
                     ->relationship('categories', 'name')
                     ->label('Chuyên mục'),
@@ -697,7 +593,7 @@ class PostResource extends Resource
     {
         return parent::getEloquentQuery()
             ->with(['categories:id,name', 'creator:id,name', 'updater:id,name'])
-            ->select(['id', 'title', 'slug', 'content', 'content_builder', 'seo_title', 'seo_description', 'og_image_link', 'thumbnail', 'display_thumbnail', 'type', 'status', 'is_featured', 'order', 'created_by', 'updated_by', 'created_at', 'updated_at']);
+            ->select(['id', 'title', 'slug', 'content', 'content_builder', 'seo_title', 'seo_description', 'og_image_link', 'thumbnail', 'display_thumbnail', 'status', 'is_featured', 'order', 'created_by', 'updated_by', 'created_at', 'updated_at']);
     }
 
     public static function getRelations(): array

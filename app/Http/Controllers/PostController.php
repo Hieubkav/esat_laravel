@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\CatPost;
-use App\Models\PostView;
 use App\Services\SeoService;
 use Illuminate\Http\Request;
 
@@ -25,7 +24,6 @@ class PostController extends Controller
     {
         $category = CatPost::where('slug', $slug)->where('status', 'active')->firstOrFail();
 
-        // Query builder cho bài viết
         $query = Post::whereHas('categories', function($q) use ($category) {
                 $q->where('cat_post_id', $category->id);
             })
@@ -34,12 +32,6 @@ class PostController extends Controller
                 $query->where('status', 'active')->orderBy('order');
             }]);
 
-        // Áp dụng filter theo type nếu có
-        if ($request->has('type') && in_array($request->type, ['normal', 'news', 'service', 'course'])) {
-            $query->where('type', $request->type);
-        }
-
-        // Sắp xếp
         $sort = $request->get('sort', 'newest');
         switch ($sort) {
             case 'oldest':
@@ -92,9 +84,6 @@ class PostController extends Controller
                 'categories'
             ])
             ->firstOrFail();
-
-        // Ghi lại lượt xem
-        PostView::recordView($post->id, request()->ip());
 
         // Bài viết liên quan - lấy từ các chuyên mục mà bài viết này thuộc về
         $categoryIds = $post->categories->pluck('id');

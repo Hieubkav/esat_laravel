@@ -6,7 +6,6 @@ use App\Models\Product;
 use App\Models\Post;
 use App\Models\CatProduct;
 use App\Models\CatPost;
-use App\Models\Employee;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
@@ -50,19 +49,7 @@ class SitemapController extends Controller
             $xml .= $this->addUrl($page['url'], now(), 'weekly', $page['priority']);
         }
 
-        // Product categories
-        $productCategories = CatProduct::where('status', 'active')
-            ->select(['slug', 'updated_at'])
-            ->get();
 
-        foreach ($productCategories as $category) {
-            $xml .= $this->addUrl(
-                route('products.category', $category->slug),
-                $category->updated_at,
-                'weekly',
-                '0.8'
-            );
-        }
 
         // Post categories
         $postCategories = CatPost::where('status', 'active')
@@ -103,21 +90,6 @@ class SitemapController extends Controller
                 $post->updated_at,
                 'weekly',
                 '0.6'
-            );
-        }
-
-        // Employees
-        $employees = Employee::where('status', 'active')
-            ->whereNotNull('slug')
-            ->select(['slug', 'updated_at'])
-            ->get();
-
-        foreach ($employees as $employee) {
-            $xml .= $this->addUrl(
-                route('employee.profile', $employee->slug),
-                $employee->updated_at,
-                'monthly',
-                '0.5'
             );
         }
 

@@ -95,7 +95,8 @@ class SliderResource extends Resource
                             ->integer()
                             ->default(0)
                             ->minValue(0)
-                            ->columnSpan(1),
+                            ->columnSpan(1)
+                            ->hidden(),
 
                         Select::make('status')
                             ->label('Trạng thái')

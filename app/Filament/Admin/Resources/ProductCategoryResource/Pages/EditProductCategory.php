@@ -17,7 +17,7 @@ class EditProductCategory extends EditRecord
                 ->label('Mở trang')
                 ->icon('heroicon-o-eye')
                 ->color('info')
-                ->url(fn () => route('products.category', $this->getRecord()->slug))
+                ->url(fn () => route('products.categories', ['category' => $this->getRecord()->slug]))
                 ->openUrlInNewTab(),
             Actions\DeleteAction::make()
                 ->label('Xóa'),

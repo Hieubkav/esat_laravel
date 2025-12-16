@@ -36,14 +36,7 @@ class ProductCategoryResource extends Resource
 
     protected static ?int $navigationSort = 21;
 
-    /**
-     * Tạm ẩn khỏi navigation - sẽ kết nối với eshop API sau
-     * TODO: Kích hoạt lại khi cần thiết
-     */
-    public static function shouldRegisterNavigation(): bool
-    {
-        return false;
-    }
+
 
     public static function getNavigationBadge(): ?string
     {
@@ -96,7 +89,8 @@ class ProductCategoryResource extends Resource
                         TextInput::make('order')
                             ->label('Thứ tự hiển thị')
                             ->integer()
-                            ->default(0),
+                            ->default(0)
+                            ->hidden(),
 
                         Toggle::make('status')
                             ->label('Hiển thị')

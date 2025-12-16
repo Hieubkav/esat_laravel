@@ -78,7 +78,8 @@ class PostCategoryResource extends Resource
                         TextInput::make('order')
                             ->label('Thứ tự hiển thị')
                             ->integer()
-                            ->default(0),
+                            ->default(0)
+                            ->hidden(),
 
                         Toggle::make('status')
                             ->label('Hiển thị')

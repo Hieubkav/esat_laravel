@@ -3,20 +3,8 @@
     $servicesWebDesign = webDesignData('services');
     $isVisible = webDesignVisible('services');
 
-    // Lấy 3 bài viết service mới nhất
+    // Component tạm thời disabled do đã bỏ type khỏi bảng posts
     $servicesData = collect();
-    if ($isVisible) {
-        try {
-            $servicesData = \App\Models\Post::where('status', 'active')
-                ->where('type', 'service')
-                ->with(['categories', 'images'])
-                ->orderBy('created_at', 'desc')
-                ->limit(3)
-                ->get();
-        } catch (\Exception $e) {
-            $servicesData = collect();
-        }
-    }
 @endphp
 
 {{-- Chỉ hiển thị section nếu được bật và có dữ liệu services --}}

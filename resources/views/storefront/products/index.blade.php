@@ -1,7 +1,7 @@
 @extends('layouts.shop')
 
-@section('title', 'Tất cả sản phẩm - ESAT')
-@section('description', 'Khám phá bộ sưu tập đầy đủ các sản phẩm thiết bị điện tử, linh kiện và phụ kiện tại ESAT. Chất lượng cao, giá cả hợp lý.')
+@section('title', isset($selectedCategory) ? $selectedCategory->name . ' - ESAT' : 'Tất cả sản phẩm - ESAT')
+@section('description', isset($selectedCategory) ? ($selectedCategory->description ?: 'Danh mục ' . $selectedCategory->name . ' tại ESAT') : 'Khám phá bộ sưu tập đầy đủ các sản phẩm thiết bị điện tử, linh kiện và phụ kiện tại ESAT. Chất lượng cao, giá cả hợp lý.')
 
 @push('meta')
 <meta property="og:title" content="Tất cả sản phẩm - ESAT">
@@ -90,7 +90,7 @@
 @endpush
 
 @section('content')
-    @livewire('products-filter')
+    @livewire('products-filter', ['selectedCategory' => $selectedCategory ?? null])
 
     <!-- Mobile Filter Sidebar -->
     <div id="mobile-filter-overlay" class="mobile-filter-overlay lg:hidden"></div>

@@ -41,25 +41,8 @@
                     </div>
                 </div>
 
-                <!-- Type Filter -->
-                <div class="filter-card rounded-xl p-5">
-                    <h3 class="text-base font-semibold text-gray-900 mb-3 font-montserrat">Nhóm nội dung</h3>
-                    <div class="space-y-1.5">
-                        <button wire:click="$set('type', '')"
-                               class="filter-btn block w-full text-left px-3 py-2 rounded-lg font-open-sans text-sm {{ !$type ? 'active' : '' }}">
-                            Tất cả
-                        </button>
-                        @foreach($typeNames as $typeKey => $typeName)
-                            <button wire:click="$set('type', '{{ $typeKey }}')"
-                                   class="filter-btn block w-full text-left px-3 py-2 rounded-lg font-open-sans text-sm {{ $type === $typeKey ? 'active' : '' }}">
-                                {{ $typeName }}
-                            </button>
-                        @endforeach
-                    </div>
-                </div>
-
                 <!-- Clear Filters -->
-                @if($search || $category || $type || $sort !== 'newest')
+                @if($search || $category || $sort !== 'newest')
                 <div class="filter-card rounded-xl p-5">
                     <button wire:click="clearFilters"
                            class="block w-full text-center px-3 py-2.5 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100 transition-colors font-medium font-open-sans text-sm">
@@ -103,7 +86,7 @@
 
                     <!-- Right: Active filters and clear button -->
                     <div class="flex flex-wrap items-center gap-3">
-                        @if($search || $category || $type || $sort !== 'newest')
+                        @if($search || $category || $sort !== 'newest')
                             <!-- Active filters -->
                             @if($search)
                                 <span class="inline-flex items-center px-3 py-1.5 bg-red-100 text-red-800 rounded-full text-xs font-medium font-open-sans">
@@ -122,13 +105,6 @@
                                         {{ $selectedCategory->name }}
                                     </span>
                                 @endif
-                            @endif
-
-                            @if($type)
-                                <span class="inline-flex items-center px-3 py-1.5 bg-blue-100 text-blue-800 rounded-full text-xs font-medium font-open-sans">
-                                    <i class="fas fa-tag mr-1.5"></i>
-                                    {{ $typeNames[$type] }}
-                                </span>
                             @endif
 
                             <!-- Clear filters button -->
@@ -187,7 +163,7 @@
                                                         <svg class="w-16 h-16 mx-auto mb-3" fill="currentColor" viewBox="0 0 24 24">
                                                             <path d="M12 6c1.11 0 2-.9 2-2 0-.38-.1-.73-.29-1.03L12 0l-1.71 2.97c-.19.3-.29.65-.29 1.03 0 1.1.89 2 2 2zm4.5 3.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5.67 1.5 1.5 1.5 1.5-.67 1.5-1.5zm-9 0C7.5 8.67 6.83 8 6 8s-1.5.67-1.5 1.5S5.17 11 6 11s1.5-.67 1.5-1.5zM12 15.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM3 13h18c1.1 0 2 .9 2 2v8H1v-8c0-1.1.9-2 2-2z"/>
                                                         </svg>
-                                                        <p class="text-sm font-medium font-open-sans">{{ $typeNames[$post->type] ?? 'Bài viết' }}</p>
+                                                        <p class="text-sm font-medium font-open-sans">Bài viết</p>
                                                     </div>
                                                 </div>
                                             @endif
@@ -195,11 +171,13 @@
 
                                         <!-- Post Content -->
                                         <div class="p-8">
-                                            <!-- Type Badge -->
+                                            <!-- Category & Featured Badge -->
                                             <div class="flex items-center justify-between mb-4">
-                                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 font-open-sans">
-                                                    {{ $typeNames[$post->type] ?? 'Bài viết' }}
-                                                </span>
+                                                @if($post->categories->count() > 0)
+                                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 font-open-sans">
+                                                        {{ $post->categories->first()->name }}
+                                                    </span>
+                                                @endif
 
                                                 @if($post->is_featured)
                                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 font-open-sans">

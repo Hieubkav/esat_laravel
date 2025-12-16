@@ -5,12 +5,17 @@ namespace App\Filament\Admin\Resources;
 use App\Filament\Admin\Resources\MenuItemResource\Pages;
 use App\Models\MenuItem;
 use App\Models\CatPost;
+use App\Models\CatProduct;
 use App\Models\Post;
+use App\Models\Product;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -42,78 +47,105 @@ class MenuItemResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Thông tin menu')
+                Section::make()
                     ->schema([
+                        TextInput::make('label')
+                            ->label('Nhãn menu')
+                            ->required()
+                            ->maxLength(255),
+
                         Select::make('parent_id')
                             ->label('Menu cha')
                             ->options(MenuItem::all()->pluck('label', 'id'))
                             ->searchable()
-                            ->nullable()
-                            ->columnSpan(1),
+                            ->nullable(),
 
-                        TextInput::make('label')
-                            ->label('Nhãn menu')
-                            ->required()
-                            ->maxLength(255)
-                            ->columnSpan(1),
-
-                        Select::make('type')
-                            ->label('Loại menu')
-                            ->options([
-                                'link' => 'Liên kết trực tiếp',
-                                'cat_post' => 'Chuyên mục',
-                                'all_posts' => 'Tất cả bài viết',
-                                'post' => 'Bài viết',
-                                'cat_product' => 'Danh mục sản phẩm',
-                                'all_products' => 'Tất cả sản phẩm',
-                                'product' => 'Sản phẩm',
-                                'display_only' => 'Chỉ hiển thị (không dẫn đến đâu)',
-                            ])
-                            ->required()
-                            ->reactive()
-                            ->columnSpanFull(),
-                    ])->columns(2),
-
-                Section::make('Cấu hình liên kết')
-                    ->schema([
                         TextInput::make('link')
                             ->label('Liên kết URL')
-                            ->url()
                             ->maxLength(500)
-                            ->visible(fn ($get) => $get('type') === 'link')
-                            ->required(fn ($get) => $get('type') === 'link'),
+                            ->placeholder('/bai-viet hoặc https://example.com')
+                            ->helperText('Nhập trực tiếp hoặc dùng nút chọn nhanh bên phải')
+                            ->suffixAction(
+                                Action::make('quickSelect')
+                                    ->icon('heroicon-o-link')
+                                    ->tooltip('Chọn nhanh liên kết')
+                                    ->form([
+                                        Select::make('source_type')
+                                            ->label('Loại nguồn')
+                                            ->options([
+                                                'post' => 'Bài viết',
+                                                'cat_post' => 'Danh mục bài viết',
+                                                'all_posts' => 'Tất cả bài viết',
+                                                'product' => 'Sản phẩm',
+                                                'cat_product' => 'Danh mục sản phẩm',
+                                                'all_products' => 'Tất cả sản phẩm',
+                                            ])
+                                            ->required()
+                                            ->live()
+                                            ->afterStateUpdated(fn (Set $set) => $set('source_id', null)),
 
-                        Select::make('cat_post_id')
-                            ->label('Chuyên mục')
-                            ->options(CatPost::all()->pluck('name', 'id'))
-                            ->searchable()
-                            ->visible(fn ($get) => $get('type') === 'cat_post')
-                            ->required(fn ($get) => $get('type') === 'cat_post'),
+                                        Select::make('source_id')
+                                            ->label('Chọn mục')
+                                            ->options(function (Get $get) {
+                                                return match ($get('source_type')) {
+                                                    'post' => Post::where('status', 'active')
+                                                        ->orderBy('created_at', 'desc')
+                                                        ->pluck('title', 'id'),
+                                                    'cat_post' => CatPost::where('status', true)
+                                                        ->orderBy('order')
+                                                        ->pluck('name', 'id'),
+                                                    'product' => Product::where('status', 'active')
+                                                        ->orderBy('created_at', 'desc')
+                                                        ->pluck('name', 'id'),
+                                                    'cat_product' => CatProduct::where('status', true)
+                                                        ->orderBy('order')
+                                                        ->pluck('name', 'id'),
+                                                    default => [],
+                                                };
+                                            })
+                                            ->searchable()
+                                            ->preload()
+                                            ->visible(fn (Get $get) => in_array($get('source_type'), ['post', 'cat_post', 'product', 'cat_product']))
+                                            ->required(fn (Get $get) => in_array($get('source_type'), ['post', 'cat_post', 'product', 'cat_product'])),
+                                    ])
+                                    ->action(function (array $data, Set $set) {
+                                        $link = match ($data['source_type']) {
+                                            'post' => Post::find($data['source_id'])?->slug
+                                                ? '/bai-viet/' . Post::find($data['source_id'])->slug
+                                                : null,
+                                            'cat_post' => CatPost::find($data['source_id'])?->slug
+                                                ? '/danh-muc-bai-viet/' . CatPost::find($data['source_id'])->slug
+                                                : null,
+                                            'all_posts' => '/bai-viet',
+                                            'product' => Product::find($data['source_id'])?->slug
+                                                ? '/san-pham/' . Product::find($data['source_id'])->slug
+                                                : null,
+                                            'cat_product' => CatProduct::find($data['source_id'])?->slug
+                                                ? '/san-pham/danh-muc/' . CatProduct::find($data['source_id'])->slug
+                                                : null,
+                                            'all_products' => '/san-pham',
+                                            default => null,
+                                        };
 
-                        Select::make('post_id')
-                            ->label('Bài viết')
-                            ->options(Post::all()->pluck('title', 'id'))
-                            ->searchable()
-                            ->visible(fn ($get) => $get('type') === 'post')
-                            ->required(fn ($get) => $get('type') === 'post'),
-                    ]),
-
-                Section::make('Cấu hình hiển thị')
-                    ->schema([
-                        TextInput::make('order')
-                            ->label('Thứ tự hiển thị')
-                            ->integer()
-                            ->default(0)
-                            ->minValue(0)
-                            ->columnSpan(1),
+                                        if ($link) {
+                                            $set('link', $link);
+                                        }
+                                    })
+                                    ->modalHeading('Chọn nhanh liên kết')
+                                    ->modalSubmitActionLabel('Áp dụng')
+                                    ->modalWidth('md')
+                            ),
 
                         Toggle::make('status')
                             ->label('Hiển thị')
                             ->default(true)
                             ->onColor('success')
-                            ->offColor('danger')
-                            ->columnSpan(1),
-                    ])->columns(2),
+                            ->offColor('danger'),
+
+                        TextInput::make('order')
+                            ->default(0)
+                            ->hidden(),
+                    ]),
             ]);
     }
 
@@ -151,31 +183,12 @@ class MenuItemResource extends Resource
                     ->searchable()
                     ->placeholder('Menu gốc'),
 
-                TextColumn::make('type')
-                    ->label('Loại')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'link' => 'gray',
-                        'cat_post' => 'info',
-                        'all_posts' => 'blue',
-                        'post' => 'success',
-                        'cat_product' => 'warning',
-                        'all_products' => 'orange',
-                        'product' => 'cyan',
-                        'display_only' => 'purple',
-                        default => 'gray',
-                    })
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'link' => 'Liên kết',
-                        'cat_post' => 'Danh mục bài viết',
-                        'all_posts' => 'Tất cả bài viết',
-                        'post' => 'Bài viết',
-                        'cat_product' => 'Danh mục sản phẩm',
-                        'all_products' => 'Tất cả sản phẩm',
-                        'product' => 'Sản phẩm',
-                        'display_only' => 'Chỉ hiển thị',
-                        default => $state,
-                    }),
+                TextColumn::make('link')
+                    ->label('Liên kết')
+                    ->limit(40)
+                    ->tooltip(fn ($record) => $record->link)
+                    ->placeholder('Không có liên kết')
+                    ->searchable(),
 
                 ToggleColumn::make('status')
                     ->label('Hiển thị')
@@ -188,19 +201,6 @@ class MenuItemResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('type')
-                    ->label('Loại menu')
-                    ->options([
-                        'link' => 'Liên kết trực tiếp',
-                        'cat_post' => 'Danh mục bài viết',
-                        'all_posts' => 'Tất cả bài viết',
-                        'post' => 'Bài viết',
-                        'cat_product' => 'Danh mục sản phẩm',
-                        'all_products' => 'Tất cả sản phẩm',
-                        'product' => 'Sản phẩm',
-                        'display_only' => 'Chỉ hiển thị (không dẫn đến đâu)',
-                    ]),
-
                 Tables\Filters\TernaryFilter::make('status')
                     ->label('Trạng thái hiển thị')
                     ->boolean()

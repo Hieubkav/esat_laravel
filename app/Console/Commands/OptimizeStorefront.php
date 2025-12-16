@@ -169,26 +169,14 @@ class OptimizeStorefront extends Command
                 ->get();
         });
 
-        // Warm up services
-        Cache::remember('storefront_services', 3600, function () {
+        // Warm up featured posts
+        Cache::remember('storefront_featured_posts', 1800, function () {
             return \App\Models\Post::where('status', 'active')
-                ->where('type', 'service')
-                ->with(['category:id,name', 'images' => function($query) {
+                ->where('is_featured', true)
+                ->with(['categories:id,name', 'images' => function($query) {
                     $query->where('status', 'active')->orderBy('order')->take(1);
                 }])
-                ->select(['id', 'title', 'slug', 'seo_description', 'thumbnail', 'category_id', 'order'])
-                ->orderBy('order')
-                ->get();
-        });
-
-        // Warm up news
-        Cache::remember('storefront_news', 1800, function () {
-            return \App\Models\Post::where('status', 'active')
-                ->where('type', 'news')
-                ->with(['category:id,name', 'images' => function($query) {
-                    $query->where('status', 'active')->orderBy('order')->take(1);
-                }])
-                ->select(['id', 'title', 'slug', 'seo_description', 'thumbnail', 'category_id', 'order', 'created_at'])
+                ->select(['id', 'title', 'slug', 'seo_description', 'thumbnail', 'order', 'created_at'])
                 ->orderBy('order')
                 ->orderBy('created_at', 'desc')
                 ->take(6)

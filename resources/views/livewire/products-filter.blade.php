@@ -32,66 +32,22 @@
                     <div class="filter-card rounded-xl p-5">
                         <h3 class="text-base font-semibold text-gray-900 mb-3 font-montserrat">Danh mục</h3>
                         <div class="space-y-1.5">
-                            <button wire:click="$set('category', '')"
-                                   class="filter-btn block w-full text-left px-3 py-2 rounded-lg font-open-sans text-sm {{ !$category ? 'active' : '' }}">
+                            <a href="{{ route('products.categories') }}"
+                               class="filter-btn block w-full text-left px-3 py-2 rounded-lg font-open-sans text-sm {{ !$category ? 'active' : '' }}">
                                 Tất cả danh mục
-                            </button>
+                            </a>
                             @foreach($this->categories as $cat)
-                                <button wire:click="$set('category', '{{ $cat->id }}')"
-                                       class="filter-btn block w-full text-left px-3 py-2 rounded-lg font-open-sans text-sm {{ $category == $cat->id ? 'active' : '' }}">
+                                <a href="{{ route('products.category', $cat->slug) }}"
+                                   class="filter-btn block w-full text-left px-3 py-2 rounded-lg font-open-sans text-sm {{ $category == $cat->id ? 'active' : '' }}">
                                     {{ $cat->name }}
                                     <span class="text-gray-400 text-xs">({{ $cat->products_count }})</span>
-                                </button>
+                                </a>
                             @endforeach
                         </div>
                     </div>
 
-                    <!-- Price Range -->
-                    @if($this->priceRange && $this->priceRange->min_price && $this->priceRange->max_price)
-                    <div class="filter-card rounded-xl p-5">
-                        <h3 class="text-base font-semibold text-gray-900 mb-3 font-montserrat">Khoảng giá</h3>
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="number"
-                                   wire:model.live.debounce.500ms="minPrice"
-                                   placeholder="Từ {{ number_format($this->priceRange->min_price, 0, ',', '.') }}"
-                                   class="px-3 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 text-sm">
-                            <input type="number"
-                                   wire:model.live.debounce.500ms="maxPrice"
-                                   placeholder="Đến {{ number_format($this->priceRange->max_price, 0, ',', '.') }}"
-                                   class="px-3 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-red-500 focus:border-red-500 text-sm">
-                        </div>
-                    </div>
-                    @endif
-
-                    <!-- Special Filters -->
-                    <div class="filter-card rounded-xl p-5">
-                        <h3 class="text-base font-semibold text-gray-900 mb-3 font-montserrat">Đặc biệt</h3>
-                        <div class="space-y-2">
-                            <label class="flex items-center cursor-pointer">
-                                <input type="checkbox" wire:model.live="isHot" class="sr-only">
-                                <div class="relative">
-                                    <div class="w-4 h-4 border-2 border-gray-300 rounded {{ $isHot ? 'bg-red-500 border-red-500' : '' }}"></div>
-                                    @if($isHot)
-                                        <i class="fas fa-check absolute top-0 left-0 w-4 h-4 text-white text-xs flex items-center justify-center"></i>
-                                    @endif
-                                </div>
-                                <span class="ml-3 text-sm text-gray-700 font-open-sans">Sản phẩm nổi bật</span>
-                            </label>
-                            <label class="flex items-center cursor-pointer">
-                                <input type="checkbox" wire:model.live="hasDiscount" class="sr-only">
-                                <div class="relative">
-                                    <div class="w-4 h-4 border-2 border-gray-300 rounded {{ $hasDiscount ? 'bg-red-500 border-red-500' : '' }}"></div>
-                                    @if($hasDiscount)
-                                        <i class="fas fa-check absolute top-0 left-0 w-4 h-4 text-white text-xs flex items-center justify-center"></i>
-                                    @endif
-                                </div>
-                                <span class="ml-3 text-sm text-gray-700 font-open-sans">Đang giảm giá</span>
-                            </label>
-                        </div>
-                    </div>
-
                     <!-- Clear Filters -->
-                    @if($search || $category || $sort !== 'newest' || $minPrice || $maxPrice || $isHot || $hasDiscount)
+                    @if($search || $category || $sort !== 'newest')
                     <div class="filter-card rounded-xl p-5">
                         <button wire:click="clearFilters"
                                class="block w-full text-center px-3 py-2.5 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100 transition-colors font-medium font-open-sans text-sm">
@@ -129,24 +85,7 @@
                                 </span>
                             @endif
                         @endif
-                        @if($isHot)
-                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-orange-100 text-orange-800">
-                                <i class="fas fa-fire mr-1.5"></i>
-                                Nổi bật
-                                <button wire:click="$set('isHot', false)" class="ml-2 hover:text-orange-600">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </span>
-                        @endif
-                        @if($hasDiscount)
-                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-green-100 text-green-800">
-                                <i class="fas fa-percent mr-1.5"></i>
-                                Giảm giá
-                                <button wire:click="$set('hasDiscount', false)" class="ml-2 hover:text-green-600">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </span>
-                        @endif
+
                     </div>
 
                     <div class="flex items-center justify-between">
