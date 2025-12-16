@@ -74,8 +74,8 @@
                 <div class="bg-white rounded-2xl p-6">
                     <h3 class="font-bold mb-3">Liên hệ đặt hàng</h3>
                     <div class="space-y-2 text-sm">
-                        <div>📞 {{ $globalSettings->phone ?? '0123 456 789' }}</div>
-                        <div>✉️ {{ $globalSettings->email ?? 'info@vuphucbaking.com' }}</div>
+                        <div>📞 {{ $globalSettings->hotline ?? '1900636340' }}</div>
+                        <div>✉️ {{ $globalSettings->email ?? 'info@esat.vn' }}</div>
                     </div>
                 </div>
             </div>
