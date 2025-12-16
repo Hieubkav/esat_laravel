@@ -93,9 +93,7 @@ class UserResource extends Resource
                             ->onColor('success')
                             ->offColor('danger'),
 
-                        DateTimePicker::make('last_login_at')
-                            ->label('Lần đăng nhập cuối')
-                            ->disabled(),
+
                     ])->columns(3),
             ]);
     }
@@ -136,15 +134,7 @@ class UserResource extends Resource
                     ->label('Hoạt động')
                     ->sortable(),
 
-                TextColumn::make('last_login_at')
-                    ->label('Lần đăng nhập cuối')
-                    ->dateTime('d/m/Y H:i')
-                    ->sortable(),
 
-                TextColumn::make('created_at')
-                    ->label('Ngày tạo')
-                    ->dateTime('d/m/Y H:i')
-                    ->sortable(),
             ])
             ->filters([
                 //
