@@ -1,27 +1,28 @@
 @extends('layouts.shop')
 
-@section('title', 'Bài viết - Vũ Phúc Baking')
-@section('description', 'Khám phá tất cả bài viết, tin tức, khóa học và dịch vụ chất lượng cao tại Vũ Phúc Baking')
+@section('title', isset($selectedCategory) ? $selectedCategory->name . ' - Bài viết' : 'Bài viết - ESAT')
+@section('description', isset($selectedCategory) ? ($selectedCategory->description ?: 'Chuyên mục ' . $selectedCategory->name) : 'Khám phá tất cả bài viết, tin tức tại ESAT')
 
 @push('styles')
 <style>
-    .hero-pattern {
-        background-image:
-            radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 2px, transparent 2px),
-            radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 2px, transparent 2px);
-        background-size: 50px 50px;
+    .filter-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .filter-card {
-        background: white;
-        border: 1px solid #f1f5f9;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    .filter-btn {
         transition: all 0.2s ease;
     }
 
-    .filter-card:hover {
-        border-color: rgba(220, 38, 38, 0.2);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    .filter-btn:hover {
+        background-color: #fef2f2;
+        color: #dc2626;
+    }
+
+    .filter-btn.active {
+        background-color: #dc2626;
+        color: white;
     }
 
     .post-card {
@@ -29,70 +30,120 @@
     }
 
     .post-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transform: translateY(-4px);
     }
 
-    .filter-btn {
-        transition: all 0.2s ease;
-        background: #f8fafc;
-        border: 1px solid #e2e8f0;
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
-    .filter-btn:hover {
-        background: #f1f5f9;
-        border-color: #cbd5e1;
-        color: #dc2626;
-    }
-
-    .filter-btn.active {
-        background: #dc2626;
-        color: white;
-        border-color: #dc2626;
-        box-shadow: 0 1px 3px 0 rgba(220, 38, 38, 0.3);
-    }
-
-    .mobile-sidebar {
-        display: none;
-    }
-
-    .mobile-sidebar.active {
-        display: block;
+    /* Mobile filter sidebar */
+    .mobile-filter-sidebar {
         position: fixed;
-        inset: 0;
+        top: 0;
+        left: -100%;
+        width: 320px;
+        height: 100vh;
         z-index: 50;
-        background: rgba(0, 0, 0, 0.5);
+        transition: left 0.3s ease;
+        overflow-y: auto;
+        background: white;
     }
 
-    .mobile-sidebar-content {
-        position: absolute;
+    .mobile-filter-sidebar.active {
+        left: 0;
+    }
+
+    .mobile-filter-overlay {
+        position: fixed;
         top: 0;
         left: 0;
+        right: 0;
         bottom: 0;
-        width: 320px;
-        background: white;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-        overflow-y: auto;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 40;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
     }
 
-    .mobile-sidebar.active .mobile-sidebar-content {
-        transform: translateX(0);
-    }
-
-    @media (min-width: 1024px) {
-        .mobile-sidebar {
-            display: none !important;
-        }
+    .mobile-filter-overlay.active {
+        opacity: 1;
+        visibility: visible;
     }
 </style>
 @endpush
 
 @section('content')
-<!-- Main Content -->
-<section class="pt-24 pb-16 bg-gray-50">
-    <div class="container mx-auto px-4">
-        @livewire('posts-filter')
+    @livewire('posts-filter', ['selectedCategory' => $selectedCategory ?? null])
+
+    <!-- Mobile Filter Sidebar -->
+    <div id="mobile-filter-overlay" class="mobile-filter-overlay lg:hidden"></div>
+    <div id="mobile-filter-sidebar" class="mobile-filter-sidebar lg:hidden">
+        <div class="p-6">
+            <!-- Mobile Close Button -->
+            <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900 font-montserrat">Bộ lọc bài viết</h2>
+                <button id="mobile-filter-close" class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                    <i class="fas fa-times text-gray-500"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Filter Content -->
+            <div id="mobile-filter-content"></div>
+        </div>
     </div>
-</section>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileFilterOverlay = document.getElementById('mobile-filter-overlay');
+        const mobileFilterSidebar = document.getElementById('mobile-filter-sidebar');
+        const mobileFilterClose = document.getElementById('mobile-filter-close');
+        const mobileFilterContent = document.getElementById('mobile-filter-content');
+        const desktopFilterContent = document.getElementById('desktop-filter-content');
+
+        function openMobileFilter() {
+            if (desktopFilterContent && mobileFilterContent) {
+                mobileFilterContent.innerHTML = desktopFilterContent.innerHTML;
+            }
+
+            mobileFilterSidebar.classList.add('active');
+            mobileFilterOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileFilter() {
+            mobileFilterSidebar.classList.remove('active');
+            mobileFilterOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('toggle-mobile-filter', openMobileFilter);
+
+        if (mobileFilterClose) {
+            mobileFilterClose.addEventListener('click', closeMobileFilter);
+        }
+
+        if (mobileFilterOverlay) {
+            mobileFilterOverlay.addEventListener('click', closeMobileFilter);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeMobileFilter();
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('#mobile-filter-content .filter-btn')) {
+                setTimeout(closeMobileFilter, 100);
+            }
+        });
+    });
+</script>
+@endpush

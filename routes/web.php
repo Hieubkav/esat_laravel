@@ -20,8 +20,8 @@ Route::controller(ProductController::class)->group(function () {
 
 // Routes cho bài viết
 Route::controller(PostController::class)->group(function () {
-    Route::get('/danh-muc-bai-viet/{slug}', 'category')->name('posts.category');
-    Route::get('/danh-muc-bai-viet', 'categories')->name('posts.categories');
+    Route::get('/bai-viet/chuyen-muc/{slug}', 'category')->name('posts.category');
+    Route::get('/bai-viet/chuyen-muc', 'categories')->name('posts.categories');
     Route::get('/bai-viet/{slug}', 'show')->name('posts.show');
     Route::get('/bai-viet', 'index')->name('posts.index');
 });

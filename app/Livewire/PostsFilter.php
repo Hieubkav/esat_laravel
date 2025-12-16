@@ -22,11 +22,18 @@ class PostsFilter extends Component
         'sort' => ['except' => 'newest'],
     ];
 
-    public function mount()
+    public function mount($selectedCategory = null)
     {
         $this->search = request('search', '');
-        $this->category = request('category', '');
         $this->sort = request('sort', 'newest');
+
+        // Ưu tiên selectedCategory từ route, sau đó mới đến query string
+        if ($selectedCategory) {
+            $this->category = $selectedCategory->id;
+        } else {
+            $this->category = request('category', '');
+        }
+
         $this->loadPosts();
     }
 

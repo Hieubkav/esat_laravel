@@ -20,35 +20,13 @@ class PostController extends Controller
     /**
      * Hiển thị danh sách bài viết theo danh mục
      */
-    public function category($slug, Request $request)
+    public function category($slug)
     {
         $category = CatPost::where('slug', $slug)->where('status', 'active')->firstOrFail();
 
-        $query = Post::whereHas('categories', function($q) use ($category) {
-                $q->where('cat_post_id', $category->id);
-            })
-            ->where('status', 'active')
-            ->with(['categories', 'images' => function($query) {
-                $query->where('status', 'active')->orderBy('order');
-            }]);
-
-        $sort = $request->get('sort', 'newest');
-        switch ($sort) {
-            case 'oldest':
-                $query->orderBy('created_at', 'asc');
-                break;
-            case 'featured':
-                $query->orderBy('is_featured', 'desc')->orderBy('created_at', 'desc');
-                break;
-            case 'newest':
-            default:
-                $query->orderBy('created_at', 'desc');
-                break;
-        }
-
-        $posts = $query->paginate(12);
-
-        return view('storefront.posts.category', compact('category', 'posts'));
+        return view('storefront.posts.index', [
+            'selectedCategory' => $category
+        ]);
     }
 
     /**

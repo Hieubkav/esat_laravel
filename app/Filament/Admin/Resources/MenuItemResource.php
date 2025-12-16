@@ -114,7 +114,7 @@ class MenuItemResource extends Resource
                                                 ? '/bai-viet/' . Post::find($data['source_id'])->slug
                                                 : null,
                                             'cat_post' => CatPost::find($data['source_id'])?->slug
-                                                ? '/danh-muc-bai-viet/' . CatPost::find($data['source_id'])->slug
+                                                ? '/bai-viet/chuyen-muc/' . CatPost::find($data['source_id'])->slug
                                                 : null,
                                             'all_posts' => '/bai-viet',
                                             'product' => Product::find($data['source_id'])?->slug
